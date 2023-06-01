@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-xl-12 col-lg-12 mt-4">
+            <mat-card class="mat-elevation-z3">
+                <mat-card-content>
+                    <div [chart]='mapChart'></div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-6 col-lg-6">
+            <div class="mt-4 card ml-2">
+                <mat-card class="mat-elevation-z3">
+                    <mat-card-content>
+                        <div [chart]="lineChart1"></div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-6 col-lg-6">
+            <div class="mt-4 card ml-2">
+                <mat-card class="mat-elevation-z3">
+                    <mat-card-content>
+                        <div [chart]="lineChart2"></div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
