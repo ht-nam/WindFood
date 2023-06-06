@@ -2,10 +2,12 @@
  * Required External Modules
  */
 import * as dotenv from "dotenv";
-import express, { Request, Response } from "express";
+import "reflect-metadata";
+import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { itemsRouter } from "./items/items.router";
+import { initialDatabase } from "./instances/data-source";
+import * as Router from "./routers/app-router";
 
 dotenv.config();
 
@@ -23,11 +25,11 @@ const app = express();
 /**
  *  App Configuration
  */
-
+initialDatabase();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/api/menu/items", itemsRouter);
+app.use(Router.PATH, Router.router);
 
 /**
  * Server Activation

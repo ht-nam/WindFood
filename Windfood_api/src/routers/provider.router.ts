@@ -3,14 +3,15 @@
  */
 
 import express, { Request, Response } from "express";
-import * as ItemService from "./items.service";
-import { BaseItem, Item } from "./item.interface";
+import * as ProviderService from "../services/provider.service";
+import { Provider } from "../entities/provider.entity";
 
 /**
  * Router Definition
  */
 
 export const itemsRouter = express.Router();
+export const PATH = "/providers";
 
 /**
  * Controller Definitions
@@ -20,7 +21,7 @@ export const itemsRouter = express.Router();
 
 itemsRouter.get("/", async (req: Request, res: Response) => {
   try {
-    const items: Item[] = await ItemService.findAll();
+    const items: Provider[] = await ProviderService.findAll();
 
     res.status(200).send(items);
   } catch (e) {
@@ -34,7 +35,7 @@ itemsRouter.get("/:id", async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
 
   try {
-    const item: Item = await ItemService.find(id);
+    const item: Provider | null = await ProviderService.findById(id);
 
     if (item) {
       return res.status(200).send(item);
@@ -50,9 +51,9 @@ itemsRouter.get("/:id", async (req: Request, res: Response) => {
 
 itemsRouter.post("/", async (req: Request, res: Response) => {
   try {
-    const item: BaseItem = req.body;
+    const item: Provider = req.body;
 
-    const newItem = await ItemService.create(item);
+    const newItem = await ProviderService.saveOrUpdate(item);
 
     res.status(201).json(newItem);
   } catch (e) {
@@ -66,18 +67,17 @@ itemsRouter.put("/:id", async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
 
   try {
-    const itemUpdate: Item = req.body;
+    const itemUpdate: Provider = req.body;
 
-    const existingItem: Item = await ItemService.find(id);
+    const updatedItem: Provider = await ProviderService.saveOrUpdate(
+      itemUpdate
+    );
 
-    if (existingItem) {
-      const updatedItem = await ItemService.update(id, itemUpdate);
+    if (updatedItem) {
       return res.status(200).json(updatedItem);
     }
 
-    const newItem = await ItemService.create(itemUpdate);
-
-    res.status(201).json(newItem);
+    res.status(201).json(updatedItem);
   } catch (e) {
     res.status(500).send((e as Error).message);
   }
@@ -88,7 +88,7 @@ itemsRouter.put("/:id", async (req: Request, res: Response) => {
 itemsRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    await ItemService.remove(id);
+    await ProviderService.remove(id);
 
     res.sendStatus(204);
   } catch (e) {
