@@ -9,25 +9,25 @@ import { myDataSource } from "../instances/data-source";
  * In-Memory Store
  */
 
-const providerRepository = myDataSource.getRepository(FoodBill);
+const foodBillRepository = myDataSource.getRepository(FoodBill);
 
 /**
  * Service Methods
  */
 
 export const findAll = async (): Promise<FoodBill[]> =>
-  providerRepository.find();
+  foodBillRepository.find();
 
 export const findById = async (id: number): Promise<FoodBill | null> =>
-  providerRepository.findOne({ where: { foodBillId: id } });
+  foodBillRepository.findOne({ where: { foodBillId: id } });
 
 export const saveOrUpdate = async (newItem: FoodBill): Promise<FoodBill> => {
-  return providerRepository.save(newItem);
+  return foodBillRepository.save(newItem);
 };
 
 export const remove = async (id: number): Promise<boolean> => {
   try {
-    providerRepository.delete(id);
+    foodBillRepository.delete(id);
     return true;
   } catch (e) {
     return false;
