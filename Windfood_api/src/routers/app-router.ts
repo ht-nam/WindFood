@@ -17,5 +17,5 @@ router.use(PersonRoute.PATH, PersonRoute.itemsRouter);
 router.use(ProviderRoute.PATH, ProviderRoute.itemsRouter);
 
 router.get("/", async (req: Request, res: Response) => {
-  res.status(200).send("API");
+  res.status(200).send("WELLCOME");
 });

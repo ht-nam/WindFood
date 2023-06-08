@@ -55,26 +55,6 @@ itemsRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// PUT items/:id
-
-itemsRouter.put("/:id", async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id, 10);
-
-  try {
-    const itemUpdate: Food = req.body;
-
-    const updatedItem: Food = await FoodService.saveOrUpdate(itemUpdate);
-
-    if (updatedItem) {
-      return res.status(200).json(updatedItem);
-    }
-
-    res.status(201).json(updatedItem);
-  } catch (e) {
-    res.status(500).send((e as Error).message);
-  }
-});
-
 // DELETE items/:id
 
 itemsRouter.delete("/:id", async (req: Request, res: Response) => {

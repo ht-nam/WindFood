@@ -29,24 +29,6 @@ itemsRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// GET items/:id
-
-itemsRouter.get("/:id", async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id, 10);
-
-  try {
-    const item: FoodBill | null = await FoodBillService.findById(id);
-
-    if (item) {
-      return res.status(200).send(item);
-    }
-
-    res.status(404).send("item not found");
-  } catch (e) {
-    res.status(500).send((e as Error).message);
-  }
-});
-
 // POST items
 
 itemsRouter.post("/", async (req: Request, res: Response) => {
@@ -61,28 +43,6 @@ itemsRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// PUT items/:id
-
-itemsRouter.put("/:id", async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id, 10);
-
-  try {
-    const itemUpdate: FoodBill = req.body;
-
-    const updatedItem: FoodBill = await FoodBillService.saveOrUpdate(
-      itemUpdate
-    );
-
-    if (updatedItem) {
-      return res.status(200).json(updatedItem);
-    }
-
-    res.status(201).json(updatedItem);
-  } catch (e) {
-    res.status(500).send((e as Error).message);
-  }
-});
-
 // DELETE items/:id
 
 itemsRouter.delete("/:id", async (req: Request, res: Response) => {
@@ -91,6 +51,24 @@ itemsRouter.delete("/:id", async (req: Request, res: Response) => {
     await FoodBillService.remove(id);
 
     res.sendStatus(204);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
+
+// GET items/:id
+
+itemsRouter.get("/:id", async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id, 10);
+
+  try {
+    const item: FoodBill | null = await FoodBillService.findById(id);
+
+    if (item) {
+      return res.status(200).send(item);
+    }
+
+    res.status(404).send("item not found");
   } catch (e) {
     res.status(500).send((e as Error).message);
   }
