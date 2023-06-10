@@ -15,10 +15,18 @@ import { FormGroupDirective } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AddProductDialogComponent } from './components/products/add-product-dialog/add-product-dialog.component';
+import { SidenavComponent } from './common/sidenav/sidenav.component';
+import { BodyComponent } from './common/body/body.component';
+import * as Highcharts from 'highcharts';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import HC_exporting from 'highcharts/modules/exporting';
+HC_exporting(Highcharts);
 @NgModule({
   declarations: [
     AppComponent,
-    AddProductDialogComponent
+    AddProductDialogComponent,
+    SidenavComponent,
+    BodyComponent
   ],
   imports: [
     AppRoutingModule,
@@ -27,6 +35,7 @@ import { AddProductDialogComponent } from './components/products/add-product-dia
     CommonModule,
     HttpClientModule,
     materialComponent,
+    AngularSvgIconModule.forRoot()
   ],
   providers: [
     FormGroupDirective,

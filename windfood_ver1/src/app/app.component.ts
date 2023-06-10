@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { navbarData } from './navigation';
+
+
+interface SideNavToggle{
+  screenWidth: number;
+  collapsed: boolean
+}
 
 @Component({
   selector: 'app-root',
@@ -8,10 +15,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'windfood_ver1';
 
-  isExpanded: boolean = false;
+  isSideNavCollapsed = false;
+  screenWidth = 0;
 
-  status: boolean = false;
-  clickEvent(){
-      this.status = !this.status;       
+  onToggleSideNav(data: SideNavToggle): void{
+    this.screenWidth = data.screenWidth;
+    this.isSideNavCollapsed = data.collapsed;
   }
 }

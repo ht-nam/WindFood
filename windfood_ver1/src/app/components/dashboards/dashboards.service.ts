@@ -53,15 +53,19 @@ export class DashboardsService {
     }
   }
 
-  buildBarChart(title: string, xAxis: string[], yAxisTitle: string, nameSeries: string, seriesData: number[], seriesData2: number[], nameSeries1: string): Highcharts.Options {
+  buildBarChart(title: string, xAxis: string[], yAxisTitle: string, nameSeries: string, seriesData: number[]): Highcharts.Options {
     return {
       chart: {
-        type: 'column'
+        type: 'column',
+        scrollablePlotArea: {
+          minWidth: 1000,
+      },
       },
       title: {
         useHTML: true,
         text: title,
-        style: { fontFamily: "Arial", textAlign: "center", 'fontSize': '16px' }
+        align: 'left',
+        style: { fontFamily: "Arial", textAlign: "left", 'fontSize': '16px' }
 
       },
       xAxis: {
@@ -82,30 +86,14 @@ export class DashboardsService {
             format: '{y}'
           }
         },
-        line: {
-          dataLabels: {
-            enabled: true,
-            format: '{y}'
-          }
-        },
       },
       series: [
         {
           type: 'column',
           name: nameSeries,
+          color: '#DE3163',
           data: seriesData,
         },
-        {
-          type: 'line',
-          name: nameSeries1,
-          data: seriesData2,
-          marker: {
-            lineWidth: 2,
-            lineColor: 'rgb(103, 183, 220)',
-            fillColor: 'white'
-          },
-          color: 'rgb(103, 183, 220)'
-        }
       ]
     }
   }

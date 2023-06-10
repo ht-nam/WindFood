@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-// import { MapChart, Chart } from 'angular-highcharts';
+import { MapChart, Chart } from 'angular-highcharts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardsService } from './dashboards.service';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ProductModel } from 'src/app/models/products.model';
+
 @Component({
   selector: 'app-dashboards',
   templateUrl: './dashboards.component.html',
@@ -10,59 +14,64 @@ import { DashboardsService } from './dashboards.service';
 })
 export class DashboardsComponent implements OnInit {
 
-  // lineChart1?: Chart;
-
-  // lineChart2?: Chart;
-
-  // barChart1?: Chart;
-
-  // barChart2?: Chart;
+  barChart?:Chart;
 
   options?: Highcharts.Options;
 
-  options1?: Highcharts.Options;
+  trendingChart?: Chart;
 
-  // mapChart?: MapChart;
+  orderChart?: Chart;
 
-  options2?: Highcharts.Options;
+  customerChart?: Chart;
+
+  newCustomerChart?: Chart;
+
+  horizontalBarChart?: Chart;
 
   datas: Object[] = [];
 
-  options3?: Highcharts.Options;
+  products: ProductModel[] = [];
 
   key = 0;
 
-  constructor(private dashboardService: DashboardsService, private router: Router, private route: ActivatedRoute) {
+  constructor(private dashboardService: DashboardsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+
   }
 
   ngOnInit() {
-    this.options = this.dashboardService.buildBarChart('Số lượt xét nghiệm và số người khẳng định dương tính theo tháng',
-      ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'], '', 'Số người XN HIV', [10, 2, 4, 0, 0], [2, 1, 0, 0, 0], 'Số người XN HIV dương tính');
-
-    this.options1 = this.dashboardService.buildBarChart('Khách hàng dương tính chuyển gửi điều trị thành công', ['0', '1'], '', 'Số lượng dương tính', [3, 0], [1, 0], 'Số lượng CGDDT thành công')
-
-    this.options2 = this.dashboardService.buildPieChart('Phân bổ số khách hàng mua hàng', 'Asset Allocation', [
-      { name: ' ', y: 33 },
-      { name: ' ', y: 33 },
-      { name: ' ', y: 33 },
-    ]
+    this.options = this.dashboardService.buildBarChart('Biểu đồ doanh thu',
+      ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Thángs 9', 'Tháng 10','Tháng 11', 'Tháng 12'], '', 'Doanh Thu', [10, 2, 4, 0, 0, 10, 2, 4, 0, 0, 32,23]);
+    
+      this.barChart = new Chart(this.options)
+    this.initTrendingChart();
+    this.initOrderChart();
+    this.initCustomerChart();
+    this.intiNewCustomerChart();
+    this.initHorizontalBarChart();
+    this.products.push({
+      'nameProduct': 'Hamburger',
+      'price': 2000,
+      'id': 1,
+    },
+    {
+      'nameProduct': 'Hamburger',
+      'price': 2000,
+      'id': 1,
+    },{
+      'nameProduct': 'Hamburger',
+      'price': 2000,
+      'id': 1,
+    },
+    {
+      'nameProduct': 'Hamburger',
+      'price': 2000,
+      'id': 1,
+    },{
+      'nameProduct': 'Hamburger',
+      'price': 2000,
+      'id': 1,
+    }
     )
-
-    this.options3 = this.dashboardService.buildPieChart('Phân bổ số XN theo nhóm đối tượng (1/1/2023 - 3/5/2023)', '', [
-      { name: ' ', y: 6 },
-      { name: ' ', y: 6 },
-      { name: ' ', y: 13 },
-      { name: ' ', y: 6 },
-      { name: ' ', y: 6 },
-      { name: ' ', y: 13 },
-      { name: ' ', y: 50 },
-    ],
-    )
-
-    // this.lineChart1 = new Chart(this.options2);
-    // this.lineChart2 = new Chart(this.options3);
-    // this.barChart1 = new Chart(this.options);
-    // this.barChart2 = new Chart(this.options1);
   }
 
   async initMap() {
@@ -72,87 +81,347 @@ export class DashboardsComponent implements OnInit {
       this.datas.push([it.properties.HASC_1, this.key, it.properties?.code1, it.properties?.NAME_1])
       // this.key++
     });
+  }
 
-    // this.mapChart = new MapChart({
-    //   chart: {
-    //     map: geojson,
-    //     panning: {
-    //       enabled: true, // enable panning
-    //       type: 'xy' // allow panning in both x and y directions
-    //     },
-    //   },
-    //   title: {
-    //     text: 'Bản đồ tỉ lệ người mua hàng trên cả nước',
-    //     style: { fontFamily: "Arial", "fontSize": "25", "fontWeight": "bold", 'textAlign': 'left' },
-    //     useHTML: true,
-    //   },
+  initHorizontalBarChart(){
+    this.horizontalBarChart = new Chart({
+      chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Doanh thu hàng tháng',
+        align: 'left'
+    },
+    xAxis: {
+        categories: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4', 'Tuần 5'],
+        title: {
+            text: null
+        },
+        gridLineWidth: 1,
+        lineWidth: 0
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: null,
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        },
+        gridLineWidth: 0
+    },
+    tooltip: {
+        valueSuffix: ' VNĐ'
+    },
+    plotOptions: {
+        bar: {
+            // borderRadius: '50%',
+            dataLabels: {
+                enabled: true
+            },
+            groupPadding: 0.1
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+    },
+    credits: {
+        enabled: false
+    },
+      series: [{
+          name: 'Tháng 6',
+          data: [631, 727, 3202, 721, 26],
+          color: '#DE3163'
+      }] as any
+    });
+  }
 
-    //   colorAxis: {
-    //     min: 0,
-    //     max: 100,
-    //     tickInterval: 5,
-    //     // #900037
-    //     tickPositions: [0, 25, 50, 75, 100],
-    //     stops: [[0, 'rgb(242,242,242)'], [0.25, '#FF8A8A'], [0.75, '#FF2E2E'], [1, '#D10000']],
-    //     labels: {
-    //       format: '{value}'
-    //     }
-    //   },
+  intiNewCustomerChart(){
+    
+    this.newCustomerChart = new Chart({
+      
+      chart: {
+        type: 'area',
+        zoomType: 'x',
+        // panning: true,
+        panKey: 'shift',
+        scrollablePlotArea: {
+            minWidth: 600,
+        },
+        width: 270,
+        height: 200,
+    },
+    
+    title: {
+        text: 'Người dùng mới',
+        align: 'left'
+    },
+  
+    xAxis: {
+        labels: {
+            format: 'Tháng {value}'
+        },
+        minRange: 5,
+        title: {
+            text: null
+        },
+        accessibility: {
+            rangeDescription: 'Range: 0 to 187.8km.'
+        }
+    },
+  
+    yAxis: {
+        // startOnTick: true,
+        // endOnTick: false,
+        // maxPadding: 0.35,
+        title: {
+            text: null
+        },
+    },
+  
+    tooltip: {
+        headerFormat: 'Tháng {point.x}<br>',
+        pointFormat: '{point.y} VNĐ',
+        shared: true
+    },
+  
+    legend: {
+        enabled: false
+    },
+  
+    series: [{
+        data: data,
+        lineColor: '#FFFF',
+        color: '#DE3163',
+        fillOpacity: 0.5,
+        name: 'Elevation',
+        marker: {
+            enabled: false
+        },
+        threshold: null
+    }] as any
+      });
+  }
 
-    //   accessibility: {
-    //     point: {
-    //       valueDescriptionFormat: '{xDescription}.'
-    //     },
-    //   },
+  initCustomerChart(){
+    
+    this.customerChart = new Chart({
+      
+      chart: {
+        type: 'area',
+        zoomType: 'x',
+        // panning: true,
+        panKey: 'shift',
+        scrollablePlotArea: {
+            minWidth: 600,
+        },
+        width: 270,
+        height: 200,
+    },
+    
+    title: {
+        text: 'Khách hàng',
+        align: 'left'
+    },
+  
+    xAxis: {
+        labels: {
+            format: 'Tháng {value}'
+        },
+        minRange: 5,
+        title: {
+            text: null
+        },
+        accessibility: {
+            rangeDescription: 'Range: 0 to 187.8km.'
+        }
+    },
+  
+    yAxis: {
+        // startOnTick: true,
+        // endOnTick: false,
+        // maxPadding: 0.35,
+        title: {
+            text: null
+        },
+    },
+  
+    tooltip: {
+        headerFormat: 'Tháng {point.x}<br>',
+        pointFormat: '{point.y} VNĐ',
+        shared: true
+    },
+  
+    legend: {
+        enabled: false
+    },
+  
+    series: [{
+        data: data,
+        lineColor: '#FFFF',
+        color: '#DE3163',
+        fillOpacity: 0.5,
+        name: 'Elevation',
+        marker: {
+            enabled: false
+        },
+        threshold: null
+    }] as any
+      });
+  }
 
-    //   mapNavigation: {
-    //     enabled: true,
-    //     buttonOptions: {
-    //       verticalAlign: 'bottom'
-    //     }
-    //   },
+  initOrderChart(){
+    
+    this.orderChart = new Chart({
+      
+      chart: {
+        type: 'area',
+        zoomType: 'x',
+        // panning: true,
+        panKey: 'shift',
+        scrollablePlotArea: {
+            minWidth: 600,
+        },
+        width: 270,
+        height: 200,
+    },
+    
+    title: {
+        text: 'Đơn đặt',
+        align: 'left'
+    },
+  
+    xAxis: {
+        labels: {
+            format: 'Tháng {value}'
+        },
+        minRange: 5,
+        title: {
+            text: null
+        },
+        accessibility: {
+            rangeDescription: 'Range: 0 to 187.8km.'
+        }
+    },
+  
+    yAxis: {
+        // startOnTick: true,
+        // endOnTick: false,
+        // maxPadding: 0.35,
+        title: {
+            text: null
+        },
+    },
+  
+    tooltip: {
+        headerFormat: 'Tháng {point.x}<br>',
+        pointFormat: '{point.y} VNĐ',
+        shared: true
+    },
+  
+    legend: {
+        enabled: false
+    },
+  
+    series: [{
+        data: data,
+        lineColor: '#FFFF',
+        color: '#DE3163',
+        fillOpacity: 0.5,
+        name: 'Elevation',
+        marker: {
+            enabled: false
+        },
+        threshold: null
+    }] as any
+      });
+  }
 
-    //   plotOptions: {
-    //     map: {
-    //       color: 'white',
-    //       showInLegend: false,
-    //       tooltip: {
-    //         pointFormat: '{point.properties.NAME_1}: {point.value}'
-    //       },
-    //     },
-    //   },
+  initTrendingChart(){
 
-    //   series: [{
-    //     data: this.datas,
+    this.trendingChart = new Chart({
+      
+    chart: {
+      type: 'area',
+      zoomType: 'x',
+      // panning: true,
+      panKey: 'shift',
+      scrollablePlotArea: {
+          minWidth: 600,
+      },
+      width: 270,
+      height: 200,
+  },
+  
+  title: {
+      text: 'Doanh thu',
+      align: 'left'
+  },
 
-    //     keys: ['HASC_1', 'value', 'code1', 'NAME_1'],
-    //     joinBy: 'HASC_1',
-    //     colorByPoint: true,
-    //     name: '',
-    //     states: {
-    //       hover: {
-    //         color: "white"
-    //       }
-    //     },
+  xAxis: {
+      labels: {
+          format: 'Tháng {value}'
+      },
+      minRange: 5,
+      title: {
+          text: null
+      },
+      accessibility: {
+          rangeDescription: 'Range: 0 to 187.8km.'
+      }
+  },
 
-    //     // dataLabels: {
-    //     //   enabled: true,
-    //     // }
-    //   } as Highcharts.SeriesOptionsType],
-    //   legend: {
-    //     layout: 'vertical',
-    //     verticalAlign: 'top',
-    //     align: 'right',
-    //     floating: true,
-    //     backgroundColor: ( // theme
-    //       Highcharts.defaultOptions &&
-    //       Highcharts.defaultOptions.legend &&
-    //       Highcharts.defaultOptions.legend.backgroundColor
-    //     ) || 'rgba(255, 255, 255, 0.85)'
-    //   }
-    // });
+  yAxis: {
+      // startOnTick: true,
+      // endOnTick: false,
+      // maxPadding: 0.35,
+      title: {
+          text: null
+      },
+  },
 
+  tooltip: {
+      headerFormat: 'Tháng {point.x}<br>',
+      pointFormat: '{point.y} VNĐ',
+      shared: true
+  },
 
-    // this.mapChart
+  legend: {
+      enabled: false
+  },
+
+  series: [{
+      data: data,
+      lineColor: '#FFFF',
+      color: '#DE3163',
+      fillOpacity: 0.5,
+      name: 'Elevation',
+      marker: {
+          enabled: false
+      },
+      threshold: null
+  }] as any
+    });
   }
 }
+
+export const data = [
+  [1, 225000],
+  [2, 225000],
+  [3, 254000],
+  [4, 325000],
+  [5, 425000],
+  [6, 625000],
+  [7, 722500],
+  [8, 725000],
+  [9, 925000],
+  [10, 1022500],
+  [11, 3225000],
+  [12, 2225000],
+]

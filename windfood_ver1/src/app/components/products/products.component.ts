@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ProductModel } from 'src/app/models/products.model';
 import { ProductsService } from './products.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -7,11 +7,11 @@ import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductDialogComponent } from './add-product-dialog/add-product-dialog.component';
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductsComponent {
   products: ProductModel[] = [];

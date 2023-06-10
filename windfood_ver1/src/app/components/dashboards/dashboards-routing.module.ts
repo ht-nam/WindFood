@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { materialComponent } from 'src/utils/helpers/installation';
 import { DashboardsComponent } from './dashboards.component';
-// import { ChartModule } from 'angular-highcharts';
-
+import { HighchartsChartModule } from 'highcharts-angular';
+import { ChartModule } from 'angular-highcharts';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CommonModule } from '@angular/common';
 const routes: Routes = [
     {
         path: '',
@@ -15,7 +17,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [DashboardsComponent],
-    imports: [RouterModule.forChild(routes), materialComponent],
+    imports: [CommonModule, RouterModule.forChild(routes), materialComponent, HighchartsChartModule, ChartModule, AngularSvgIconModule],
     exports: [RouterModule]
 })
 export class DashboardsRoutingModule { }

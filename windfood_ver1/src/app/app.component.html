@@ -1,13 +1,7 @@
-<div class="d-flex" id="wrapper">
-
-  <!-- Sidebar -->
+<!-- <div class="d-flex" id="wrapper">
   <mat-card>
     <mat-card-content>
-    <!-- <div class="bg-white border-right" id="sidebar-wrapper"  [ngClass]="status ? 'hide' : 'show'"> -->
     <img class="sidebar-heading" src="../assets/logo.png" style="width: 300px;">
-    <!-- <button (click)="clickEvent()" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
-      <mat-icon>menu</mat-icon>
-    </button> -->
     <div class="list-group list-group-flush">
       <a routerLink="/dashboard" class="list-group-item list-group-item-action bg-white"><mat-icon>dashboard</mat-icon>Trang chủ</a>
       <a routerLink="/products" class="list-group-item list-group-item-action bg-white"><mat-icon>inbox</mat-icon>Sản phẩm</a>
@@ -43,10 +37,48 @@
   <div class="container-fluid">
       <div class="box-container">
         <div class="box">
-      
+          <div class="box-button">
+            <span class="toolbar-item-spacer"></span>
+            <button mat-icon-button matTooltip="Like">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Share">
+                <mat-icon>share</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Notifications">
+                <mat-icon>notifications</mat-icon>
+            </button>
+        </div>
         </div>
           <router-outlet></router-outlet>
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<!-- Sidenav 2 -->
+
+<app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+
+<!-- <div id="page-content-wrapper">
+  <div class="container-fluid">
+      <div class="box-container">
+        <div class="box">
+          <div class="box-button">
+            <span class="toolbar-item-spacer"></span>
+            <button mat-icon-button matTooltip="Like">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Share">
+                <mat-icon>share</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Notifications">
+                <mat-icon>notifications</mat-icon>
+            </button>
+        </div>
+        </div>
+          <router-outlet></router-outlet>
+      </div>
+    </div>
+</div> -->
+<app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
