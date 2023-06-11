@@ -27,11 +27,14 @@ export class Food {
   @Column({ name: "price" })
   price: Number;
 
-  @Column({ name: "description", type: "text" })
+  @Column({ name: "description", type: "text", nullable: true })
   description: String;
 
-  @Column({ name: "url_img", type: "text" })
+  @Column({ name: "url_img", type: "text", nullable: true })
   urlImg: String;
+
+  @Column({ name: "create_date", default: null })
+  createDate: Date;
 
   @ManyToOne((type) => Provider)
   @JoinColumn({ name: "provider_id" })

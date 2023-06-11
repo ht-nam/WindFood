@@ -17,6 +17,9 @@ export class Bill {
   @Column({ name: "total_price" })
   totalPrice: Number;
 
+  @Column({ name: "create_date", default: null })
+  createDate: Date;
+
   @Column({ name: "payment_method", length: 255 })
   paymentMethod: String;
 

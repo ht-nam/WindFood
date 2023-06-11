@@ -12,6 +12,7 @@ import { Provider } from "../entities/provider.entity";
 
 export const itemsRouter = express.Router();
 export const PATH = "/providers";
+const verifyToken = require('./../middlewares/verify-token');
 
 /**
  * Controller Definitions
@@ -19,7 +20,7 @@ export const PATH = "/providers";
 
 // GET items
 
-itemsRouter.get("/", async (req: Request, res: Response) => {
+itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const items: Provider[] = await ProviderService.findAll();
 
@@ -29,23 +30,26 @@ itemsRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// PUT items/:id
-
-itemsRouter.put("/:id", async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id, 10);
-
+// PAGING items
+itemsRouter.get("/paging", verifyToken, async (req: Request, res: Response) => {
   try {
-    const itemUpdate: Provider = req.body;
+    let [pageIndex, pageSize]: number[] = Object.values(req.body);
+    let result = await ProviderService.paging(pageIndex, pageSize);
+    return res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
 
-    const updatedItem: Provider = await ProviderService.saveOrUpdate(
-      itemUpdate
-    );
+// POST items
 
-    if (updatedItem) {
-      return res.status(200).json(updatedItem);
-    }
+itemsRouter.post("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const item: Provider = req.body;
+    item.createDate = new Date();
+    const newItem = await ProviderService.saveOrUpdate(item);
 
-    res.status(201).json(updatedItem);
+    res.status(201).json(newItem);
   } catch (e) {
     res.status(500).send((e as Error).message);
   }
@@ -53,7 +57,7 @@ itemsRouter.put("/:id", async (req: Request, res: Response) => {
 
 // DELETE items/:id
 
-itemsRouter.delete("/:id", async (req: Request, res: Response) => {
+itemsRouter.delete("/:id", verifyToken, async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
     await ProviderService.remove(id);
@@ -66,7 +70,7 @@ itemsRouter.delete("/:id", async (req: Request, res: Response) => {
 
 // GET items/:id
 
-itemsRouter.get("/:id", async (req: Request, res: Response) => {
+itemsRouter.get("/:id", verifyToken, async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
 
   try {

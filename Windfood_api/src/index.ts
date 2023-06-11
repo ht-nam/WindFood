@@ -3,7 +3,7 @@
  */
 import * as dotenv from "dotenv";
 import "reflect-metadata";
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { initialDatabase } from "./instances/data-source";

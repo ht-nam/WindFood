@@ -9,6 +9,9 @@ export class Provider {
   @Column({ name: "provider_name", length: 255 })
   providerName: String;
 
+  @Column({ name: "create_date", default: null })
+  createDate: Date;
+
   @OneToMany(() => Food, (food) => food.provider)
   foods: Food[];
 }

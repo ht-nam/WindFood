@@ -9,6 +9,9 @@ export class Category {
   @Column({ name: "category_name", length: 255 })
   categoryName: String;
 
+  @Column({ name: "create_date", default: null })
+  createDate: Date;
+
   @OneToMany(() => Food, (food) => food.category)
   foods: Food[];
 }

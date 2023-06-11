@@ -6,6 +6,7 @@ import express, { Request, Response } from "express";
 import * as FoodService from "../services/food.service";
 import { Food } from "../entities/food.entity";
 import { log } from "console";
+import { verify } from "crypto";
 
 /**
  * Router Definition
@@ -13,6 +14,7 @@ import { log } from "console";
 
 export const itemsRouter = express.Router();
 export const PATH = "/foods";
+const verifyToken = require('./../middlewares/verify-token');
 
 /**
  * Controller Definitions
@@ -20,7 +22,7 @@ export const PATH = "/foods";
 
 // GET items
 
-itemsRouter.get("/", async (req: Request, res: Response) => {
+itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const items: Food[] = await FoodService.findAll();
 
@@ -31,7 +33,7 @@ itemsRouter.get("/", async (req: Request, res: Response) => {
 });
 
 // PAGING items
-itemsRouter.get("/paging", async (req: Request, res: Response) => {
+itemsRouter.get("/paging", verifyToken, async (req: Request, res: Response) => {
   try {
     let [pageIndex, pageSize]: number[] = Object.values(req.body);
     let result = await FoodService.paging(pageIndex, pageSize);
@@ -43,10 +45,10 @@ itemsRouter.get("/paging", async (req: Request, res: Response) => {
 
 // POST items
 
-itemsRouter.post("/", async (req: Request, res: Response) => {
+itemsRouter.post("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const item: Food = req.body;
-
+    item.createDate = new Date();
     const newItem = await FoodService.saveOrUpdate(item);
 
     res.status(201).json(newItem);
@@ -57,7 +59,7 @@ itemsRouter.post("/", async (req: Request, res: Response) => {
 
 // DELETE items/:id
 
-itemsRouter.delete("/:id", async (req: Request, res: Response) => {
+itemsRouter.delete("/:id", verifyToken, async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
     await FoodService.remove(id);

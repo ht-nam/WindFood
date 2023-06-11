@@ -10,6 +10,9 @@ export class FoodBill {
   @Column({ name: "quantity" })
   quantity: Number;
 
+  @Column({ name: "create_date", default: null })
+  createDate: Date;
+
   @ManyToOne((type) => Food)
   @JoinColumn({ name: "food_id" })
   food: Food;

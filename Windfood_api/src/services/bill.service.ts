@@ -32,3 +32,17 @@ export const remove = async (id: number): Promise<boolean> => {
     return false;
   }
 };
+
+export const paging = async (pageIndex: number, pageSize: number) => {
+  try {
+    const [result, total] = await billRepository.findAndCount({
+      // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
+      take: pageSize,
+      skip: (pageIndex - 1) * pageSize,
+    });
+
+    return { data: result, count: total };
+  } catch (e) {
+    return null;
+  }
+};

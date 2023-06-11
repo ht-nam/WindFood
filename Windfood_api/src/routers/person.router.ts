@@ -12,6 +12,7 @@ import { Person } from "../entities/person.entity";
 
 export const itemsRouter = express.Router();
 export const PATH = "/persons";
+const verifyToken = require('./../middlewares/verify-token');
 
 /**
  * Controller Definitions
@@ -19,7 +20,7 @@ export const PATH = "/persons";
 
 // GET items
 
-itemsRouter.get("/", async (req: Request, res: Response) => {
+itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const items: Person[] = await PersonService.findAll();
 
@@ -29,12 +30,33 @@ itemsRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
+itemsRouter.get("/get-current-user", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const items: object | null = await PersonService.getCurrentUser(req.headers?.authorization?.split(" ")[1] as string);
+
+    res.status(200).send(items);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
+
+// PAGING items
+itemsRouter.get("/paging", verifyToken, async (req: Request, res: Response) => {
+  try {
+    let [pageIndex, pageSize]: number[] = Object.values(req.body);
+    let result = await PersonService.paging(pageIndex, pageSize);
+    return res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
+
 // POST items
 
-itemsRouter.post("/", async (req: Request, res: Response) => {
+itemsRouter.post("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const item: Person = req.body;
-
+    item.createDate = new Date();
     const newItem = await PersonService.saveOrUpdate(item);
 
     res.status(201).json(newItem);
@@ -43,9 +65,19 @@ itemsRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
+
+itemsRouter.post("/login", async (req: Request, res: Response) => {
+  try {
+    let rs: String = await PersonService.login(req.body as Person);
+    res.status(200).json(rs);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
+
 // DELETE items/:id
 
-itemsRouter.delete("/:id", async (req: Request, res: Response) => {
+itemsRouter.delete("/:id", verifyToken, async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
     await PersonService.remove(id);
@@ -58,7 +90,7 @@ itemsRouter.delete("/:id", async (req: Request, res: Response) => {
 
 // GET items/:id
 
-itemsRouter.get("/:id", async (req: Request, res: Response) => {
+itemsRouter.get("/:id", verifyToken, async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
 
   try {

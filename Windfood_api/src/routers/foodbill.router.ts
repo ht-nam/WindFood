@@ -12,6 +12,7 @@ import { FoodBill } from "../entities/foodbill.entity";
 
 export const itemsRouter = express.Router();
 export const PATH = "/foodbills";
+const verifyToken = require('./../middlewares/verify-token');
 
 /**
  * Controller Definitions
@@ -19,7 +20,7 @@ export const PATH = "/foodbills";
 
 // GET items
 
-itemsRouter.get("/", async (req: Request, res: Response) => {
+itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const items: FoodBill[] = await FoodBillService.findAll();
 
@@ -31,10 +32,10 @@ itemsRouter.get("/", async (req: Request, res: Response) => {
 
 // POST items
 
-itemsRouter.post("/", async (req: Request, res: Response) => {
+itemsRouter.post("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const item: FoodBill = req.body;
-
+    item.createDate = new Date();
     const newItem = await FoodBillService.saveOrUpdate(item);
 
     res.status(201).json(newItem);
@@ -45,7 +46,7 @@ itemsRouter.post("/", async (req: Request, res: Response) => {
 
 // DELETE items/:id
 
-itemsRouter.delete("/:id", async (req: Request, res: Response) => {
+itemsRouter.delete("/:id", verifyToken, async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
     await FoodBillService.remove(id);
@@ -58,7 +59,7 @@ itemsRouter.delete("/:id", async (req: Request, res: Response) => {
 
 // GET items/:id
 
-itemsRouter.get("/:id", async (req: Request, res: Response) => {
+itemsRouter.get("/:id", verifyToken, async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
 
   try {
