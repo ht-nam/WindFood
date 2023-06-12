@@ -53,7 +53,7 @@ itemsRouter.get("/paging", verifyToken, async (req: Request, res: Response) => {
 
 // POST items
 
-itemsRouter.post("/", verifyToken, async (req: Request, res: Response) => {
+itemsRouter.post("/", async (req: Request, res: Response) => {
   try {
     const item: Person = req.body;
     item.createDate = new Date();
