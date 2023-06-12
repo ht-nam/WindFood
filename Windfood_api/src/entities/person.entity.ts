@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Bill } from "./bill.entity";
-import { type } from "os";
 
 @Entity({ name: "person" })
 export class Person {
@@ -10,11 +9,11 @@ export class Person {
   @Column({ name: "username", length: 255, unique: true })
   username: String;
 
-  @Column({ name: "hased_password", length: 255 })
+  @Column({ name: "hashed_password", length: 255 })
   password: String;
 
   @Column({ name: "role" })
-  role: Number;
+  role: Number;   //admin: 0, staff: 1
 
   @Column({ name: "name", length: 255 })
   name: String;
@@ -28,7 +27,7 @@ export class Person {
   @Column({ name: "url_img", type: "text", nullable: true })
   urlImg: String;
 
-  @Column({ name: "token", type: "text" })
+  @Column({ name: "token", type: "text", nullable: true })
   token: String;
 
   @Column({ name: "create_date", default: null })

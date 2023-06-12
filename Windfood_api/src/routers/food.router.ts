@@ -5,8 +5,8 @@
 import express, { Request, Response } from "express";
 import * as FoodService from "../services/food.service";
 import { Food } from "../entities/food.entity";
-import { log } from "console";
-import { verify } from "crypto";
+import { Provider } from "../entities/provider.entity";
+import { Category } from "../entities/category.entity";
 
 /**
  * Router Definition
@@ -32,6 +32,25 @@ itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+itemsRouter.get("/by-provider", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const items: Food[] | null = await FoodService.findByProvider(req?.body as Provider);
+
+    res.status(200).send(items);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
+
+itemsRouter.get("/by-category", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const items: Food[] | null = await FoodService.findByCategory(req?.body as Category);
+
+    res.status(200).send(items);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
 // PAGING items
 itemsRouter.get("/paging", verifyToken, async (req: Request, res: Response) => {
   try {

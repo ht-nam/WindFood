@@ -3,7 +3,9 @@
  */
 
 import { Food } from "../entities/food.entity";
+import { Provider } from "../entities/provider.entity";
 import { myDataSource } from "../instances/data-source";
+import { Category } from "../entities/category.entity";
 
 /**
  * In-Memory Store
@@ -19,6 +21,12 @@ export const findAll = async (): Promise<Food[]> => foodRepository.find();
 
 export const findById = async (id: number): Promise<Food | null> =>
   foodRepository.findOne({ where: { foodId: id } });
+
+export const findByProvider = async (provider: Provider): Promise<Food[] | null> =>
+  foodRepository.find({ where: { provider: provider } } as any);
+
+export const findByCategory = async (category: Category): Promise<Food[] | null> =>
+  foodRepository.find({ where: { category: category } } as any);
 
 export const saveOrUpdate = async (newItem: Food): Promise<Food> => {
   return foodRepository.save(newItem);

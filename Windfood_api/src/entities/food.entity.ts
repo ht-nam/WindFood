@@ -4,13 +4,10 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
-  ManyToMany,
-  OneToMany,
-  JoinTable,
+  OneToMany
 } from "typeorm";
 import { Provider } from "./provider.entity";
 import { Category } from "./category.entity";
-import { type } from "os";
 import { FoodBill } from "./foodbill.entity";
 
 @Entity({ name: "food" })
