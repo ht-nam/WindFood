@@ -20,6 +20,11 @@ export class ProductsService {
 
   getAllProducts(): Observable<any>{
     let url = this.baseUrl;
-    return this.httpClient.get<any>(url);
+    return this.httpClient.get<ProductModel[]>(url);
+  }
+  
+  addNewFood(object: ProductModel): Observable<any>{
+    let url = this.baseUrl;
+    return this.httpClient.post<ProductModel[]>(url, object, {responseType: "json"});
   }
 }

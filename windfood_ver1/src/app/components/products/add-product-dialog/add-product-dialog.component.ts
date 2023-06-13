@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from 'src/app/common/confirm-dialogg/confirm-dialogg.component';
 import { ProductModel } from 'src/app/models/products.model';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -17,14 +18,13 @@ export class AddProductDialogComponent {
 
   form?: UntypedFormGroup;
 
-  id?: number = 0;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: any,
     private dialogRef: MatDialogRef<AddProductDialogComponent>,
     private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     private toastrService: ToastrService,
+    private service: ProductsService
     ){
       
     }
@@ -36,11 +36,13 @@ export class AddProductDialogComponent {
     
     initForm(){
       this.form = this.fb.group({
-        id: this.id,
-        nameProduct: null,
+        foodId: null,
+        foodName: null,
         price: null, 
-        status: null,
-        img: null,
+        quantity: null,
+        urlImg: null,
+        description: null,
+        createDate: null
       });
     }
 
@@ -52,9 +54,21 @@ export class AddProductDialogComponent {
         data: {
          products: this.defaults.products,
          onConfirm: () => {
-          this.defaults.products.push(this.form?.value as ProductModel);
-          this.toastrService.success("Đã thêm thành công", "Thông báo", {
-            positionClass: 'toast-bottom-right' 
+          let data = this.form?.getRawValue() as ProductModel;
+          data.urlImg = this.imageSrc;
+          this.service.addNewFood(data).subscribe({
+            next: (response) => {
+              if(response){
+                this.toastrService.success("Đã thêm thành công", "Thông báo", {
+                  positionClass: 'toast-bottom-right' 
+                })      
+              }              
+            },
+            error: (err) => {
+              this.toastrService.warning("Thêm thất bại", "Thông báo", {
+                positionClass: 'toast-bottom-right' 
+              })
+            }
           })
          }
         }

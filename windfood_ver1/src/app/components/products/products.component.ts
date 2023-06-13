@@ -18,6 +18,9 @@ export class ProductsComponent {
 
   form?: UntypedFormGroup;
 
+  allFood: number = 0;
+  pagination: number = 1;
+
   constructor(private productService: ProductsService, private loader: NgxSpinnerService, 
     private fb: UntypedFormBuilder,
     private dialog: MatDialog,
@@ -34,7 +37,7 @@ export class ProductsComponent {
     this.form = this.fb.group({
       // foodSearch: null,
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 6,
     })
   }
   
@@ -55,13 +58,21 @@ export class ProductsComponent {
     this.loader.show();
     this.productService.getAllProductsPaging(this.form?.value).subscribe(
       it => {
+        this.pagination = this.form?.get('pageIndex')?.value;
         this.products = it?.data;
+        this.allFood = it?.count;
       }
       )
     this.loader.hide();
   }
 
-  searchByProduct(){
+  renderPage(event: number) {
+    this.form?.get('pageIndex')?.setValue(event);
+    this.getAllProducts();
+  }
+
+  handleDelete(){
+    
   }
 
 }
