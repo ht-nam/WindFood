@@ -4,45 +4,44 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from 'src/app/common/confirm-dialogg/confirm-dialogg.component';
 import { ProductModel } from 'src/app/models/products.model';
-import { ProductsService } from '../products.service';
+import { EmployeesService } from '../employees.service';
+import { Person } from 'src/app/models/person.model';
 
 @Component({
-  selector: 'app-add-product-dialog',
-  templateUrl: './add-product-dialog.component.html',
-  styleUrls: ['./add-product-dialog.component.scss']
+  selector: 'app-add-employee-dialog',
+  templateUrl: './add-employee-dialog.component.html',
+  styleUrls: ['./add-employee-dialog.component.scss']
 })
-export class AddProductDialogComponent {
-
-  
+export class AddEmployeeDialogComponent {
   imageSrc?: string;
 
   form?: UntypedFormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: any,
-    private dialogRef: MatDialogRef<AddProductDialogComponent>,
+    private dialogRef: MatDialogRef<AddEmployeeDialogComponent>,
     private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     private toastrService: ToastrService,
-    private service: ProductsService
+    private service: EmployeesService
     ){
       
     }
     
     ngOnInit(){
       this.initForm();
-      console.log(this.defaults.products);
     }
     
     initForm(){
       this.form = this.fb.group({
-        foodId: null,
-        foodName: null,
-        price: null, 
-        quantity: null,
+        personId: null,
+        name: null,
+        phoneNumber: null, 
+        birthday: null,
         urlImg: null,
-        description: null,
-        createDate: null
+        role: null,
+        username: null,
+        password: null,
       });
     }
 
@@ -51,12 +50,12 @@ export class AddProductDialogComponent {
         disableClose: false,
         width: '400px',
         data: {
-         products: this.defaults.products,
+         employees: this.defaults.employees,
          isDelete: false,
          onConfirm: () => {
-          let data = this.form?.getRawValue() as ProductModel;
+          let data = this.form?.getRawValue() as Person;
           data.urlImg = this.imageSrc;
-          this.service.addOrEditFood(data).subscribe({
+          this.service.addOrEditEmployees(data).subscribe({
             next: (response) => {
               if(response){
                 this.toastrService.success("Đã thêm thành công", "Thông báo", {

@@ -55,7 +55,7 @@ export const remove = async (id: number): Promise<boolean> => {
 
 export const login = async (person: Person): Promise<String> => {
   try {
-    let user: Person | null = await personRepository.findOneBy({ username: person.username } as unknown as FindOptionsWhere<Person>);
+    let user: Person | null = await personRepository.findOneBy({ username: person.username } as FindOptionsWhere<Person>);
     if (!user) return "";
 
     const checkPassword = await bcrypt.compare(person.password, user.password);
@@ -88,6 +88,9 @@ export const paging = async (pageIndex: number, pageSize: number) => {
       // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
+      order: {
+        createDate: "DESC"
+      }
     });
 
     return { data: result, count: total };

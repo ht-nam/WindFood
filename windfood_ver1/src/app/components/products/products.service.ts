@@ -23,8 +23,13 @@ export class ProductsService {
     return this.httpClient.get<ProductModel[]>(url);
   }
   
-  addNewFood(object: ProductModel): Observable<any>{
+  addOrEditFood(object: ProductModel): Observable<any>{
     let url = this.baseUrl;
     return this.httpClient.post<ProductModel[]>(url, object, {responseType: "json"});
+  }
+
+  deleteFood(id: string):Observable<any>{
+    let url = this.baseUrl + `/${id}`;
+    return this.httpClient.delete<ProductModel>(url);
   }
 }

@@ -7,20 +7,21 @@ import { ProductModel } from 'src/app/models/products.model';
 import { ProductsService } from '../products.service';
 
 @Component({
-  selector: 'app-add-product-dialog',
-  templateUrl: './add-product-dialog.component.html',
-  styleUrls: ['./add-product-dialog.component.scss']
+  selector: 'app-edit-product',
+  templateUrl: './edit-product.component.html',
+  styleUrls: ['./edit-product.component.scss']
 })
-export class AddProductDialogComponent {
+export class EditProductComponent {
 
-  
   imageSrc?: string;
+
+  product?: ProductModel;
 
   form?: UntypedFormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: any,
-    private dialogRef: MatDialogRef<AddProductDialogComponent>,
+    private dialogRef: MatDialogRef<EditProductComponent>,
     private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     private toastrService: ToastrService,
@@ -30,8 +31,12 @@ export class AddProductDialogComponent {
     }
     
     ngOnInit(){
+      this.product = this.defaults.product;
       this.initForm();
-      console.log(this.defaults.products);
+    }
+
+    get f(){
+      return this.form?.controls;
     }
     
     initForm(){
@@ -44,7 +49,18 @@ export class AddProductDialogComponent {
         description: null,
         createDate: null
       });
-    }
+        this.imageSrc = this.product?.urlImg;
+        let object = {
+          foodId: this.product?.foodId,
+          foodName: this.product?.foodName,
+          price: this.product?.price,
+          quantity: this.product?.quantity != 0 ? 1 : 0,
+          urlImg: '',
+          description: this.product?.description,
+          createDate: this.product?.createDate,
+        } as ProductModel;
+        this.form?.setValue(object);
+    };
 
     onSubmit(){
       this.dialog.open(ConfirmDialoggComponent, {

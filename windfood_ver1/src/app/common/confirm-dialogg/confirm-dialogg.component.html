@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <div>
-            <h2 class="text-center">Chú ý</h2>
-            <p class="text-center">Bạn có muốn tiếp tục không?</p>
+            <h2 [ngClass]="{'text-center' : !isDelete, 'text-start' : isDelete}">{{title}}</h2>
+            <p [ngClass]="{'text-center' : !isDelete, 'text-start' : isDelete}">{{subtitle}}</p>
         
-            <div class="d-flex align-items-center justify-content-center">
-                <button mat-raised-button style="background-color: #3f51b5;" (click)="onConfirm()">Tiếp tục</button>
-                <button mat-raised-button style="color: #000;" (click)="onClose()">Huỷ bỏ</button>
+            <div [ngClass]="{'button-content d-flex align-items-center justify-content-center' : !isDelete, 'd-flex align-items-center justify-content-end' : isDelete}">
+                <button mat-raised-button color="primary" (click)="onConfirm()">{{buttonConfirm}}</button>
+                <button mat-raised-button style="color: #000;" (click)="onClose()">{{buttonCancel}}</button>
             </div>
         </div>
     </div>

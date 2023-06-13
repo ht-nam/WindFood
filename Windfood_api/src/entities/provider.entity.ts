@@ -7,11 +7,11 @@ export class Provider {
   providerId: number;
 
   @Column({ name: "provider_name", length: 255 })
-  providerName: String;
+  providerName?: String;
 
   @Column({ name: "create_date", default: null })
-  createDate: Date;
+  createDate?: Date;
 
   @OneToMany(() => Food, (food) => food.provider)
-  foods: Food[];
+  foods?: Food[];
 }

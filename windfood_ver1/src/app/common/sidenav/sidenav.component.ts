@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { navbarData } from 'src/app/navigation';
 
 
@@ -22,6 +23,9 @@ export class SidenavComponent {
 
   navData = navbarData;
 
+  constructor(private router: Router){
+  }
+
   toggleCollapse(){
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
@@ -34,5 +38,10 @@ export class SidenavComponent {
   closeSidenav(){
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+  }
+
+  signOut(){
+    this.router.navigate(['login']);
+    localStorage.clear();
   }
 }

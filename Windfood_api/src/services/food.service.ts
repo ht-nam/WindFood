@@ -6,6 +6,7 @@ import { Food } from "../entities/food.entity";
 import { Provider } from "../entities/provider.entity";
 import { myDataSource } from "../instances/data-source";
 import { Category } from "../entities/category.entity";
+import { FindManyOptions } from "typeorm";
 
 /**
  * In-Memory Store
@@ -22,11 +23,11 @@ export const findAll = async (): Promise<Food[]> => foodRepository.find();
 export const findById = async (id: number): Promise<Food | null> =>
   foodRepository.findOne({ where: { foodId: id } });
 
-export const findByProvider = async (provider: Provider): Promise<Food[] | null> =>
-  foodRepository.find({ where: { provider: provider } } as any);
+export const findByProvider = async (provider: Provider): Promise<Food[]> =>
+  foodRepository.find({ where: { provider: provider } } as FindManyOptions<Food>);
 
 export const findByCategory = async (category: Category): Promise<Food[] | null> =>
-  foodRepository.find({ where: { category: category } } as any);
+  foodRepository.find({ where: { category: category } } as FindManyOptions<Food>);
 
 export const saveOrUpdate = async (newItem: Food): Promise<Food> => {
   return foodRepository.save(newItem);
@@ -47,6 +48,9 @@ export const paging = async (pageIndex: number, pageSize: number) => {
       // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
+      order: {
+        createDate: "DESC"
+      }
     });
 
     return { data: result, count: total };

@@ -7,11 +7,11 @@ export class Category {
   categoryId: number;
 
   @Column({ name: "category_name", length: 255 })
-  categoryName: String;
+  categoryName?: String;
 
   @Column({ name: "create_date", default: null })
-  createDate: Date;
+  createDate?: Date;
 
   @OneToMany(() => Food, (food) => food.category)
-  foods: Food[];
+  foods?: Food[];
 }

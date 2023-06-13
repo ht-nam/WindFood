@@ -103,6 +103,48 @@
         color: #000;
       }
     }
+
+    .nav-item{
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 0.625rem;
+  
+      .nav-link{
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+        height: 3rem;
+        font-size: 1.225rem;
+        text-align: left;
+        color: #f3f3f3;
+        border-radius: 0.625rem;
+        text-decoration: none;
+        transition: all .3s ease;
+      }
+  
+      .link-icon{
+        font-size: 22px;
+        width: 2rem;
+        min-width: 2rem;
+        margin-left: 0.800rem;
+        text-align: center;
+      }
+  
+      .link-text{
+        margin-left: 1.7rem;
+      }
+    }
+  
+    .nav-item:hover{
+      .sidenav-nav-link{
+        padding: 0;
+        width: 100%;
+        background-color: #fff;
+        color: #000;
+      }
+    }
+
   }
    
 .active{

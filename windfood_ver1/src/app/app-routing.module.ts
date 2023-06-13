@@ -24,6 +24,10 @@ const routes: Routes = [
       {
         path: 'products',
         loadChildren: () => import('./components/products/products-routing.module').then(m => m.ProductsRoutingModule)
+      },
+      {
+        path: 'employees',
+        loadChildren: () => import('./components/employees/employees-routing.module').then(m => m.EmployeesRoutingModule)
       }
     ]
   },

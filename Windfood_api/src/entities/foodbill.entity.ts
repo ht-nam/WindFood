@@ -8,16 +8,16 @@ export class FoodBill {
   foodBillId: number;
 
   @Column({ name: "quantity" })
-  quantity: Number;
+  quantity?: Number;
 
   @Column({ name: "create_date", default: null })
-  createDate: Date;
+  createDate?: Date;
 
   @ManyToOne((type) => Food)
   @JoinColumn({ name: "food_id" })
-  food: Food;
+  food?: Food;
 
   @ManyToOne((type) => Bill)
   @JoinColumn({ name: "bill_id" })
-  bill: Bill;
+  bill?: Bill;
 }
