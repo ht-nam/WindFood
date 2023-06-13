@@ -41,7 +41,7 @@ itemsRouter.get("/get-current-user", verifyToken, async (req: Request, res: Resp
 });
 
 // PAGING items
-itemsRouter.get("/paging", verifyToken, async (req: Request, res: Response) => {
+itemsRouter.post("/paging", verifyToken, async (req: Request, res: Response) => {
   try {
     let [pageIndex, pageSize]: number[] = Object.values(req.body);
     let result = await PersonService.paging(pageIndex, pageSize);
