@@ -2,7 +2,7 @@ import { Bill } from "./bill.model";
 
 export class Person {
     
-    person_id?: number;
+    personId?: number;
     username?: string;
     password?: string;
     role?: number;
