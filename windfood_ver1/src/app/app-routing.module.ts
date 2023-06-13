@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardsComponent } from './components/dashboards/dashboards.component';
-import { ProductsComponent } from './components/products/products.component';
 import { authGuard } from './common/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./components/dashboards/dashboards-routing.module').then(m => m.DashboardsRoutingModule)
+    loadChildren: () => import('./components/home/home-routing.module').then(m => m.HomeRoutingModule)
   },
   {
     path: 'login',
@@ -22,12 +20,20 @@ const routes: Routes = [
         loadChildren: () => import('./components/dashboards/dashboards-routing.module').then(m => m.DashboardsRoutingModule)
       },
       {
+        path: 'home',
+        loadChildren: () => import('./components/home/home-routing.module').then(m => m.HomeRoutingModule)
+      },
+      {
         path: 'products',
         loadChildren: () => import('./components/products/products-routing.module').then(m => m.ProductsRoutingModule)
       },
       {
         path: 'employees',
         loadChildren: () => import('./components/employees/employees-routing.module').then(m => m.EmployeesRoutingModule)
+      },
+      {
+        path: 'suppliers',
+        loadChildren: () => import('./components/suppliers/suppliers-routing.module').then(m => m.SuppliersRoutingModule)
       }
     ]
   },
