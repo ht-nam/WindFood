@@ -39,6 +39,9 @@ export const paging = async (pageIndex: number, pageSize: number) => {
       // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
+      order: {
+        createDate: "DESC"
+      }
     });
 
     return { data: result, count: total };

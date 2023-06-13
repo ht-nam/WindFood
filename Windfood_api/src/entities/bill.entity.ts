@@ -15,18 +15,18 @@ export class Bill {
   billId: number;
 
   @Column({ name: "total_price" })
-  totalPrice: Number;
+  totalPrice?: Number;
 
   @Column({ name: "create_date", default: null })
-  createDate: Date;
+  createDate?: Date;
 
   @Column({ name: "payment_method", length: 255 })
-  paymentMethod: String;
+  paymentMethod?: String;
 
   @ManyToOne((type) => Person)
   @JoinColumn({ name: "person_id" })
-  creator: Person;
+  creator?: Person;
 
   @OneToMany(() => FoodBill, (foodbill) => foodbill.bill)
-  foodBills: FoodBill[];
+  foodBills?: FoodBill[];
 }

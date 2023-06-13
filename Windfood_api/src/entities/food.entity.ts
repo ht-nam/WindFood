@@ -16,31 +16,31 @@ export class Food {
   foodId: number;
 
   @Column({ name: "food_name", length: 255 })
-  foodName: String;
+  foodName?: String;
 
   @Column({ name: "quantity" })
-  quantity: Number;
+  quantity?: Number;
 
   @Column({ name: "price" })
-  price: Number;
+  price?: Number;
 
   @Column({ name: "description", type: "text", nullable: true })
-  description: String;
+  description?: String;
 
   @Column({ name: "url_img", type: "text", nullable: true })
-  urlImg: String;
+  urlImg?: String;
 
   @Column({ name: "create_date", default: null })
-  createDate: Date;
+  createDate?: Date;
 
   @ManyToOne((type) => Provider)
   @JoinColumn({ name: "provider_id" })
-  provider: Provider;
+  provider?: Provider;
 
   @ManyToOne((type) => Category)
   @JoinColumn({ name: "category_id" })
-  category: Category;
+  category?: Category;
 
   @OneToMany(() => FoodBill, (foodbill) => foodbill.food)
-  foodBills: FoodBill[];
+  foodBills?: FoodBill[];
 }
