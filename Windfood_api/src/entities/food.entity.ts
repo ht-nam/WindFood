@@ -33,11 +33,11 @@ export class Food {
   @Column({ name: "create_date", default: null })
   createDate?: Date;
 
-  @ManyToOne((type) => Provider)
+  @ManyToOne((type) => Provider, { cascade: true, onDelete: "CASCADE" })
   @JoinColumn({ name: "provider_id" })
   provider?: Provider;
 
-  @ManyToOne((type) => Category)
+  @ManyToOne((type) => Category, { cascade: true, onDelete: "CASCADE" })
   @JoinColumn({ name: "category_id" })
   category?: Category;
 

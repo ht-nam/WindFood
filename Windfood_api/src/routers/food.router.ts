@@ -54,6 +54,8 @@ itemsRouter.get("/by-category", verifyToken, async (req: Request, res: Response)
 // PAGING items
 itemsRouter.post("/paging", verifyToken, async (req: Request, res: Response) => {
   try {
+    console.log("c");
+
     let [pageIndex, pageSize]: number[] = Object.values(req.body);
     let result = await FoodService.paging(pageIndex, pageSize);
     return res.status(200).send(result);
