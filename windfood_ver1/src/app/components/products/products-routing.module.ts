@@ -5,6 +5,7 @@ import { ProductsComponent } from './products.component';
 import { FormGroupDirective } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 const routes: Routes = [
     {
         path: '',
@@ -17,7 +18,7 @@ const routes: Routes = [
 @NgModule({
     providers: [FormGroupDirective],
     declarations: [ProductsComponent],
-    imports: [CommonModule,RouterModule.forChild(routes), materialComponent, HttpClientModule],
+    imports: [CommonModule,RouterModule.forChild(routes), materialComponent, HttpClientModule, ToastrModule,],
     exports: [RouterModule]
 })
 export class ProductsRoutingModule { }

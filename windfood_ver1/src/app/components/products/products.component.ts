@@ -14,35 +14,9 @@ import { AddProductDialogComponent } from './add-product-dialog/add-product-dial
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductsComponent {
-  products: ProductModel[] = [];
+  products: any;
 
   form?: UntypedFormGroup;
-
-  length = 0;
-  pageSize = 10;
-  pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
-
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
-
-  pageEvent?: PageEvent;
-  
-
-  handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.length = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
-  }
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
 
   constructor(private productService: ProductsService, private loader: NgxSpinnerService, 
     private fb: UntypedFormBuilder,
@@ -53,33 +27,20 @@ export class ProductsComponent {
 
   ngOnInit(){
     this.initForm();
-    this.length = this.products.length;
+    this.getAllProducts();
   }
 
   initForm(){
-    this.loader.show();
-    this.productService.getAllProducts().subscribe(
-      {
-        next: (values) => {
-          this.products = values
-        },
-        error: (err) => {
-          this.loader.hide();
-        }
-      }
-    );
-
-    this.loader.hide()
-
     this.form = this.fb.group({
-      foodSearch: null,
+      // foodSearch: null,
+      pageIndex: 1,
+      pageSize: 10,
     })
   }
-
+  
   get f(){
     return this.form?.controls;
   }
-
   addNewProduct(){
     this.dialog.open(AddProductDialogComponent,{
       height: 'auto',
@@ -88,6 +49,16 @@ export class ProductsComponent {
         title: 'Tạo mới sản phẩm'
       }
     })
+  }
+
+  getAllProducts(){
+    this.loader.show();
+    this.productService.getAllProductsPaging(this.form?.value).subscribe(
+      it => {
+        this.products = it?.data;
+      }
+      )
+    this.loader.hide();
   }
 
   searchByProduct(){

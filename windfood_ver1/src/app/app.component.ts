@@ -18,6 +18,8 @@ export class AppComponent {
   isSideNavCollapsed = false;
   screenWidth = 0;
 
+  dataStorage = localStorage.getItem('token');
+
   onToggleSideNav(data: SideNavToggle): void{
     this.screenWidth = data.screenWidth;
     this.isSideNavCollapsed = data.collapsed;

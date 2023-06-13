@@ -46,8 +46,12 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from '@angular/cdk/dialog';
 export const materialComponent = [
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
     A11yModule,
     CdkAccordionModule,
     ClipboardModule,

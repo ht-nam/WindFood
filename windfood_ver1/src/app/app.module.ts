@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,13 +20,15 @@ import { BodyComponent } from './common/body/body.component';
 import * as Highcharts from 'highcharts';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import HC_exporting from 'highcharts/modules/exporting';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 HC_exporting(Highcharts);
+
 @NgModule({
   declarations: [
     AppComponent,
     AddProductDialogComponent,
     SidenavComponent,
-    BodyComponent
+    BodyComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -35,14 +37,15 @@ HC_exporting(Highcharts);
     CommonModule,
     HttpClientModule,
     materialComponent,
-    AngularSvgIconModule.forRoot()
+    AngularSvgIconModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     FormGroupDirective,
-    // AuthInterceptorProvider,
-    // ErrorInterceptorProvider,
-    // // LoggingInterceptorProvider,
-    // LoadingInterceptorProvider,
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider,
+    LoggingInterceptorProvider,
+    LoadingInterceptorProvider,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

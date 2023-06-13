@@ -1,7 +1,9 @@
 export class ProductModel {
-    id?: number;
-    nameProduct?: string;
+    foodId?: number;
+    foodName?: string;
+    quantity?: number;
     price?: number;
-    status?: boolean;
-    img?: string;
+    urlImg?: string;
+    createDate?: Date;
+    description?: string;
 }

@@ -33,7 +33,7 @@ export class LoggingHandlerInterceptor implements HttpInterceptor {
           const message = request.method + " " + request.urlWithParams +" "+ status 
           + " in " + elapsedTime + "ms";
           
-          console.log(message);
+          // console.log(message);
         })
     );
   }

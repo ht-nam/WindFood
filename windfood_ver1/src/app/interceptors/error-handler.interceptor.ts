@@ -21,7 +21,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         return next.handle(request)
             .pipe(
                 map(res => {
-                    console.log("Passed through the interceptor in response");
+                    // console.log("Passed through the interceptor in response");
                     return res
                 }),
                 catchError((error: HttpErrorResponse) => {

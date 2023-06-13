@@ -27,6 +27,10 @@ export class SidenavComponent {
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
   }
 
+  isLoggin():boolean{
+    return localStorage.getItem('token') !== null;
+  }
+
   closeSidenav(){
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})

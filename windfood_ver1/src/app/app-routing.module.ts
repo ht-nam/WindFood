@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardsComponent } from './components/dashboards/dashboards.component';
 import { ProductsComponent } from './components/products/products.component';
+import { authGuard } from './common/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,18 +15,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: DashboardsComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'dashboard',
         loadChildren: () => import('./components/dashboards/dashboards-routing.module').then(m => m.DashboardsRoutingModule)
-      }
-    ]
-  },
-  {
-    path: '',
-    component: ProductsComponent,
-    children: [
+      },
       {
         path: 'products',
         loadChildren: () => import('./components/products/products-routing.module').then(m => m.ProductsRoutingModule)

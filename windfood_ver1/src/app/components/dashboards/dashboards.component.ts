@@ -34,7 +34,7 @@ export class DashboardsComponent implements OnInit {
 
   key = 0;
 
-  constructor(private dashboardService: DashboardsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private dashboardService: DashboardsService, private router: Router) {
 
   }
 
@@ -49,27 +49,27 @@ export class DashboardsComponent implements OnInit {
     this.intiNewCustomerChart();
     this.initHorizontalBarChart();
     this.products.push({
-      'nameProduct': 'Hamburger',
+      'foodName': 'Hamburger',
       'price': 2000,
-      'id': 1,
+      'foodId': 1,
     },
     {
-      'nameProduct': 'Hamburger',
+      'foodName': 'Hamburger',
       'price': 2000,
-      'id': 1,
+      'foodId': 1,
     },{
-      'nameProduct': 'Hamburger',
+      'foodName': 'Hamburger',
       'price': 2000,
-      'id': 1,
+      'foodId': 1,
     },
     {
-      'nameProduct': 'Hamburger',
+      'foodName': 'Hamburger',
       'price': 2000,
-      'id': 1,
+      'foodId': 1,
     },{
-      'nameProduct': 'Hamburger',
+      'foodName': 'Hamburger',
       'price': 2000,
-      'id': 1,
+      'foodId': 1,
     }
     )
   }

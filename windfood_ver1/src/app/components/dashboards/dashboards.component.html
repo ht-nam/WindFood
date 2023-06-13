@@ -52,7 +52,7 @@
                         <mat-card-content style="padding: 0;">
                             <h3 style="margin-left: 1em;">Quảng cáo</h3>
                             <div class="content">
-                                <img src="../../../assets/icons/social.png" alt="">
+                                <img src = "../../../assets/icons/social.png" alt="">
                                 <div class="follower-content">
                                     <h2>Folower</h2>
                                     <h1>35000</h1>
@@ -106,9 +106,9 @@
                                     <tbody>
                                         <ng-container *ngFor="let it of products; let i = index">
                                             <tr id="{{i}}">
-                                                <td>{{it?.nameProduct}}</td>
+                                                <td>{{it?.foodName}}</td>
                                                 <td>{{it?.price}}</td>
-                                                <td>{{it?.id}}</td>
+                                                <td>{{it?.foodId}}</td>
                                             </tr>
                                         </ng-container>
                                     </tbody>
