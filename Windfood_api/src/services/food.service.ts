@@ -44,6 +44,8 @@ export const remove = async (id: number): Promise<boolean> => {
 
 export const paging = async (pageIndex: number, pageSize: number) => {
   try {
+    console.log("a");
+
     const [result, total] = await foodRepository.findAndCount({
       // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
       take: pageSize,

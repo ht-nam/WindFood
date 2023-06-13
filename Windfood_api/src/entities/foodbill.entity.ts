@@ -13,11 +13,11 @@ export class FoodBill {
   @Column({ name: "create_date", default: null })
   createDate?: Date;
 
-  @ManyToOne((type) => Food)
+  @ManyToOne((type) => Food, { cascade: true, onDelete: "SET NULL" })
   @JoinColumn({ name: "food_id" })
   food?: Food;
 
-  @ManyToOne((type) => Bill)
+  @ManyToOne((type) => Bill, { onDelete: "CASCADE" })
   @JoinColumn({ name: "bill_id" })
   bill?: Bill;
 }
