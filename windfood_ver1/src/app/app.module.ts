@@ -22,10 +22,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import HC_exporting from 'highcharts/modules/exporting';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from './common/confirm-dialogg/confirm-dialogg.component';
-import { EditProductComponent } from './components/products/edit-product/edit-product.component';
-import { EmployeesComponent } from './components/employees/employees.component';
-import { AddEmployeeDialogComponent } from './components/employees/add-employee-dialog/add-employee-dialog.component';
-import { EditEmployeeDialogComponent } from './components/employees/edit-employee-dialog/edit-employee-dialog.component';
 HC_exporting(Highcharts);
 
 @NgModule({

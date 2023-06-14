@@ -51,7 +51,7 @@ export class EmployeesComponent {
   get f(){
     return this.form?.controls;
   }
-  addNewProduct(){
+  addNewEmployee(){
     this.dialog.open(AddEmployeeDialogComponent,{
       height: 'auto',
       data: {
