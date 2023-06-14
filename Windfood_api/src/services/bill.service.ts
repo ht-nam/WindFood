@@ -50,8 +50,25 @@ export const paging = async (pageIndex: number, pageSize: number) => {
   }
 };
 
-export const getDashboard = async (fromDate: Date, toDate: Date): Promise<object | null> => {
-  let queryString: string = "select * from bill where";
+export const getDashboard = async (fromDate: string | null, toDate: string | null): Promise<object[]> => {
+  let dateCondition = "";
+
+  if (fromDate && toDate) {
+    dateCondition = `WHERE (fb.create_date BETWEEN DATE('${fromDate}') AND DATE('${toDate}')) `;
+  } else if (fromDate) {
+    dateCondition = `WHERE (fb.create_date > DATE('${fromDate}')) `;
+  } else if (toDate) {
+    dateCondition = `WHERE (fb.create_date < DATE('${toDate}')) `;
+  }
+
+  let queryString: string =
+    `SELECT tmp.thang as month, SUM(tmp.doanhThu) AS revenue, SUM(loiNhuan) AS profit FROM
+    (
+      SELECT fb.bill_id , EXTRACT(MONTH FROM MAX(fb.create_date)) AS thang, SUM(price * fb.quantity) AS doanhThu, SUM((price - import_price) * fb.quantity) AS loiNhuan
+      FROM food_bill fb
+      JOIN food f ON f.food_id = fb.food_id ${dateCondition}
+      group BY fb.bill_id
+    ) AS tmp GROUP BY tmp.thang`;
   let [rs] = await myDataSource.manager.query(queryString);
   return rs;
 }

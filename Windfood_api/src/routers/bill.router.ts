@@ -30,6 +30,7 @@ itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+
 // PAGING items
 itemsRouter.post("/paging", verifyToken, async (req: Request, res: Response) => {
   try {
@@ -50,6 +51,18 @@ itemsRouter.post("/", verifyToken, async (req: Request, res: Response) => {
     const newItem = await BillService.saveOrUpdate(item);
 
     res.status(201).json(newItem);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});
+
+itemsRouter.post("/dashboard", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const fromDate = req.body.fromDate ? new Date(req.body.fromDate).toISOString().split("T")[0] : null;
+    const toDate = req.body.toDate ? new Date(req.body.toDate).toISOString().split("T")[0] : null;
+
+    const items: object[] = await BillService.getDashboard(fromDate, toDate);
+    res.status(200).send(items);
   } catch (e) {
     res.status(500).send((e as Error).message);
   }
