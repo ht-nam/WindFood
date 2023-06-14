@@ -49,3 +49,15 @@ export const paging = async (pageIndex: number, pageSize: number) => {
     return null;
   }
 };
+
+export const getDashboard = async (fromDate: Date, toDate: Date): Promise<object | null> => {
+  let queryString: string = "select * from bill where";
+  let [rs] = await myDataSource.manager.query(queryString);
+  return rs;
+}
+
+//Doanh thu, loi nhuan theo thang
+// SELECT fb.bill_id, SUM(price * fb.quantity) AS DoanhThu, SUM((price - import_price) * fb.quantity) AS LoiNhuan
+// FROM food_bill fb
+// JOIN food f ON f.food_id = fb.food_id
+// group BY fb.bill_id;

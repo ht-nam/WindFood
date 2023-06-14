@@ -21,6 +21,9 @@ export class Food {
   @Column({ name: "quantity" })
   quantity?: Number;
 
+  @Column({ name: "import_price" })
+  importPrice?: Number;
+
   @Column({ name: "price" })
   price?: Number;
 
