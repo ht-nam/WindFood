@@ -17,7 +17,7 @@ export class FoodBill {
   @JoinColumn({ name: "food_id" })
   food?: Food;
 
-  @ManyToOne((type) => Bill, { onDelete: "CASCADE", eager: true })
+  @ManyToOne((type) => Bill, { onDelete: "CASCADE" })
   @JoinColumn({ name: "bill_id" })
   bill?: Bill;
 }

@@ -12,6 +12,6 @@ export class Provider {
   @Column({ name: "create_date", default: null })
   createDate?: Date;
 
-  @OneToMany(() => Food, (food) => food.provider, { cascade: true, eager: true })
+  @OneToMany(() => Food, (food) => food.provider)
   foods?: Food[];
 }
