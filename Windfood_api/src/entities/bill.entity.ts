@@ -23,10 +23,10 @@ export class Bill {
   @Column({ name: "payment_method", length: 255 })
   paymentMethod?: String;
 
-  @ManyToOne((type) => Person, { cascade: true, onDelete: "SET NULL" })
+  @ManyToOne((type) => Person, { cascade: true, onDelete: "SET NULL", eager: true })
   @JoinColumn({ name: "person_id" })
   creator?: Person;
 
-  @OneToMany(() => FoodBill, (foodbill) => foodbill.bill, { cascade: true })
+  @OneToMany(() => FoodBill, (foodbill) => foodbill.bill, { cascade: true, eager: true })
   foodBills?: FoodBill[];
 }
