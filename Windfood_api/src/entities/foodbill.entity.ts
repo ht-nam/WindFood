@@ -8,12 +8,12 @@ export class FoodBill {
   foodBillId: number;
 
   @Column({ name: "quantity" })
-  quantity?: Number;
+  quantity?: number;
 
   @Column({ name: "create_date", default: null })
   createDate?: Date;
 
-  @ManyToOne((type) => Food, { cascade: true, onDelete: "SET NULL", eager: true })
+  @ManyToOne((type) => Food, { cascade: ["insert", "update"], onDelete: "SET NULL", eager: true })
   @JoinColumn({ name: "food_id" })
   food?: Food;
 

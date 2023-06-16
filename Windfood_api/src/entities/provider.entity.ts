@@ -7,7 +7,7 @@ export class Provider {
   providerId: number;
 
   @Column({ name: "provider_name", length: 255 })
-  providerName?: String;
+  providerName?: string;
 
   @Column({ name: "create_date", default: null })
   createDate?: Date;

@@ -3,6 +3,7 @@
  */
 
 import { Bill } from "../entities/bill.entity";
+import { Food } from "../entities/food.entity";
 import { myDataSource } from "../instances/data-source";
 
 /**
@@ -10,6 +11,7 @@ import { myDataSource } from "../instances/data-source";
  */
 
 const billRepository = myDataSource.getRepository(Bill);
+const foodRepository = myDataSource.getRepository(Food);
 
 /**
  * Service Methods
@@ -21,6 +23,15 @@ export const findById = async (id: number): Promise<Bill | null> =>
   billRepository.findOne({ where: { billId: id } });
 
 export const saveOrUpdate = async (newItem: Bill): Promise<Bill> => {
+  if (newItem.foodBills != undefined && newItem.foodBills.length > 0) {
+    newItem.foodBills.forEach(async e => {
+      let food = await foodRepository.findOne({ where: { foodId: e.food?.foodId } });
+      if (food && food.quantity && e.quantity) {
+        food.quantity -= e.quantity;
+        foodRepository.save(food);
+      }
+    });
+  }
   return billRepository.save(newItem);
 };
 

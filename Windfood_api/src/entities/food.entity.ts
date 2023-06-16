@@ -16,22 +16,22 @@ export class Food {
   foodId: number;
 
   @Column({ name: "food_name", length: 255 })
-  foodName?: String;
+  foodName?: string;
 
   @Column({ name: "quantity" })
-  quantity?: Number;
+  quantity?: number;
 
   @Column({ name: "import_price" })
-  importPrice?: Number;
+  importPrice?: number;
 
   @Column({ name: "price" })
-  price?: Number;
+  price?: number;
 
   @Column({ name: "description", type: "text", nullable: true })
-  description?: String;
+  description?: string;
 
   @Column({ name: "url_img", type: "text", nullable: true })
-  urlImg?: String;
+  urlImg?: string;
 
   @Column({ name: "create_date", default: null })
   createDate?: Date;
