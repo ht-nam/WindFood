@@ -15,13 +15,13 @@ export class Bill {
   billId: number;
 
   @Column({ name: "total_price" })
-  totalPrice?: Number;
+  totalPrice?: number;
 
   @Column({ name: "create_date", default: null })
   createDate?: Date;
 
   @Column({ name: "payment_method", length: 255 })
-  paymentMethod?: String;
+  paymentMethod?: string;
 
   @ManyToOne((type) => Person, { cascade: true, onDelete: "SET NULL", eager: true })
   @JoinColumn({ name: "person_id" })

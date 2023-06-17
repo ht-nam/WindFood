@@ -7,7 +7,7 @@ export class Category {
   categoryId: number;
 
   @Column({ name: "category_name", length: 255 })
-  categoryName?: String;
+  categoryName?: string;
 
   @Column({ name: "create_date", default: null })
   createDate?: Date;

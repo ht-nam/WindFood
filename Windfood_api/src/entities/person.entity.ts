@@ -7,28 +7,28 @@ export class Person {
   personId: number;
 
   @Column({ name: "username", length: 255, unique: true })
-  username?: String;
+  username?: string;
 
   @Column({ name: "hashed_password", length: 255 })
-  password?: String;
+  password?: string;
 
   @Column({ name: "role" })
-  role?: Number;   //admin: 0, staff: 1
+  role?: number;   //admin: 0, staff: 1
 
   @Column({ name: "name", length: 255 })
-  name?: String;
+  name?: string;
 
   @Column({ name: "phone_number", length: 10, nullable: true })
-  phoneNumber?: String;
+  phoneNumber?: string;
 
   @Column({ name: "birthday", type: "date" })
   birthday?: Date;
 
   @Column({ name: "url_img", type: "text", nullable: true })
-  urlImg?: String;
+  urlImg?: string;
 
   @Column({ name: "token", type: "text", nullable: true })
-  token?: String;
+  token?: string;
 
   @Column({ name: "create_date", default: null })
   createDate?: Date;
