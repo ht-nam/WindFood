@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from 'src/app/common/confirm-dialogg/confirm-dialogg.component';
 import { Router } from '@angular/router';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { SuppliersService } from '../suppliers/suppliers.service';
+import { Category } from 'src/app/models/category.model';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -22,26 +24,34 @@ export class ProductsComponent {
 
   form?: UntypedFormGroup;
 
+  suppliers: any;
+
   allFood: number = 0;
   pagination: number = 1;
+
+  categories: any;
+
 
   constructor(private productService: ProductsService, private loader: NgxSpinnerService, 
     private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private supplierService: SuppliersService,
+    private service: ProductsService
     ){
 
   }
 
   ngOnInit(){
     this.initForm();
+    this.getAllSuppliers();
     this.getAllProducts();
+    this.getAllCategories();
   }
 
   initForm(){
     this.form = this.fb.group({
-      // foodSearch: null,
       pageIndex: 1,
       pageSize: 6,
     })
@@ -55,6 +65,7 @@ export class ProductsComponent {
       height: 'auto',
       data: {
         products: this.products,
+        suppliers: this.suppliers,
         title: 'Tạo mới sản phẩm',
         reloadTable: () => this.getAllProducts(),
       }
@@ -65,6 +76,7 @@ export class ProductsComponent {
     this.loader.show();
     this.productService.getAllProductsPaging(this.form?.value).subscribe(
       it => {
+        console.log('tvv', it);
         this.pagination = this.form?.get('pageIndex')?.value;
         this.products = it?.data;
         this.allFood = it?.count;
@@ -79,14 +91,34 @@ export class ProductsComponent {
   }
 
   editProduct(product: ProductModel){
+    // console.log(product);
     this.dialog.open(EditProductComponent,{
       height: 'auto',
       data: {
         product: product,
+        categories: this.categories,
+        suppliers: this.suppliers,
         title: 'Sửa thông tin sản phẩm',
         reloadTable: () => this.getAllProducts(),
       }
     })
+  }
+
+  getAllCategories(){
+    this.service.getAllCategories().subscribe(
+      (it) => {
+        this.categories = it
+        console.log(this.categories);
+      }
+    )
+  }
+
+  getAllSuppliers(){
+    this.supplierService.getAllSuppliers().subscribe(
+      it => {
+        this.suppliers = it;
+      }
+    )
   }
 
   handleDelete(id: string){

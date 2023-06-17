@@ -1,3 +1,6 @@
+import { Category } from "./category.model";
+import { Provider } from "./provider.model";
+
 export class ProductModel {
     foodId?: number;
     foodName?: string;
@@ -6,4 +9,7 @@ export class ProductModel {
     urlImg?: string;
     createDate?: Date;
     description?: string;
+    importPrice?: number;
+    provider?: Provider;
+    category?: Category;
 }

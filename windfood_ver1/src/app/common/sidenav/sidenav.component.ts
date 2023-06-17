@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/components/auth/login/login.service';
 import { navbarData } from 'src/app/navigation';
 
 
@@ -23,7 +24,24 @@ export class SidenavComponent {
 
   navData = navbarData;
 
-  constructor(private router: Router){
+  currentRole?: number;
+  
+  cartLength?: number = 0;
+
+  constructor(private router: Router, 
+    private service: LoginService,
+    ){
+  }
+
+  ngOnInit(){
+    
+    let retrievedString = localStorage.getItem("products");
+
+    // Convert the string back into an array object
+    let retrievedObject = JSON.parse(retrievedString!).length;
+
+    // Log the retrieved array object
+    this.cartLength = retrievedObject; 
   }
 
   toggleCollapse(){
@@ -31,8 +49,12 @@ export class SidenavComponent {
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
   }
 
+  getCurrentRole(){
+    return localStorage.getItem('role');
+  }
+
   isLoggin():boolean{
-    return localStorage.getItem('token') !== null;
+    return !!localStorage.getItem('token');
   }
 
   closeSidenav(){

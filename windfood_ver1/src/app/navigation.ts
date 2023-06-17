@@ -5,11 +5,6 @@ export const navbarData = [
         label: 'Tổng quan'
     },
     {
-        routeLink: 'home',
-        icon: 'fal fa-wallet',
-        label: 'Trang chủ'
-    },
-    {
         routeLink: 'products',
         icon: 'fal fa-box-open',
         label: 'Sản phẩm'
@@ -23,5 +18,10 @@ export const navbarData = [
         routeLink: 'suppliers',
         icon: 'fal fa-light fa-bus',
         label: 'Nhà cung cấp'
+    },
+    {
+        routeLink: 'categories',
+        icon: 'fal fa-light fa-filter',
+        label: 'Phân loại'
     },
 ];

@@ -35,9 +35,8 @@ export class HomeComponent {
 
   initForm(){
     this.form = this.fb.group({
-      // foodSearch: null,
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 9,
     })
   }
 

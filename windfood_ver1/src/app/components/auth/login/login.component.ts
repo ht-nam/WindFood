@@ -40,10 +40,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', it);
         this.service.getCurrentUser().subscribe(
           value => {
-            console.log(value);
+            console.log('tvv-current:', value);
             // ADMIN
-            if(value[0]?.role == 0){
+            if(value?.role == 0){
               this.router.navigate(['dashboard']);
+              localStorage.setItem('role', 'ADMIN')
+            }else{
+              this.router.navigate(['employees/sales']);
+              localStorage.setItem('role', 'NV')
             }
           }
         )

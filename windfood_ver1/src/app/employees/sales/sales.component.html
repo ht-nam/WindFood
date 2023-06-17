@@ -1,0 +1,67 @@
+
+<div class="container-fluid" class="gradient-custom">
+    <!-- <div class="divider"></div> -->
+    <mat-card class="gradient-custom">
+        <mat-card-content >
+          <section class="main-content">
+            <div class="container card" style="transform: translate(18%, -5%);">
+                <mat-card-title class="text-center text-uppercase">SẢN PHẨM</mat-card-title>
+                <br>
+                <br>
+                <form class="row" [formGroup]="foodForm!">
+                    <ng-container formArrayName = "foodCards">
+                        <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let product of products | paginate : {
+                            itemsPerPage: 6,
+                            currentPage: pagination,
+                            totalItems: allFood
+                        }; let i = index">
+                            <div class="food-card" [formGroupName] = "i">
+                                <div class="food-card_img">
+                                    <img src="{{product?.urlImg}}" alt="">
+                                    <!-- <a href="#!"><i class="far fa-heart"></i></a> -->
+                                </div>
+                                <div class="food-card_content">
+                                    <div class="food-card_title-section">
+                                        <a href="#!" class="food-card_title">{{product?.foodName}}</a>
+                                        <span class="food-card_author">Mô tả: {{product?.description}}</span>
+                                        <span class="food-card_author">Số lượng: {{product?.quantity}}</span>
+                                    </div>
+                                    <div class="food-card_bottom-section">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div>
+                                                <button mat-raised-button color="accent" (click)="addToCard(i)">Thêm vào giỏ hàng</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="space-between">
+                                            <div class="food-card_price">
+                                                <span>{{product?.price}} VNĐ</span>
+                                            </div>
+                                            <div class="food-card_order-count">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                       <button class="btn btn-outline-secondary minus-btn" (click)="decreaseQuantity(i)" type="button" id="button-addon1"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                    <input type="text" class="form-control input-manulator" formControlName = "quantity" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="0">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary add-btn" (click)="increaseQuantity(i)" type="button" id="button-addon1"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="d-flex justify-content-center">
+                        <pagination-controls
+                          (pageChange)="renderPage($event)"
+                        ></pagination-controls>
+                    </div>
+                  </form>
+                </div>
+              </section>
+        </mat-card-content>
+    </mat-card>
+</div>

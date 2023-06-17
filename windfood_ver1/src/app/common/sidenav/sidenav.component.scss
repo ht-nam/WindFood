@@ -146,6 +146,10 @@
     }
 
   }
+
+.navbar{
+  height: 70px;
+}
    
 .active{
     background-color: #fff;
@@ -154,4 +158,27 @@
         color: #000;
     }
 }
+
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #6a11cb;
   
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #DE3163, rgba(37, 117, 252, 1));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #DE3163, rgba(37, 117, 252, 1))
+}
+
+.icon-section{
+  position: relative;
+}
+
+.card{
+  position: absolute;
+  width: 20px;
+  top: -30px;
+  left: 20px;
+  height: 20px;
+  background-color: #DE3163;
+  // opacity: 0.2;
+}

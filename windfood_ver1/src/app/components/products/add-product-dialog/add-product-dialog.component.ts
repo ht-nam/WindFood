@@ -5,6 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from 'src/app/common/confirm-dialogg/confirm-dialogg.component';
 import { ProductModel } from 'src/app/models/products.model';
 import { ProductsService } from '../products.service';
+import { SuppliersService } from '../../suppliers/suppliers.service';
+import { NewSupplierDialogComponent } from '../new-supplier-dialog/new-supplier-dialog.component';
+import { Provider } from 'src/app/models/provider.model';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -13,10 +17,22 @@ import { ProductsService } from '../products.service';
 })
 export class AddProductDialogComponent {
 
-  
+
   imageSrc?: string;
 
   form?: UntypedFormGroup;
+
+  suppliers:any
+
+  isShowingTable: boolean = false;
+
+  isShowingCategory: boolean = false;
+
+  categories?: Category[];
+
+  selection = {};
+
+  selectionCategory = {};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: any,
@@ -24,14 +40,23 @@ export class AddProductDialogComponent {
     private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     private toastrService: ToastrService,
-    private service: ProductsService
-    ){
+    private service: ProductsService,
+   ){
       
     }
     
     ngOnInit(){
       this.initForm();
-      console.log(this.defaults.products);
+      this.getAllCategories();
+      this.suppliers = this.defaults.suppliers;
+    }
+
+    getAllCategories(){
+      this.service.getAllCategories().subscribe(
+        (it) => {
+          this.categories = it
+        }
+      )
     }
     
     initForm(){
@@ -42,8 +67,33 @@ export class AddProductDialogComponent {
         quantity: null,
         urlImg: null,
         description: null,
-        createDate: null
+        createDate: null,
+        importPrice: null,
+        provider: null,
+        category: null,
       });
+    }
+
+    showTable(){
+      this.isShowingTable = !this.isShowingTable;
+    }
+
+    showCategory(){
+      this.isShowingCategory = !this.isShowingCategory;
+    }
+
+    onSelect(row: Provider){
+      this.selection = row
+      if(this.selection){
+        this.isShowingTable = false;
+      }
+    }
+
+    onSelectCategory(row: Category){
+      this.selectionCategory = row
+      if(this.selectionCategory){
+        this.isShowingCategory = false;
+      }
     }
 
     onSubmit(){
@@ -56,6 +106,9 @@ export class AddProductDialogComponent {
          onConfirm: () => {
           let data = this.form?.getRawValue() as ProductModel;
           data.urlImg = this.imageSrc;
+          data.provider = this.selection;
+          data.category = this.selectionCategory;
+          console.log(data);
           this.service.addOrEditFood(data).subscribe({
             next: (response) => {
               if(response){

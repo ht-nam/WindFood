@@ -1,6 +1,7 @@
 import { style } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/components/auth/login/login.service';
 
 @Component({
   selector: 'app-body',
@@ -13,11 +14,22 @@ export class BodyComponent {
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
+  currentRole?: number;
+
   isLoggin():boolean{
     return localStorage.getItem('token') !== null;
   }
 
-  constructor(private router: Router){
+  getCurrentUser(){
+    this.service.getCurrentUser().subscribe(
+      value => {
+        // ADMIN
+        this.currentRole = value?.role
+      }
+    )
+  }
+
+  constructor(private router: Router, private service: LoginService){
 
   }
 

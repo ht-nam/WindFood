@@ -19,7 +19,8 @@ export class LoginService {
     return this.http.post<string>(url, person, {headers: requestHeaders, responseType: "json" });
   }
 
-  getCurrentUser():Observable<Person[]>{
-    return this.http.get<Person[]>(this.baseUrl);    
+  getCurrentUser():Observable<Person>{
+    let url = this.baseUrl + '/get-current-user'
+    return this.http.get<Person>(url);    
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
     <h2 class="mt-3">Thêm mới nhân viên</h2>
-    <div class="row">
+    <mat-dialog-content class="row">
         <form [formGroup] = "form!" (ngSubmit)="onSubmit()">
             <div class="form-group row">
               <label for="name" class="col-sm-5 col-form-label">Tên nhân viên:</label>
@@ -24,7 +24,6 @@
                 <label for="status" class="col-sm-5 col-form-label">Vai trò:</label>
                 <div class="col-sm-7 form-input">
                     <select class="form-select" formControlName = "role">
-                        <option selected></option>
                         <option value="0">Admin</option>
                         <option value="1">Nhân viên</option>
                     </select>
@@ -66,5 +65,5 @@
                 </div>
             </div>
         </form>
-    </div>
+    </mat-dialog-content>
 </div>

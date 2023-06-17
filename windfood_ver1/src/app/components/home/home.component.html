@@ -1,75 +1,58 @@
 
 <div class="container-fluid">
-    <div class="row">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="../../../assets/carousel/w2.jpg" alt="First slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="../../../assets/carousel/w2.jpg" alt="Second slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="../../../assets/carousel/w3.jpg" alt="Third slide">
-              </div>
-            </div>
-        </div>
-    </div>
-    <div class="divider"></div>
-    <mat-card>
-      <mat-card-content>
-        <h1 class="text-center">LỌC</h1>
-        <mat-chip-listbox>
-          <mat-chip-option color="accent" selected>Đồ ăn nhanh</mat-chip-option>
-          <mat-chip-option color="accent">Thức uống</mat-chip-option>
-          <mat-chip-option color="accent">Bánh</mat-chip-option>
-          <mat-chip-option color="accent">Combo</mat-chip-option>
-        </mat-chip-listbox>
-      </mat-card-content>
-    </mat-card>
     <div class="divider"></div>
     <mat-card>
         <mat-card-content>
-            <div class="row" style="justify-content: center;">
-                <h1 class="text-center">SẢN PHẨM</h1>
-                <div *ngFor="let it of products | paginate : {
-                    itemsPerPage: 6,
-                    currentPage: pagination,
-                    totalItems: allFood
-                };" class="card col-sm-6 col-md-2 col-lg-2 d-flex justity-content-center">
-                    <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
-                      <img src="{{it?.urlImg}}" class="img-fluid"/>
+          <section class="main-content">
+            <div class="container">
+                <h1 class="text-center text-uppercase">Food Order Card</h1>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="food-card">
+                            <div class="food-card_img">
+                                <img src="https://i.imgur.com/eFWRUuR.jpg" alt="">
+                                <a href="#!"><i class="far fa-heart"></i></a>
+                            </div>
+                            <div class="food-card_content">
+                                <div class="food-card_title-section">
+                                    <a href="#!" class="food-card_title">Double Cheese Potato Burger</a>
+                                    <a href="#!" class="food-card_author">Burger</a>
+                                </div>
+                                <div class="food-card_bottom-section">
+                                    <div class="space-between">
+                                        <div>
+                                            <span class="fa fa-fire"></span> 220 - 280 Kcal
+                                        </div>
+                                        <div class="pull-right">
+                                            <span class="badge badge-success">Veg</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="space-between">
+                                        <div class="food-card_price">
+                                            <span>5.99$</span>
+                                        </div>
+                                        <div class="food-card_order-count">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-secondary minus-btn" type="button" id="button-addon1"><i class="fa fa-minus"></i></button>
+                                                </div>
+                                                <input type="text" class="form-control input-manulator" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="0">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary add-btn" type="button" id="button-addon1"><i class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                      <h1 class="card-title" style="font-weight: 500;">{{it?.foodName}}</h1>
-                      <h3 class="card-text">Giá: {{it?.price}}VNĐ</h3>
-                      <p class="card-text">{{it?.description}}</p>
-                    </div>
-                    <div class="form">
-                          <h4>Nhập số lượng</h4>
-                          <mat-form-field appearance="outline">
-                            <input
-                              type="number"
-                              matInput
-                              name="value"
-                            >
-                              <!-- formControlName="value" -->
-                              <!-- (change)="xxx()" -->
-                            </mat-form-field>
-                        <a class="btn btn-primary mb-2">Thêm</a>
-                    </div>
+                  </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <pagination-controls
-                  (pageChange)="renderPage($event)"
-                ></pagination-controls>
-            </div>
+              </section>
         </mat-card-content>
     </mat-card>
 </div>

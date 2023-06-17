@@ -22,6 +22,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import HC_exporting from 'highcharts/modules/exporting';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from './common/confirm-dialogg/confirm-dialogg.component';
+import { EditCategoryDialogComponent } from './components/categories/edit-category-dialog/edit-category-dialog.component';
 HC_exporting(Highcharts);
 
 @NgModule({
@@ -31,6 +32,7 @@ HC_exporting(Highcharts);
     SidenavComponent,
     BodyComponent,
     ConfirmDialoggComponent,
+    EditCategoryDialogComponent,
   ],
   imports: [
     AppRoutingModule,
