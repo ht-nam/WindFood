@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Form, FormArray, FormControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MatTabGroup } from '@angular/material/tabs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CategoriesService } from 'src/app/components/categories/categories.service';
 import { ProductsService } from 'src/app/components/products/products.service';
 
 @Component({
@@ -22,11 +24,21 @@ export class SalesComponent {
 
   productArr = [] as any;
 
+  categories = [] as any;
+
+  productFilter = [] as any;
+
   foodQuantityForm?: UntypedFormGroup;
+  
+  productCategory = [] as any;
+
+  @ViewChild('tabGroup') tabGroup?: MatTabGroup;
 
   constructor(private service: ProductsService, 
     private fb: UntypedFormBuilder,
     private loader: NgxSpinnerService,
+    private cateService: CategoriesService,
+    private productService: ProductsService
     ){
 
   }
@@ -61,8 +73,29 @@ export class SalesComponent {
         }
       }
     )
+    this.getListOfCategory();
+    this.getByCategory();
   }
 
+  onTabClick(event){
+    this.productCategory = this.productFilter.filter(value => value?.category?.categoryName?.includes(event?.tab?.textLabel))
+  }
+
+  getListOfCategory(){
+    this.cateService.getAllCategories().subscribe(
+      it => {
+        this.categories = it;
+      }
+    );
+  }
+
+  getByCategory(){
+    this.productService.getByCategory().subscribe(
+      it => {
+        this.productFilter = it;
+      }
+    )
+  }
 
   initForm(){
     this.form = this.fb.group({

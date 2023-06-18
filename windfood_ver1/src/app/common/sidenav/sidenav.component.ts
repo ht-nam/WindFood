@@ -38,7 +38,7 @@ export class SidenavComponent {
     let retrievedString = localStorage.getItem("products");
 
     // Convert the string back into an array object
-    let retrievedObject = JSON.parse(retrievedString!).length;
+    let retrievedObject = JSON.parse(retrievedString!)?.length;
 
     // Log the retrieved array object
     this.cartLength = retrievedObject; 

@@ -23,6 +23,7 @@ import HC_exporting from 'highcharts/modules/exporting';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from './common/confirm-dialogg/confirm-dialogg.component';
 import { EditCategoryDialogComponent } from './components/categories/edit-category-dialog/edit-category-dialog.component';
+import { PaymentComponent } from './employees/payment/payment.component';
 HC_exporting(Highcharts);
 
 @NgModule({

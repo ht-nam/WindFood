@@ -56,6 +56,10 @@ const routes: Routes = [
         path: 'cart',
         loadChildren: () => import('./employees/my-cart/my-cart-routing.module').then(m => m.CartRoutingModule)
       },
+      {
+        path: 'payment',
+        loadChildren: () => import('./employees/payment/payment-routing.module').then(m => m.PaymentRoutingModule)
+      },
     ]
   },
   {

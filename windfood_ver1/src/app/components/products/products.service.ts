@@ -39,4 +39,9 @@ export class ProductsService {
     let url = this.categoryUrl;
     return this.httpClient.get<Category[]>(url);
   }
+
+  getByCategory(): Observable<any>{
+    let url = this.baseUrl + '/by-category';
+    return this.httpClient.get<any>(url);
+  }
 }

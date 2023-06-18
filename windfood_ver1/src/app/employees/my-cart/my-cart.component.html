@@ -1,73 +1,78 @@
-<section class="h-100 gradient-custom">
+<section class="gradient-custom" style="height: 100%;">
     <div class="container py-5">
-      <div class="row d-flex justify-content-center my-4">
+      <div class="row d-flex justify-content-center my-4" >
         <div class="col-md-8">
           <div class="card mb-4">
             <div class="card-header py-3">
               <h5 class="mb-0">Giỏ hàng - {{cartLength}} sản phẩm</h5>
             </div>
             {{setTotalMoney(0)}}
-            <ng-container *ngFor="let item of items">
-                <div class="card-body">
-                    <!-- Single item -->
-                    <div class="row">
-                      <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                        <!-- Image -->
-                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                          <img src="{{item?.products?.urlImg}}"
-                            class="w-100" alt="Blue Jeans Jacket" />
-                          <a href="#!">
-                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                          </a>
-                        </div>
-                        <!-- Image -->
-                      </div>
-        
-                      <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                        <!-- Data -->
-                        <p><strong>{{item?.products?.foodName}}</strong></p>
-                        <p>Mô tả: {{item?.products?.description}}</p>
-                        <p>Số lượng: {{item?.value}}</p>
-                        <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
-                          title="Remove item">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                        <!-- Data -->
-                      </div>
-        
-                      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                        <!-- Quantity -->
-                        <div class="d-flex mb-4" style="max-width: 300px">
-                          <button class="btn btn-primary px-3 me-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
-        
-                          <div class="form-outline">
-                            <input id="form1" min="0" name="quantity" value="{{item?.value}}" type="number" class="form-control" />
-                            <label class="form-label" for="form1">Số lượng</label>
+            <form class="row" [formGroup]="paymentForm!">
+              <ng-container formArrayName = "foodCards">
+                <ng-container *ngFor="let item of items; let i = index">
+                  <div class="card-body" [formGroupName] = "i">
+                      <!-- Single item -->
+                      <div class="row">
+                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                          <!-- Image -->
+                          <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                            <img src="{{item?.products?.urlImg}}"
+                              class="w-100" alt="Blue Jeans Jacket" />
+                            <a href="#!">
+                              <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                            </a>
                           </div>
-        
-                          <button class="btn btn-primary px-3 ms-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
+                          <!-- Image -->
                         </div>
-                        <!-- Quantity -->
-        
-                        <!-- Price -->
-                        <p class="text-start text-md-center">
-                          <strong>{{item.value * item?.products?.price}} VNĐ</strong>
-                        </p>
-                        <!-- Price -->
+          
+                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                          <!-- Data -->
+                          <p><strong>{{item?.products?.foodName}}</strong></p>
+                          <p>Mô tả: {{item?.products?.description}}</p>
+                          <p>Giá/1 Sản Phẩm: {{item?.products?.price}} VNĐ</p>
+                          <p>Số lượng: <input class="quantity" type="text" formControlName = "quantity"></p>
+                          <button type="button" (click)="deleteProductCart(i)" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                            title="Remove item">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                          <!-- Data -->
+                        </div>
+          
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                          <!-- Quantity -->
+                          <div class="d-flex mb-4" style="max-width: 300px">
+                            <button class="btn btn-primary px-3 me-2"
+                              (click)="decreaseQuantity(i)">
+                              <i class="fas fa-minus"></i>
+                            </button>
+          
+                            <div class="form-outline">
+                              <input id="form1" min="0" name="quantity" formControlName = "quantity" type="number" class="form-control" />
+                              <label class="form-label" for="form1">Số lượng</label>
+                            </div>
+          
+                            <button class="btn btn-primary px-3 ms-2"
+                              (click)="increaseQuantity(i)">
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                          <!-- Quantity -->
+          
+                          <!-- Price -->
+                          <p class="text-start text-md-center">
+                            <input type="text" formControlName = "price">
+                          </p>
+                          <!-- Price -->
+                        </div>
                       </div>
+                      <!-- Single item -->
+          
+                      <hr class="my-4" />
+                      <!-- Single item -->
                     </div>
-                    <!-- Single item -->
-        
-                    <hr class="my-4" />
-                    <!-- Single item -->
-                  </div>
-            </ng-container>
+                </ng-container>
+              </ng-container>
+            </form>
           </div>
           <div class="card mb-4 mb-lg-0">
             <div class="card-body">
@@ -84,7 +89,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <form class="col-md-4" [formGroup]="totalForm!">
           <div class="card mb-4">
             <div class="card-header py-3">
               <h5 class="mb-0">Tổng tiền</h5>
@@ -99,7 +104,7 @@
                       <p class="mb-0">(đã bao gồm VAT)</p>
                     </strong>
                   </div>
-                  <span><strong>{{summary() + 'VNĐ'}}</strong></span>
+                  <span><input type="text" formControlName = "summary"></span>
                 </li>
               </ul>
   
@@ -108,7 +113,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </section>
