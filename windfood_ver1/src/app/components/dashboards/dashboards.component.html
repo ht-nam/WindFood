@@ -1,6 +1,25 @@
 <div class="container">
     <mat-card>
         <mat-card-content>
+            <form class="row" [formGroup]="form!" (ngSubmit)="onSubmit()">
+                <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
+                    <mat-label>Ngày thống kê từ</mat-label>
+                    <input matInput formControlName = 'fromDate' [matDatepicker]="picker1">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                  
+                  <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
+                    <mat-label>Ngày thống kê đến</mat-label>
+                    <input matInput formControlName = 'toDate' [matDatepicker]="picker2">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                  </mat-form-field>
+                  
+                  <button mat-raised-button color="accent" class="col-md-4 col-lg-4 col-xl-4">Tìm kiếm</button>
+            </form>
             <div class="row">
                 <div class="col-sm-12 col-md-3 col-xl-3 col-lg-3">
                     <div class="mt-4 card ml-2">
@@ -84,40 +103,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6">
-                    <mat-card class="mat-elevation-z3">
-                        <mat-card-content>
-                            <h3 style="margin-left: 1em;">Đơn hàng gần đây</h3>
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Đồ ăn
-                                            </th>
-                                            <th>
-                                                Giá
-                                            </th>
-                                            <th>
-                                                ID
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <ng-container *ngFor="let it of products; let i = index">
-                                            <tr id="{{i}}">
-                                                <td>{{it?.foodName}}</td>
-                                                <td>{{it?.price}}</td>
-                                                <td>{{it?.foodId}}</td>
-                                            </tr>
-                                        </ng-container>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="col-sm-12 col-md-6 col-xl-6 col-lg-6">
+                <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                     <mat-card class="mat-elevation-z3">
                         <mat-card-content style="padding: 0;">
                             <div [chart]="horizontalBarChart"></div>

@@ -24,4 +24,9 @@ export const navbarData = [
         icon: 'fal fa-light fa-filter',
         label: 'Phân loại'
     },
+    {
+        routeLink: 'bills',
+        icon: 'fal fa-light fa-money-bill',
+        label: 'Hoá đơn'
+    },
 ];

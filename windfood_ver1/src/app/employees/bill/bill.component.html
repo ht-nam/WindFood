@@ -1,4 +1,4 @@
-<div class="container" style="height: 100%;"class="gradient-custom">
+<div [ngClass]="{'gradient-custom container-fluid': getCurrentRole() === 'NV', 'container' : getCurrentRole() === 'ADMIN'}" style="height: 100%;">
     <!-- <div class="divider"></div> -->
     <mat-card class="">
         <mat-card-content>
@@ -45,7 +45,18 @@
                                         <td>{{it?.creator?.name}}</td>
                                         <td>
                                             <button color="primary" mat-raised-button (click)="editProduct(it)" style="margin-right: 10px"><mat-icon>create</mat-icon>Sửa</button>
-                                            <button color="warn" *ngIf="getCurrentRole() !== 'NV'" mat-raised-button (click)="handleDelete(it?.foodId)"><mat-icon>delete</mat-icon>Xoá</button>
+                                            <button color="warn" *ngIf="getCurrentRole() !== 'NV'" mat-raised-button (click)="handleDelete(it?.billId)"><mat-icon>delete</mat-icon>Xoá</button>
+                                        </td>
+                                    </tr>
+                                    <tr id="{{i}}" *ngIf="getCurrentRole() !== 'NV'">
+                                        <td>{{i + 1}}</td>
+                                        <td>{{it?.foodBills?.length}}</td>
+                                        <td>{{it?.totalPrice}}</td>
+                                        <td>{{it?.paymentMethod}}</td>
+                                        <td>{{it?.creator?.name}}</td>
+                                        <td>
+                                            <button color="primary" mat-raised-button (click)="editProduct(it)" style="margin-right: 10px"><mat-icon>create</mat-icon>Sửa</button>
+                                            <button color="warn" *ngIf="getCurrentRole() !== 'NV'" mat-raised-button (click)="handleDelete(it?.billId)"><mat-icon>delete</mat-icon>Xoá</button>
                                         </td>
                                     </tr>
                                 </ng-container>

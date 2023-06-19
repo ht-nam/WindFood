@@ -39,7 +39,6 @@ HC_exporting(Highcharts);
     ConfirmDialoggComponent,
     EditCategoryDialogComponent,
     SpinnerComponent,
-    BillEditDialogComponent,
   ],
   imports: [
     AppRoutingModule,

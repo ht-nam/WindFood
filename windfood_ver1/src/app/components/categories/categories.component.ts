@@ -107,6 +107,7 @@ export class CategoriesComponent {
         this.service.deleteCategory(id).subscribe(
           {
             next: (response) => {
+              this.getAllCategories();
             },
             error: (err) => {
               this.toastrService.warning("Xoá thất bại", "Thông báo", {
