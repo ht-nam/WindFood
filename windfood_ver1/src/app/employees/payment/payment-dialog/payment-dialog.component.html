@@ -1,0 +1,83 @@
+<div class="paypal-container" *ngIf="data.paymentMethod === 'qr'">
+    <div class="qrcodeImage">
+        <qrcode
+            [qrdata]="'https://www.paypal.com/paypalme/chutatu1@gmail.com'"
+            [allowEmptyString]="true"
+            [ariaLabel]="'QR Code image with the following content...'"
+            [cssClass]="'center'"
+            [colorDark]="'#000000ff'"
+            [colorLight]="'#ffffffff'"
+            [elementType]="'canvas'"
+            [errorCorrectionLevel]="'M'"
+            [imageHeight]="75"
+            [imageWidth]="75"
+            [margin]="4"
+            [scale]="1"
+            [title]="'A custom title attribute'"
+            [width]="300"
+        ></qrcode>
+        </div>
+</div>
+
+<section style="width: 100%;" *ngIf="data.paymentMethod === 'Thẻ Ngân Hàng'">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-11 col-lg-11 col-xl-11">
+      <div class="card rounded-3">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <h3>Settings</h3>
+            <h6>Payment</h6>
+          </div>
+          <form action="">
+            <p class="fw-bold mb-4 pb-2">Saved cards:</p>
+
+            <div class="d-flex flex-row align-items-center mb-4 pb-1">
+              <img class="img-fluid" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input type="text" id="formControlLgXc" class="form-control form-control-lg"/>
+                  <label class="form-label" for="formControlLgXc">Card Number</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row align-items-center mb-4 pb-1">
+              <img class="img-fluid" src="https://img.icons8.com/color/48/000000/visa.png" />
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input type="text" id="formControlLgXs" class="form-control form-control-lg"/>
+                  <label class="form-label" for="formControlLgXs">Card Number</label>
+                </div>
+              </div>
+            </div>
+
+            <p class="fw-bold mb-4">Add new card:</p>
+
+            <div class="form-outline mb-4">
+              <input type="text" id="formControlLgXsd" class="form-control form-control-lg"/>
+              <label class="form-label" for="formControlLgXsd">Cardholder's Name</label>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-7">
+                <div class="form-outline">
+                  <input type="text" id="formControlLgXM" class="form-control form-control-lg"/>
+                  <label class="form-label" for="formControlLgXM">Card Number</label>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-outline">
+                  <input type="password" id="formControlLgExpk" class="form-control form-control-lg"
+                    placeholder="MM/YYYY" />
+                  <label class="form-label" for="formControlLgExpk">Expire</label>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-success btn-lg btn-block" (click)="onPayment()">Add card</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

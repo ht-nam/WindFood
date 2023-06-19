@@ -1,5 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { FormControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-payment',
@@ -14,43 +17,35 @@ export class PaymentComponent {
 
   paypalUrl = 'https://www.paypal.com/paypalme/yourname';
 
-  constructor(private router: Router){
+  form?: UntypedFormGroup;
+
+  data = [] as any;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public defaults: any,
+    private dialogRef: MatDialogRef<PaymentComponent>,
+    private router: Router, private fb: UntypedFormBuilder, private dialog: MatDialog){
     
   }
 
   ngOnInit(){
-    // window.paypal.Buttons({
-    //   // style: {
-    //   //   layout: 'horizontal',
-    //   //   color: 'blue',
-    //   //   shape: 'rect',
-    //   //   label: 'paypal'
-    //   // }
-    //   createOrder: (data: any, actions: any) => {
-    //     return actions.order.create(
-    //       {
-    //         purchase_units: [
-    //           {
-    //             amount: {
-    //               value: this.amount.toString(),
-    //               currency_code: 'USD'
-    //             }
-    //           }
-    //         ]
-    //       },);
-    //   },
-    //   onApprove: (data: any, actions: any) => {
-    //    return actions.order.capture().then((details) => {
-    //     if(details.status === 'COMPLETED'){
-    //       this.payment = 
-    //     }
-    //   })     
-    //   },
-    //   onError: (err: any) =>{
-    //     console.log(err);
-    //   }
-    // },
+    this.data = this.defaults.cart;
+    
+    this.form = this.fb.group({
+      // totalPrice: this.totalPrice,
+      paymentMethod: new FormControl('qr'),
+    });
+  }
 
-    // ).render(this.paymentRef.nativeElement);
+  onSubmit(){
+    this.data['paymentMethod'] = this.form?.get('paymentMethod')?.value;
+    this.dialogRef.close();
+    this.dialog.open(PaymentDialogComponent, {
+      height: 'auto',
+      width: 'auto',
+      data: {
+        cart: this.data
+      }
+    })
   }
 }

@@ -3,17 +3,17 @@ import { Person } from "./person.model";
 
 export class Bill {
 
-    bill_id?: number;
+    billId?: number;
 
     totalPrice?: number;
 
-    createdDate?: Date;
+    createDate?: Date;
 
-    payment_method?: string;
+    paymentMethod?: string;
 
     creator?: Person;
 
-    foodBills?: FoodBill;
+    foodBills?: FoodBill[];
 
     constructor() {
         

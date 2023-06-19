@@ -60,6 +60,10 @@ const routes: Routes = [
         path: 'payment',
         loadChildren: () => import('./employees/payment/payment-routing.module').then(m => m.PaymentRoutingModule)
       },
+      {
+        path: 'bills',
+        loadChildren: () => import('./employees/bill/bills-routing.module').then(m => m.BillRoutingModule)
+      },
     ]
   },
   {

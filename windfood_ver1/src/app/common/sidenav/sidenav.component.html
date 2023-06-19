@@ -61,19 +61,19 @@
         <a class="text-reset me-3" [routerLink]="'employees/cart'">
           <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
         </a>
-        <div class="card" style="color: black; text-align: center;">{{cartLength}}</div>
+        <!-- <div class="card" style="color: black; text-align: center;">{{cartLength}}</div> -->
       </div>
       <div class="dropdown">
         <button mat-button [matMenuTriggerFor]="menu"><img
-          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+          src="{{user?.url_img}}"
           class="rounded-circle"
           height="25"
-          alt="Black and White Portrait of a Man"
+          alt="img"
           loading="lazy"
         /></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Thông tin cá nhân</button>
-          <button mat-menu-item (click)="signOut()">Đăng xuất</button>
+          <button mat-menu-item type="button" [routerLink]="'employees/bills'">Quản lý hoá đơn</button>
+          <button mat-menu-item type="button" (click)="signOut()">Đăng xuất</button>
         </mat-menu>
       </div>
     </div>

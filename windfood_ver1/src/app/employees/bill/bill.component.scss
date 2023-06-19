@@ -1,0 +1,37 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap);
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #DE3163, rgba(37, 117, 252, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #DE3163, rgba(37, 117, 252, 1))
+}
+
+.table-container{
+    width: 100%;
+    height: 70vh;
+    th,
+    td {
+      padding: 15px 3px;
+      // margin: px;
+      border: 1px solid #DBDBDB;
+      white-space: nowrap;
+      // overflow: hidden;
+      text-align: center;
+      // font-size: 14px;
+    }
+    th {
+        background-color: #fff;
+        color: #fff;
+    }
+    th:nth-child(odd) {
+        background-color: #DE3163;
+    }
+    th:nth-child(even) {
+        background-color: rgba(37, 117, 252, 1);
+    }
+}

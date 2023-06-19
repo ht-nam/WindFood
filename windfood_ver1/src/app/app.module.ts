@@ -24,6 +24,10 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { ConfirmDialoggComponent } from './common/confirm-dialogg/confirm-dialogg.component';
 import { EditCategoryDialogComponent } from './components/categories/edit-category-dialog/edit-category-dialog.component';
 import { PaymentComponent } from './employees/payment/payment.component';
+import { PaymentDialogComponent } from './employees/payment/payment-dialog/payment-dialog.component';
+import { SpinnerComponent } from './common/spinner/spinner.component';
+import { BillComponent } from './employees/bill/bill.component';
+import { BillEditDialogComponent } from './employees/bill/bill-edit-dialog/bill-edit-dialog.component';
 HC_exporting(Highcharts);
 
 @NgModule({
@@ -34,6 +38,8 @@ HC_exporting(Highcharts);
     BodyComponent,
     ConfirmDialoggComponent,
     EditCategoryDialogComponent,
+    SpinnerComponent,
+    BillEditDialogComponent,
   ],
   imports: [
     AppRoutingModule,

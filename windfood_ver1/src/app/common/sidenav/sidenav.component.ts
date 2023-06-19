@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/components/auth/login/login.service';
+import { Person } from 'src/app/models/person.model';
 import { navbarData } from 'src/app/navigation';
 
 
@@ -28,6 +29,8 @@ export class SidenavComponent {
   
   cartLength?: number = 0;
 
+  user: any;
+
   constructor(private router: Router, 
     private service: LoginService,
     ){
@@ -42,11 +45,22 @@ export class SidenavComponent {
 
     // Log the retrieved array object
     this.cartLength = retrievedObject; 
+
+    this.service.getCurrentUser().subscribe(
+      it => {
+        this.user = it
+        console.log('sidenav', this.user);
+      }
+    )
   }
 
   toggleCollapse(){
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+  }
+
+  navigateToBill(){
+    this.router.navigate['employees/bills'];
   }
 
   getCurrentRole(){
