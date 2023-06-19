@@ -6,6 +6,8 @@ import { DashboardsService } from './dashboards.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductModel } from 'src/app/models/products.model';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { PaymentService } from 'src/app/employees/payment/payment.service';
 
 @Component({
   selector: 'app-dashboards',
@@ -30,11 +32,13 @@ export class DashboardsComponent implements OnInit {
 
   datas: Object[] = [];
 
+  form?: UntypedFormGroup;
+
   products: ProductModel[] = [];
 
   key = 0;
 
-  constructor(private dashboardService: DashboardsService, private router: Router) {
+  constructor(private dashboardService: DashboardsService, private router: Router, private fb: UntypedFormBuilder, private service: PaymentService) {
 
   }
 
@@ -48,29 +52,21 @@ export class DashboardsComponent implements OnInit {
     this.initCustomerChart();
     this.intiNewCustomerChart();
     this.initHorizontalBarChart();
-    this.products.push({
-      'foodName': 'Hamburger',
-      'price': 2000,
-      'foodId': 1,
-    },
-    {
-      'foodName': 'Hamburger',
-      'price': 2000,
-      'foodId': 1,
-    },{
-      'foodName': 'Hamburger',
-      'price': 2000,
-      'foodId': 1,
-    },
-    {
-      'foodName': 'Hamburger',
-      'price': 2000,
-      'foodId': 1,
-    },{
-      'foodName': 'Hamburger',
-      'price': 2000,
-      'foodId': 1,
-    }
+    this.initForm()
+}
+
+  initForm(){
+    this.form = this.fb.group({
+        fromDate: null,
+        toDate: null 
+    })
+  }
+
+  onSubmit(){
+    this.service.getBillDashboard(this.form?.value).subscribe(
+        (it) => {
+            
+        }
     )
   }
 

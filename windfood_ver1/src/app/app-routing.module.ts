@@ -34,7 +34,11 @@ const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () => import('./components/categories/categories-routing.module').then(m => m.CategoriesRoutingModule),
-      }
+      },
+      {
+        path: 'bills',
+        loadChildren: () => import('./employees/bill/bills-routing.module').then(m => m.BillRoutingModule)
+      },
     ]
   },
   {

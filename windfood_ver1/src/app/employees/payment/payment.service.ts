@@ -33,4 +33,9 @@ export class PaymentService {
     let url = this.baseUrl + `/${id}`;
     return this.httpClient.delete<any>(url);
   }
+
+  getBillDashboard(object: Object):Observable<any>{
+    let url = this.baseUrl + '/dashboard';
+    return this.httpClient.post(url, object, {responseType: 'json'});
+  }
 }

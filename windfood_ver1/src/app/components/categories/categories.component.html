@@ -38,7 +38,7 @@
                             totalItems: allCategories
                         }; let i = index">
                             <tr id="{{i}}">
-                                <td>{{it?.categoryId}}</td>
+                                <td>{{i + 1}}</td>
                                 <td>{{it?.categoryName}}</td>
                                 <td style="width: 300px;">
                                     <button color="primary" mat-raised-button (click)="editCategory(it)" style="margin-right: 10px"><mat-icon>create</mat-icon>Sửa</button>
