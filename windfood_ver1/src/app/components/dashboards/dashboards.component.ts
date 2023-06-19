@@ -18,7 +18,11 @@ export class DashboardsComponent implements OnInit {
 
   barChart?:Chart;
 
+  barChart1?:Chart;
+
   options?: Highcharts.Options;
+
+  options1?: Highcharts.Options;
 
   trendingChart?: Chart;
 
@@ -30,42 +34,86 @@ export class DashboardsComponent implements OnInit {
 
   horizontalBarChart?: Chart;
 
-  datas: Object[] = [];
+  datas = [  
+    [1, 225000],
+  [2, 225000],
+  [3, 254000],
+  [4, 325000],
+  [5, 425000],
+  [6, 625000],
+  [7, 722500],
+  [8, 725000],
+  [9, 925000],
+  [10, 1022500],
+  [11, 3225000],
+  [12, 2225000],
+];
 
   form?: UntypedFormGroup;
 
   products: ProductModel[] = [];
 
+  summary:any;
+
   key = 0;
+
+  incomeChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0];
+
+  profitChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
   constructor(private dashboardService: DashboardsService, private router: Router, private fb: UntypedFormBuilder, private service: PaymentService) {
 
   }
 
   ngOnInit() {
-    this.options = this.dashboardService.buildBarChart('Biểu đồ doanh thu',
-      ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Thángs 9', 'Tháng 10','Tháng 11', 'Tháng 12'], '', 'Doanh Thu', [10, 2, 4, 0, 0, 10, 2, 4, 0, 0, 32,23]);
-    
-      this.barChart = new Chart(this.options)
-    this.initTrendingChart();
-    this.initOrderChart();
-    this.initCustomerChart();
-    this.intiNewCustomerChart();
-    this.initHorizontalBarChart();
-    this.initForm()
+      this.initForm();
+      this.onSubmit();
 }
 
   initForm(){
     this.form = this.fb.group({
-        fromDate: null,
-        toDate: null 
+        fromDate: new Date().toISOString().split('T')[0],
+        toDate: new Date().toISOString().split('T')[0], 
     })
   }
 
   onSubmit(){
+    console.log('tvv', this.form?.value);
     this.service.getBillDashboard(this.form?.value).subscribe(
-        (it) => {
-            
+        {
+            next: (response) =>{
+                this.summary = response;
+            },
+            error: (err) => {
+                console.log(err);
+            },
+            complete: () => {
+                for (let index = 0; index < this.summary.length; index++) {
+                    // if(this.summary[index].month === 6){
+                    
+                    this.incomeChart[this.summary[index].month - 1] = parseInt(this.summary[index].revenue)
+
+                    this.profitChart[this.summary[index].month - 1] = parseInt(this.summary[index].profit)
+                    
+                    // }
+                    console.log('summary', this.summary[index].profit);
+                                        
+                } 
+                console.log(this.incomeChart);
+                this.options = this.dashboardService.buildBarChart('Biểu đồ doanh thu',
+                ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Thángs 9', 'Tháng 10','Tháng 11', 'Tháng 12'], '', 'Doanh Thu', this.incomeChart);
+
+                this.options1 = this.dashboardService.buildBarChart('Biểu đồ lợi nhuận',
+                ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Thángs 9', 'Tháng 10','Tháng 11', 'Tháng 12'], '', 'Doanh Thu', this.profitChart);
+                
+                this.barChart = new Chart(this.options);
+                this.barChart1 = new Chart(this.options1);
+                this.initTrendingChart();
+                this.initOrderChart();
+                this.initCustomerChart();
+                this.intiNewCustomerChart();
+                this.initHorizontalBarChart();
+            }
         }
     )
   }

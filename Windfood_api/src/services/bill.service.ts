@@ -80,10 +80,7 @@ export const getDashboard = async (fromDate: string | null, toDate: string | nul
       FROM food_bill fb
       JOIN food f ON f.food_id = fb.food_id ${dateCondition}
       group BY fb.bill_id
-    ) AS tmp GROUP BY tmp.thang`;
-  console.log(queryString);
-  console.log(fromDate);
-  console.log(toDate);
+    ) AS tmp GROUP BY tmp.thang ORDER BY tmp.thang`;
   let rs = await myDataSource.manager.query(queryString);
   return rs;
 }

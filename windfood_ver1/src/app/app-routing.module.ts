@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'employees',
-    canActivate: [authGuard],
+    canActivate: [authGuard, roleGuard],
     data: {
       role: 'NV'
     },
