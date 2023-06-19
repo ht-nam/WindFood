@@ -66,11 +66,11 @@ export const getDashboard = async (fromDate: string | null, toDate: string | nul
   let dateCondition = "";
 
   if (fromDate && toDate) {
-    dateCondition = `WHERE (fb.create_date BETWEEN DATE('${fromDate}') AND DATE('${toDate}')) `;
+    dateCondition = `WHERE (DATE(fb.create_date) BETWEEN DATE('${fromDate}') AND DATE('${toDate}')) `;
   } else if (fromDate) {
-    dateCondition = `WHERE (fb.create_date > DATE('${fromDate}')) `;
+    dateCondition = `WHERE (DATE(fb.create_date) > DATE('${fromDate}')) `;
   } else if (toDate) {
-    dateCondition = `WHERE (fb.create_date < DATE('${toDate}')) `;
+    dateCondition = `WHERE (DATE(fb.create_date) < DATE('${toDate}')) `;
   }
 
   let queryString: string =
@@ -81,6 +81,9 @@ export const getDashboard = async (fromDate: string | null, toDate: string | nul
       JOIN food f ON f.food_id = fb.food_id ${dateCondition}
       group BY fb.bill_id
     ) AS tmp GROUP BY tmp.thang`;
-  let [rs] = await myDataSource.manager.query(queryString);
+  console.log(queryString);
+  console.log(fromDate);
+  console.log(toDate);
+  let rs = await myDataSource.manager.query(queryString);
   return rs;
 }
