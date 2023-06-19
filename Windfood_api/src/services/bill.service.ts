@@ -30,6 +30,7 @@ export const saveOrUpdate = async (newItem: Bill): Promise<Bill> => {
         food.quantity -= e.quantity;
         foodRepository.save(food);
       }
+      e.createDate = newItem.createDate;
     });
   }
   return billRepository.save(newItem);
