@@ -15,7 +15,7 @@ export class Food {
   @PrimaryGeneratedColumn({ name: "food_id" })
   foodId: number;
 
-  @Column({ name: "food_name", length: 255 })
+  @Column({ name: "food_name", length: 255, collation: 'utf8mb4_vietnamese_ci' })
   foodName?: string;
 
   @Column({ name: "quantity" })

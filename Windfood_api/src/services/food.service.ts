@@ -4,15 +4,15 @@
 
 import { Food } from "../entities/food.entity";
 import { Provider } from "../entities/provider.entity";
-import { myDataSource } from "../instances/data-source";
+import { myDataSource, meiliSearchClient } from "../instances/data-source";
 import { Category } from "../entities/category.entity";
-import { FindManyOptions } from "typeorm";
+import { FindManyOptions, Like } from "typeorm";
 
 /**
  * In-Memory Store
  */
-
 const foodRepository = myDataSource.getRepository(Food);
+const foodIndex = meiliSearchClient.index('food');
 
 /**
  * Service Methods
@@ -42,20 +42,21 @@ export const remove = async (id: number): Promise<boolean> => {
   }
 };
 
-export const paging = async (pageIndex: number, pageSize: number) => {
+export const paging = async (pageIndex: number, pageSize: number, keyword: string) => {
   try {
-    console.log("a");
-
+    if (keyword != undefined) {
+      const search = await foodIndex.search(keyword, { page: pageIndex, hitsPerPage: pageSize });
+      return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
+    }
     const [result, total] = await foodRepository.findAndCount({
-      // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
+      where: keyword != undefined ? { foodName: Like('%' + keyword + '%') } : {},
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
       order: {
         createDate: "DESC"
       }
     });
-
-    return { data: result, count: total };
+    return { data: result, count: total, hasNext: pageIndex * pageSize < total };
   } catch (e) {
     return null;
   }

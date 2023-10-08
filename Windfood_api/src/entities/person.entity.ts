@@ -15,7 +15,7 @@ export class Person {
   @Column({ name: "role" })
   role?: number;   //admin: 0, staff: 1
 
-  @Column({ name: "name", length: 255 })
+  @Column({ name: "name", length: 255, collation: 'utf8mb4_vietnamese_ci' })
   name?: string;
 
   @Column({ name: "phone_number", length: 10, nullable: true })

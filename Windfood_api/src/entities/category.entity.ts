@@ -6,7 +6,7 @@ export class Category {
   @PrimaryGeneratedColumn({ name: "category_id" })
   categoryId: number;
 
-  @Column({ name: "category_name", length: 255 })
+  @Column({ name: "category_name", length: 255, collation: 'utf8mb4_vietnamese_ci' })
   categoryName?: string;
 
   @Column({ name: "create_date", default: null })

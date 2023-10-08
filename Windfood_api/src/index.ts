@@ -30,7 +30,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(Router.PATH, Router.router);
-
+// initialMeiliSearch();
 /**
  * Server Activation
  */

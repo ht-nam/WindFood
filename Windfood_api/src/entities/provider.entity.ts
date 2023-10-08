@@ -6,7 +6,7 @@ export class Provider {
   @PrimaryGeneratedColumn({ name: "provider_id" })
   providerId: number;
 
-  @Column({ name: "provider_name", length: 255 })
+  @Column({ name: "provider_name", length: 255, collation: 'utf8mb4_vietnamese_ci' })
   providerName?: string;
 
   @Column({ name: "create_date", default: null })

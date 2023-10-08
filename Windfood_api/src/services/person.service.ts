@@ -2,15 +2,17 @@
  * Data Model Interfaces
  */
 
-import { FindOptionsWhere } from "typeorm";
+import { FindOptionsWhere, Like } from "typeorm";
 import { Person } from "../entities/person.entity";
-import { myDataSource } from "../instances/data-source";
+import { meiliSearchClient, myDataSource } from "../instances/data-source";
 
 /**
  * In-Memory Store
  */
 
 const personRepository = myDataSource.getRepository(Person);
+let personIndex = meiliSearchClient.index('person');
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -73,19 +75,23 @@ export const login = async (person: Person): Promise<String> => {
   }
 };
 
-const hashedPassword = async (password: String): Promise<String> => {
+const hashedPassword = async (password: String): Promise<string> => {
   return await bcrypt.hash(password, await bcrypt.genSalt(10));
 };
 
-const generateToken = async (id: number): Promise<String> => {
+const generateToken = async (id: number): Promise<string> => {
   const token = jwt.sign({ _id: id }, process.env.JWT_KEY, { expiresIn: 60 * 60 * 24 });
   return token;
 };
 
-export const paging = async (pageIndex: number, pageSize: number) => {
+export const paging = async (pageIndex: number, pageSize: number, keyword: string) => {
   try {
+    if (keyword != undefined) {
+      const search = await personIndex.search(keyword, { page: pageIndex, hitsPerPage: pageSize });
+      return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
+    }
     const [result, total] = await personRepository.findAndCount({
-      // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
+      where: { name: Like('%' + keyword + '%') },
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
       order: {
@@ -93,7 +99,7 @@ export const paging = async (pageIndex: number, pageSize: number) => {
       }
     });
 
-    return { data: result, count: total };
+    return { data: result, count: total, hasNext: pageIndex * pageSize < total };
   } catch (e) {
     return null;
   }

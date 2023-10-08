@@ -33,8 +33,8 @@ itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
 // PAGING items
 itemsRouter.post("/paging", verifyToken, async (req: Request, res: Response) => {
   try {
-    let [pageIndex, pageSize]: number[] = Object.values(req.body);
-    let result = await ProviderService.paging(pageIndex, pageSize);
+    let [pageIndex, pageSize, search]: never[] = Object.values(req.body);
+    let result = await ProviderService.paging(pageIndex, pageSize, search);
     return res.status(200).send(result);
   } catch (e) {
     res.status(500).send((e as Error).message);

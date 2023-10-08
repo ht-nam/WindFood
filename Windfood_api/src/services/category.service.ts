@@ -2,14 +2,16 @@
  * Data Model Interfaces
  */
 
+import { Like } from "typeorm";
 import { Category } from "../entities/category.entity";
-import { myDataSource } from "../instances/data-source";
+import { meiliSearchClient, myDataSource } from "../instances/data-source";
 
 /**
  * In-Memory Store
  */
 
 const categoryRepository = myDataSource.getRepository(Category);
+let categoryIndex = meiliSearchClient.index('category');
 
 /**
  * Service Methods
@@ -34,10 +36,14 @@ export const remove = async (id: number): Promise<boolean> => {
   }
 };
 
-export const paging = async (pageIndex: number, pageSize: number) => {
+export const paging = async (pageIndex: number, pageSize: number, keyword: string) => {
   try {
+    if (keyword != undefined) {
+      const search = await categoryIndex.search(keyword, { page: pageIndex, hitsPerPage: pageSize });
+      return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
+    }
     const [result, total] = await categoryRepository.findAndCount({
-      // where: { name: Like('%' + keyword + '%') }, order: { name: "DESC" },
+      where: { categoryName: Like(`%${keyword}%`) },
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
       order: {
@@ -45,7 +51,7 @@ export const paging = async (pageIndex: number, pageSize: number) => {
       }
     });
 
-    return { data: result, count: total };
+    return { data: result, count: total, hasNext: pageIndex * pageSize < total };
   } catch (e) {
     return null;
   }
