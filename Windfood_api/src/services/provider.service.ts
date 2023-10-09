@@ -43,7 +43,7 @@ export const paging = async (pageIndex: number, pageSize: number, keyword: strin
       return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
     }
     const [result, total] = await providerRepository.findAndCount({
-      where: { providerName: Like(`%${keyword}%`) },
+      where: keyword != undefined ? { providerName: Like('%' + keyword + '%') } : {},
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
       order: {
