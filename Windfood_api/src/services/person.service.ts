@@ -38,10 +38,12 @@ export const getCurrentUser = async (token: string): Promise<object | null> => {
 
 export const saveOrUpdate = async (newItem: Person): Promise<Person> => {
   // newItem.hashedPassword = btoa(newItem.hashedPassword as string);
+  if (!newItem.personId && !newItem.password && newItem.password === "") {
+    newItem.password = (await findById(newItem.personId))?.password;
+  }
   newItem.password = await hashedPassword(
     newItem.password as string
   );
-
   // console.log(atob(newItem.hashedPassword as string));
   return personRepository.save(newItem);
 };
