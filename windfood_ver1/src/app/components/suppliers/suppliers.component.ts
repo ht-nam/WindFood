@@ -42,9 +42,9 @@ export class SuppliersComponent {
 
   initForm(){
     this.form = this.fb.group({
-      search: null,
       pageIndex: 1,
       pageSize: 6,
+      search: "",
     })
   }
   

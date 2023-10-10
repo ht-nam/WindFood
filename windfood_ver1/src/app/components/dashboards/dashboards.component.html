@@ -1,8 +1,11 @@
 <div class="container">
-    <mat-card>
+    <mat-card class="p-0 mt-4">
+        <mat-card-header class="header rounded-t-md">
+            <h1>Thống kê</h1>
+        </mat-card-header>
         <mat-card-content>
-            <form class="row" [formGroup]="form!" (ngSubmit)="onSubmit()">
-                <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
+            <form class="row mt-4" [formGroup]="form!" (ngSubmit)="onSubmit()">
+                <mat-form-field color="accent" appearance="fill" class="col-md-4 col-lg-4 col-xl-4">
                     <mat-label>Ngày thống kê từ</mat-label>
                     <input matInput formControlName='fromDate' [matDatepicker]="picker1">
                     <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
@@ -10,7 +13,7 @@
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
 
-                <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
+                <mat-form-field color="accent" appearance="fill" class="col-md-4 col-lg-4 col-xl-4">
                     <mat-label>Ngày thống kê đến</mat-label>
                     <input matInput formControlName='toDate' [matDatepicker]="picker2">
                     <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
@@ -18,7 +21,7 @@
                     <mat-datepicker #picker2 color="primary"></mat-datepicker>
                 </mat-form-field>
 
-                <button mat-raised-button color="accent" class="col-md-4 col-lg-4 col-xl-4">Tìm kiếm</button>
+                <button class="button-submit">Tìm kiếm</button>
             </form>
             <!-- <div class="row">
                 <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4">
