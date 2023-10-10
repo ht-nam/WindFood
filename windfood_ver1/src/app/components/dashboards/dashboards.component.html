@@ -4,23 +4,23 @@
             <form class="row" [formGroup]="form!" (ngSubmit)="onSubmit()">
                 <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
                     <mat-label>Ngày thống kê từ</mat-label>
-                    <input matInput formControlName = 'fromDate' [matDatepicker]="picker1">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input matInput formControlName='fromDate' [matDatepicker]="picker1">
+                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field>
-                  
-                  <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
+                </mat-form-field>
+
+                <mat-form-field color="accent" class="col-md-4 col-lg-4 col-xl-4">
                     <mat-label>Ngày thống kê đến</mat-label>
-                    <input matInput formControlName = 'toDate' [matDatepicker]="picker2">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input matInput formControlName='toDate' [matDatepicker]="picker2">
+                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2 color="primary"></mat-datepicker>
-                  </mat-form-field>
-                  
-                  <button mat-raised-button color="accent" class="col-md-4 col-lg-4 col-xl-4">Tìm kiếm</button>
+                </mat-form-field>
+
+                <button mat-raised-button color="accent" class="col-md-4 col-lg-4 col-xl-4">Tìm kiếm</button>
             </form>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4">
                     <div class="mt-4 card ml-2">
                         <mat-card class="mat-elevation-z3">
@@ -48,7 +48,7 @@
                         </mat-card>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
                     <mat-card class="mat-elevation-z3">

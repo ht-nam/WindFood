@@ -78,7 +78,6 @@ export class DashboardsComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('tvv', this.form?.value);
     this.service.getBillDashboard(this.form?.value).subscribe(
         {
             next: (response) =>{
@@ -99,7 +98,6 @@ export class DashboardsComponent implements OnInit {
                     console.log('summary', this.summary[index].profit);
                                         
                 } 
-                console.log(this.incomeChart);
                 this.options = this.dashboardService.buildBarChart('Biểu đồ doanh thu',
                 ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Thángs 9', 'Tháng 10','Tháng 11', 'Tháng 12'], '', 'Doanh Thu', this.incomeChart);
 

@@ -45,6 +45,7 @@ export class CategoriesComponent {
     this.form = this.fb.group({
       pageIndex: 1,
       pageSize: 6,
+      search: null,
     })
   }
   
@@ -66,6 +67,7 @@ export class CategoriesComponent {
     this.loader.show();
     this.service.getAllCategoriesPaging(this.form?.value).subscribe(
       it => {
+        console.log(it);
         this.pagination = this.form?.get('pageIndex')?.value;
         this.categories = it?.data;
         this.allCategories = it?.count;

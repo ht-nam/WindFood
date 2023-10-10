@@ -42,7 +42,7 @@ export class SuppliersComponent {
 
   initForm(){
     this.form = this.fb.group({
-      // foodSearch: null,
+      search: null,
       pageIndex: 1,
       pageSize: 6,
     })

@@ -1,19 +1,18 @@
-<form class="container mt-5" [formGroup] = "form!">
+<form class="container mt-5" [formGroup]="form!" (ngSubmit)="getAllSuppliers()">
     <div class="card">
-        <div class="row m-2">
-            <h2>Nhà cung cấp</h2>
-        <div class="search-case">
-            <!-- <button class="col-md-2" type="button" (click)="addNewProduct()"  mat-raised-button color="primary">Thêm mới</button> -->
-            <button class="col-md-2" type="button" (click)="addNewSupplier()"  mat-raised-button color="accent">Thêm mới</button>
-            <!-- <div class="form-field">
-                <mat-form-field class="form-field col-md-8" appearance="outline">
-                    <mat-icon matPrefix class="my-icon">search</mat-icon>
-                    <mat-label>Tìm kiếm</mat-label>
-                    <input matInput formControlName = "foodSearch">
-                </mat-form-field>
-                <button mat-raised-button type="button" (click)="searchByProduct()">Tìm</button>
-            </div> -->
-        </div>
+        <div class="row m-0">
+            <h2 class="header rounded-t-md pt-3 pb-3 m-0">NHÀ CUNG CẤP</h2>
+            <div class="search-case mt-3">
+                <!-- <button class="col-md-2" type="button" (click)="addNewProduct()"  mat-raised-button color="primary">Thêm mới</button> -->
+                <div class="form-field">
+                    <mat-form-field class="col-md-8" appearance="fill">
+                        <mat-icon matPrefix class="my-icon">search</mat-icon>
+                        <mat-label>Tìm kiếm</mat-label>
+                        <input matInput formControlName="search">
+                    </mat-form-field>
+                    <button class="button-submit ml-2" type="submit">Tìm kiếm</button>
+                </div>
+            </div>
         </div>
         <div class="row m-2 ">
             <div class="col-md-12">
@@ -27,12 +26,13 @@
                                 Tên nhà cung cấp
                             </th>
                             <th>
-
+                                <button class="col-md-3 button-submit" type="button" (click)="addNewSupplier()">Thêm
+                                    mới</button>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor = "let it of suppliers | paginate : {
+                        <ng-container *ngFor="let it of suppliers | paginate : {
                             itemsPerPage: 6,
                             currentPage: pagination,
                             totalItems: allFood
@@ -41,8 +41,10 @@
                                 <td>{{i + 1}}</td>
                                 <td>{{it?.providerName}}</td>
                                 <td>
-                                    <button color="primary" mat-raised-button (click)="editProduct(it)" style="margin-right: 10px"><mat-icon>create</mat-icon>Sửa</button>
-                                    <button color="warn" mat-raised-button (click)="handleDelete(it?.providerId)"><mat-icon>delete</mat-icon>Xoá</button>
+                                    <button color="primary" mat-raised-button (click)="editProduct(it)"
+                                        style="margin-right: 10px"><mat-icon>create</mat-icon>Sửa</button>
+                                    <button color="warn" mat-raised-button
+                                        (click)="handleDelete(it?.providerId)"><mat-icon>delete</mat-icon>Xoá</button>
                                 </td>
                             </tr>
                         </ng-container>
@@ -51,9 +53,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <pagination-controls
-              (pageChange)="renderPage($event)"
-            ></pagination-controls>
+            <pagination-controls (pageChange)="renderPage($event)"></pagination-controls>
         </div>
     </div>
 </form>

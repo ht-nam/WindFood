@@ -29,7 +29,6 @@ export class AddSupplierDialogComponent {
     
     ngOnInit(){
       this.initForm();
-      console.log(this.defaults.products);
     }
     
     initForm(){

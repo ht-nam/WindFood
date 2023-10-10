@@ -63,7 +63,6 @@ export class EditProductComponent {
 
     onSelectCategory(row: Category){
       this.selectionCategory = row
-      console.log(this.selectionCategory);
     }
     
     initForm(){
@@ -93,7 +92,6 @@ export class EditProductComponent {
           category: this.selectionCategory
         } as ProductModel;
         this.form?.setValue(object);
-        console.log(this.form);
     };
 
     onSubmit(){

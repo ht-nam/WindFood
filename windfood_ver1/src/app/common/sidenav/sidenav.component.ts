@@ -23,35 +23,42 @@ export class SidenavComponent {
 
   collapsed = false;
 
+  label?: string = '';
+
   navData = navbarData;
 
   currentRole?: number;
-  
+
   cartLength?: number = 0;
 
   user: any;
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private service: LoginService,
     ){
   }
 
   ngOnInit(){
-    
+
+    this.label = this.navData[0].label;
+
     let retrievedString = localStorage.getItem("products");
 
     // Convert the string back into an array object
     let retrievedObject = JSON.parse(retrievedString!)?.length;
 
     // Log the retrieved array object
-    this.cartLength = retrievedObject; 
+    this.cartLength = retrievedObject;
 
     this.service.getCurrentUser().subscribe(
       it => {
         this.user = it
-        console.log('sidenav', this.user);
       }
     )
+  }
+
+  activeSidenav(value){
+    this.label = value;
   }
 
   toggleCollapse(){

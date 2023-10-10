@@ -28,7 +28,6 @@ export class EditCategoryDialogComponent {
     
     ngOnInit(){
       this.category = this.defaults.category;
-      console.log(this.category);
       this.initForm();
     }
     

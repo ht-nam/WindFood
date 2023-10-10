@@ -1,40 +1,45 @@
-<div *ngIf="isLoggin() && (getCurrentRole() === 'ADMIN')" class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
-    <div class="logo-container">
-      <button class="logo" (click)="toggleCollapse()"><mat-icon>chevron_right</mat-icon></button>
-      <button class="btn-close" *ngIf="collapsed" (click) = "closeSidenav()">
-        <i class="fal fa-times close-icon"></i>
-      </button>
-    </div>
-    <div class="sidenav-nav">
-      <li class="sidenav-nav-item" *ngFor="let data of navData">
-        <a [routerLink]="data?.routeLink" class="sidenav-nav-link" routerLinkActive="active">
-          <i class="sidenav-link-icon" [className]="data?.icon" style="margin-left: 13px"></i>
-          <span class="sidenav-link-text" *ngIf="collapsed">{{data?.label}}</span>
-        </a>
-      </li>
-      <li class="nav-item" style="bottom: 0;">
-        <a class="nav-link" (click)="signOut()" routerLinkActive="active">
-          <i class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 576 512"><style>svg{fill:#ffffff}</style><path d="M320 32c0-9.9-4.5-19.2-12.3-25.2S289.8-1.4 280.2 1l-179.9 45C79 51.3 64 70.5 64 92.5V448H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H96 288h32V480 32zM256 256c0 17.7-10.7 32-24 32s-24-14.3-24-32s10.7-32 24-32s24 14.3 24 32zm96-128h96V480c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H512V128c0-35.3-28.7-64-64-64H352v64z"/></svg></i>
-          <span class="link-text" *ngIf="collapsed">Đăng xuất</span>
-        </a>
-      </li>
-    </div>
+<div *ngIf="isLoggin() && (getCurrentRole() === 'ADMIN')" class="sidenav"
+  [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+  <div class="logo-container">
+    <button class="logo" *ngIf="!collapsed" (click)="toggleCollapse()"><mat-icon>chevron_right</mat-icon></button>
+    <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+      <i class="fal fa-times close-icon"></i>
+    </button>
+  </div>
+  <div class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <a [routerLink]="data?.routeLink" (click)="activeSidenav(data?.label)"
+        [ngClass]="{'text-black': label === data?.label}" class="sidenav-nav-link" [matTooltip]="data.toolTip"
+        routerLinkActive="active">
+        <i class="sidenav-link-icon" [className]="data?.icon" style="margin-left: 13px"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data?.label}}</span>
+      </a>
+    </li>
+    <li class="nav-item" style="bottom: 0;">
+      <a class="nav-link" (click)="signOut()" routerLinkActive="active" matTooltip="Đăng xuất">
+        <i class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 576 512">
+            <style>
+              svg {
+                fill: #ffffff
+              }
+            </style>
+            <path
+              d="M320 32c0-9.9-4.5-19.2-12.3-25.2S289.8-1.4 280.2 1l-179.9 45C79 51.3 64 70.5 64 92.5V448H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H96 288h32V480 32zM256 256c0 17.7-10.7 32-24 32s-24-14.3-24-32s10.7-32 24-32s24 14.3 24 32zm96-128h96V480c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H512V128c0-35.3-28.7-64-64-64H352v64z" />
+          </svg></i>
+        <span class="link-text" *ngIf="collapsed">Đăng xuất</span>
+      </a>
+    </li>
+  </div>
 </div>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light gradient-custom" *ngIf="isLoggin() && (getCurrentRole() === 'NV')">
+<nav class="navbar navbar-expand-lg navbar-light bg-light gradient-custom"
+  *ngIf="isLoggin() && (getCurrentRole() === 'NV')">
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -42,13 +47,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar brand -->
       <a class="navbar-brand mt-2 mt-lg-0" routerLink="/employees/sales">
-        <img
-          src="../../../assets/icons/logo.jpg"
-          height="50"
-          width="50"
-          alt="MDB Logo"
-          loading="lazy"
-        />
+        <img src="../../../assets/icons/logo.jpg" height="50" width="50" alt="MDB Logo" loading="lazy" />
       </a>
       <!-- Left links -->
     </div>
@@ -64,13 +63,8 @@
         <!-- <div class="card" style="color: black; text-align: center;">{{cartLength}}</div> -->
       </div>
       <div class="dropdown">
-        <button mat-button [matMenuTriggerFor]="menu"><img
-          src="{{user?.url_img}}"
-          class="rounded-circle"
-          height="25"
-          alt="img"
-          loading="lazy"
-        /></button>
+        <button mat-button [matMenuTriggerFor]="menu"><img src="{{user?.url_img}}" class="rounded-circle" height="25"
+            alt="img" loading="lazy" /></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item type="button" [routerLink]="'employees/bills'">Quản lý hoá đơn</button>
           <button mat-menu-item type="button" (click)="signOut()">Đăng xuất</button>

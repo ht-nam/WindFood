@@ -108,7 +108,6 @@ export class AddProductDialogComponent {
           data.urlImg = this.imageSrc;
           data.provider = this.selection;
           data.category = this.selectionCategory;
-          console.log(data);
           this.service.addOrEditFood(data).subscribe({
             next: (response) => {
               if(response){

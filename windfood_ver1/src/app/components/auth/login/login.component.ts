@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', it);
         this.service.getCurrentUser().subscribe(
           value => {
-            console.log('tvv-current:', value);
             // ADMIN
             if(value?.role == 0){
               this.router.navigate(['dashboard']);

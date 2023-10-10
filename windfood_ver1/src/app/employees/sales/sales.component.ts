@@ -109,7 +109,6 @@ export class SalesComponent {
     let retrievedObject = JSON.parse(retrievedString!);
 
     // Log the retrieved array object
-    console.log(retrievedObject);
   }
 
   get f(){
@@ -155,7 +154,6 @@ export class SalesComponent {
       // Store the string in localStorage
       localStorage.setItem('products', arrayString);
     }
-    console.log(this.products.at(index));
   }
 
 

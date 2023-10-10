@@ -54,6 +54,7 @@ export class ProductsComponent {
     this.form = this.fb.group({
       pageIndex: 1,
       pageSize: 6,
+      search: null,
     })
   }
   
@@ -72,17 +73,23 @@ export class ProductsComponent {
     })
   }
 
+  searchChanges(event){
+    this.products = this.products.filter(value => value?.name === event)
+  }
+
   getAllProducts(){
     this.loader.show();
     this.productService.getAllProductsPaging(this.form?.value).subscribe(
       it => {
-        console.log('tvv', it);
+        if(it){
+
+        }
+        this.loader.hide();
         this.pagination = this.form?.get('pageIndex')?.value;
         this.products = it?.data;
         this.allFood = it?.count;
       }
       )
-    this.loader.hide();
   }
 
   renderPage(event: number) {
@@ -91,7 +98,6 @@ export class ProductsComponent {
   }
 
   editProduct(product: ProductModel){
-    // console.log(product);
     this.dialog.open(EditProductComponent,{
       height: 'auto',
       data: {
@@ -108,7 +114,6 @@ export class ProductsComponent {
     this.service.getAllCategories().subscribe(
       (it) => {
         this.categories = it
-        console.log(this.categories);
       }
     )
   }

@@ -34,7 +34,6 @@ export class PaymentDialogComponent {
   }
 
   onPayment(){
-    console.log('tvv', this.data);
     this.payment.addOrEditBill(this.data).subscribe(
       it => {
         if(it){

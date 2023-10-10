@@ -63,7 +63,6 @@ export class MyCartComponent {
     this.loginService.getCurrentUser().subscribe(
       it => {
         this.user = it
-        console.log(this.user);
       }
     )
   }
@@ -134,7 +133,6 @@ export class MyCartComponent {
       })
     })
     data['foodBills'] = object
-    console.log(data);
     // let value = this.items.map((val) => console.log(val.products.foodId))
     // console.log(value);
     this.dialog.open(PaymentComponent, {

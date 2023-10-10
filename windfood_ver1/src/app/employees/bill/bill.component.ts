@@ -64,7 +64,6 @@ export class BillComponent {
       it => {
         this.pagination = this.form?.get('pageIndex')?.value;
         this.bills = it?.data;
-        console.log(this.bills);
         
         this.allFood = it?.count;
       }
@@ -82,7 +81,6 @@ export class BillComponent {
   }
 
   editProduct(bill: Bill){
-    console.log('tvv', bill);
     this.dialog.open(BillEditDialogComponent,{
       height: 'auto',
       width: '600px',
