@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import * as dotEnv from 'dotenv';
-import { MeiliSearch } from 'meilisearch'
+import { MeiliSearch, MeiliSearchCommunicationError } from 'meilisearch'
 import { Food } from "../entities/food.entity";
 import { Person } from "../entities/person.entity";
 import { Category } from "../entities/category.entity";
@@ -37,8 +37,13 @@ export function initialDatabase(): void {
         await myDataSource.query("insert into person(username, hashed_password, name, birthday, role, token) SELECT * FROM (SELECT 'admin','$2a$10$v6x2L6vNv1jP/2r7t55cguorm3Ulafu5lB.mXmR.mE/U1xbZ8/ElW', '', '2000-01-01', 0, NULL) AS tmp WHERE NOT EXISTS (SELECT p.username FROM PERSON p WHERE p.username = 'admin')");
         console.log("Admin account created successfully");
         await initialMeiliSearch();
+        console.log("Connected to meilisearch server");
       } catch (e) {
-        console.log("Can not create admin account");
+        if (e instanceof MeiliSearchCommunicationError) {
+          console.log("Can not connect to meilisearch server");
+        } else {
+          console.log("Can not create admin account");
+        }
       }
     })
     .catch((error) => {
