@@ -19,6 +19,8 @@ export class EditEmployeeDialogComponent {
 
   form?: UntypedFormGroup;
 
+  isEditing: boolean = false;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: any,
     private dialogRef: MatDialogRef<EditEmployeeDialogComponent>,
@@ -27,7 +29,8 @@ export class EditEmployeeDialogComponent {
     private toastrService: ToastrService,
     private service: EmployeesService
     ){
-      
+      this.isEditing = this.defaults.isEditing;
+      console.log(this.isEditing);
     }
     
     ngOnInit(){
@@ -59,7 +62,7 @@ export class EditEmployeeDialogComponent {
           urlImg: '',
           role: this.employee?.role,
           username: this.employee?.username,
-          password: this.employee?.password
+          password: null,
         } as Person;
         this.form?.setValue(object);
     };
@@ -77,14 +80,14 @@ export class EditEmployeeDialogComponent {
           this.service.addOrEditEmployees(data).subscribe({
             next: (response) => {
               if(response){
-                this.toastrService.success("Đã thêm thành công", "Thông báo", {
+                this.toastrService.success("Sửa thành công", "Thông báo", {
                   positionClass: 'toast-bottom-right' 
                 })
                 this.defaults.reloadTable();
               }              
             },
             error: (err) => {
-              this.toastrService.warning("Thêm thất bại", "Thông báo", {
+              this.toastrService.warning("Sửa thất bại", "Thông báo", {
                 positionClass: 'toast-bottom-right' 
               })
             }

@@ -57,8 +57,10 @@ export class EmployeesComponent {
       data: {
         employees: this.employees,
         title: 'Thêm mới nhân viên',
-        reloadTable: () => this.getAllEmployees(),
+        // reloadTable: () => ,
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllEmployees()
     })
   }
 
@@ -85,9 +87,10 @@ export class EmployeesComponent {
       data: {
         employee: employee,
         title: 'Sửa thông tin nhân viên',
-        reloadTable: () => this.getAllEmployees(),
+        isEditing: true,
+        // reloadTable: () => this.getAllEmployees(),
       }
-    })
+    }).afterClosed().subscribe(() => this.getAllEmployees())
   }
 
   handleDelete(id: string){
@@ -117,12 +120,13 @@ export class EmployeesComponent {
               this.toastrService.success("Xoá thành công", "Thông báo", {
                 positionClass: 'toast-bottom-right' 
               })
-              this.getAllEmployees();
             }
           }
         )
        }
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllEmployees();
     })
   }
 

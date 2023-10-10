@@ -4,7 +4,7 @@ export class Person {
     
     personId?: number;
     username?: string;
-    password?: string;
+    password?: string | null;
     role?: number;
     name?: string;
     phoneNumber?: string;

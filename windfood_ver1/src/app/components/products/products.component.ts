@@ -68,8 +68,10 @@ export class ProductsComponent {
         products: this.products,
         suppliers: this.suppliers,
         title: 'Tạo mới sản phẩm',
-        reloadTable: () => this.getAllProducts(),
+        // reloadTable: () => ,
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllProducts();
     })
   }
 
@@ -105,8 +107,10 @@ export class ProductsComponent {
         categories: this.categories,
         suppliers: this.suppliers,
         title: 'Sửa thông tin sản phẩm',
-        reloadTable: () => this.getAllProducts(),
+        // reloadTable: () => this.getAllProducts(),
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllProducts();
     })
   }
 
@@ -153,12 +157,14 @@ export class ProductsComponent {
               this.toastrService.success("Xoá thành công", "Thông báo", {
                 positionClass: 'toast-bottom-right' 
               })
-              this.getAllProducts();
+              // this.getAllProducts();
             }
           }
         )
        }
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllProducts();
     })
   }
 

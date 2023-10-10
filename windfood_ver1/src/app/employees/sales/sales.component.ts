@@ -101,6 +101,7 @@ export class SalesComponent {
     this.form = this.fb.group({
       pageIndex: 1,
       pageSize: 9,
+      search: null,
     })
 
     let retrievedString = localStorage.getItem("products");

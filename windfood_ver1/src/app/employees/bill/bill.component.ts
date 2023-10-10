@@ -87,8 +87,10 @@ export class BillComponent {
       data: {
         bill: bill,
         title: 'Sửa thông tin hoá đơn',
-        reloadTable: () => this.getAllBills(),
+        // reloadTable: () => this.getAllBills(),
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllBills()
     })
   }
 
@@ -119,12 +121,14 @@ export class BillComponent {
               this.toastrService.success("Xoá thành công", "Thông báo", {
                 positionClass: 'toast-bottom-right' 
               })
-              this.getAllBills();
+              // this.getAllBills();
             }
           }
         )
        }
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllBills()
     })
   }
 

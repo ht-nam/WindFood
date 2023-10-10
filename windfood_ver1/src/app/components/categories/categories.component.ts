@@ -58,8 +58,10 @@ export class CategoriesComponent {
       data: {
         categories: this.categories,
         title: 'Thêm mới phân loại',
-        reloadTable: () => this.getAllCategories(),
+        // reloadTable: () => ,
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllCategories()
     })
   }
 
@@ -89,8 +91,10 @@ export class CategoriesComponent {
         buttonConfirm: 'Sửa',
         buttonCancel: 'Đóng',
         title: 'Sửa thông tin phân loại',
-        reloadTable: () => this.getAllCategories(),
+        // reloadTable: () => this.getAllCategories(),
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllCategories()
     })
   }
 
@@ -125,8 +129,10 @@ export class CategoriesComponent {
           }
         )
        },
-       reloadTable: () => this.getAllCategories(),
+      //  reloadTable: () => this.getAllCategories(),
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllCategories()
     })
   }
 

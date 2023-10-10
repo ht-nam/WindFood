@@ -57,8 +57,10 @@ export class SuppliersComponent {
       data: {
         suppliers: this.suppliers,
         title: 'Thêm mới nhà cung cấp',
-        reloadTable: () => this.getAllSuppliers(),
+        // reloadTable: () => ,
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllSuppliers();
     })
   }
 
@@ -117,12 +119,14 @@ export class SuppliersComponent {
               this.toastrService.success("Xoá thành công", "Thông báo", {
                 positionClass: 'toast-bottom-right' 
               })
-              this.getAllSuppliers();
+              // this.getAllSuppliers();
             }
           }
         )
        }
       }
+    }).afterClosed().subscribe(() => {
+      this.getAllSuppliers();
     })
   }
 
