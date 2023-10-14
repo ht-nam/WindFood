@@ -4,15 +4,16 @@
   </div>
   <div class="row mt-3">
     <!-- Form starts -->
-  <form [formGroup]="form!" (ngSubmit)="onSubmit()">
-    <mat-radio-group aria-label="Select an option" formControlName = 'paymentMethod' class="d-flex justify-center align-items-center">
-      <mat-radio-button value="Tiền Mặt">Thanh toán bằng tiền mặt</mat-radio-button>
-      <mat-radio-button value="qr">Thanh toán bằng mã QR</mat-radio-button>
-      <mat-radio-button value="Thẻ Ngân Hàng">Thanh toán bằng thẻ ngân hàng</mat-radio-button>
-    </mat-radio-group>
-    <div style="text-align: center; margin-top: 20px;">
-      <button style="margin-left: auto; margin-right: auto;" mat-raised-button color="accent" type="submit">Thanh toán</button>
-    </div>
-  </form><!-- Form ends -->
+    <form [formGroup]="form!" (ngSubmit)="onSubmit()">
+      <mat-radio-group aria-label="Select an option" formControlName='paymentMethod'
+        class="d-flex justify-center align-items-center">
+        <mat-radio-button value="Tiền Mặt">Thanh toán bằng tiền mặt</mat-radio-button>
+        <mat-radio-button value="qr">Thanh toán bằng mã QR</mat-radio-button>
+        <mat-radio-button value="Thẻ Ngân Hàng">Thanh toán bằng thẻ ngân hàng</mat-radio-button>
+      </mat-radio-group>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="button-submit" style="margin-left: auto; margin-right: auto;" type="submit">Thanh toán</button>
+      </div>
+    </form><!-- Form ends -->
   </div>
 </div>
