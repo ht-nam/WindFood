@@ -13,7 +13,7 @@
                             <mat-label>Tìm kiếm</mat-label>
                             <input matInput formControlName="search">
                         </mat-form-field>
-                        <button class="button-submit ml-2" type="submit">Tìm kiếm</button>
+                        <button class="button-submit ml-2" type="button" (click)="getAllProducts()">Tìm kiếm</button>
                     </div>
                     <mat-tab-group mat-stretch-tabs="true" #tabGroup (selectedTabChange)="onTabClick($event)"
                         mat-align-tabs="start">

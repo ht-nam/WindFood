@@ -37,7 +37,7 @@ export class PaymentComponent {
     });
   }
 
-  onSubmit(){
+  onSubmit():void{
     this.data['paymentMethod'] = this.form?.get('paymentMethod')?.value;
     this.dialogRef.close();
     this.dialog.open(PaymentDialogComponent, {
