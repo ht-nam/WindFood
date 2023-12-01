@@ -2,6 +2,7 @@ package com.project.windfood_client.network;
 
 import android.content.Context;
 
+import com.project.windfood_client.utils.Constants;
 import com.project.windfood_client.utils.SharedPrefManager;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class ApiClient {
 
     private static Retrofit retrofit;
 
-    private static String baseUrl = "http://10.0.2.2:7000/api/";
+    private static String baseUrl = Constants.BASE_URL;
 
     public static Retrofit getRetrofit() {
         if(retrofit == null){

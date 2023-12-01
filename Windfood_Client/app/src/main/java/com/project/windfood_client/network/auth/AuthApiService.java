@@ -9,9 +9,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import com.project.windfood_client.utils.Constants;
 
 public interface AuthApiService {
 
-    @POST("persons/login")
+    @POST( Constants.PERSON_ROUTE + "/login")
     Call<String> loginUser(@Body User user);
 }
