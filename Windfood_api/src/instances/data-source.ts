@@ -67,15 +67,13 @@ async function initialMeiliSearch(): Promise<void> {
   await categoryIndex.addDocuments(categoryItems);
   await personIndex.addDocuments(personItems);
   await providerIndex.addDocuments(providerItems);
-
-
-  // const search = await foodIndex.search('gà', { page: 3, hitsPerPage: 2 });
-  // console.log(search);
-  // const search1 = await categoryIndex.search('burger');
-  // console.log(search1);
-  // const search2 = await personIndex.search('Van');
-  // console.log(search2);
-  // const search3 = await providerIndex.search('CTY');
-  // console.log(search3);
-
 }
+
+// const search = await foodIndex.search('gà', { page: 3, hitsPerPage: 2 });
+// console.log(search);
+// const search1 = await categoryIndex.search('burger');
+// console.log(search1);
+// const search2 = await personIndex.search('Van');
+// console.log(search2);
+// const search3 = await providerIndex.search('CTY');
+// console.log(search3);
