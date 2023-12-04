@@ -1,5 +1,6 @@
 package com.project.windfood_client;
 
+import com.project.windfood_client.*;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
@@ -53,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         if(sharedPrefManager.getToken().isEmpty()){
             binding = ActivityAuthBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
-            editTextUsername = findViewById(R.id.editTextUsername);
-            editTextPassword = findViewById(R.id.editTextPassword);
-            buttonLogin = findViewById(R.id.buttonLogin);
+            editTextUsername = (EditText) findViewById(R.id.editTextUsername);
+            editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+            buttonLogin = (Button) findViewById(R.id.buttonLogin);
             buttonLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

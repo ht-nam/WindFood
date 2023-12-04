@@ -1,17 +1,11 @@
 package com.project.windfood_client.repositories.auth;
-
-import android.content.Context;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.project.windfood_client.MainActivity;
 import com.project.windfood_client.models.User;
 import com.project.windfood_client.network.ApiClient;
 import com.project.windfood_client.network.auth.AuthApiService;
-import com.project.windfood_client.responses.UserResponses;
 
 import retrofit2.Call;
 import retrofit2.Callback;
