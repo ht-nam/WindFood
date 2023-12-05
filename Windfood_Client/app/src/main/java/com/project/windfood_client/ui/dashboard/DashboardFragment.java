@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 public class DashboardFragment extends Fragment{
     private FragmentDashboardBinding binding;
     private BarChart barChart;
+    private HorizontalBarChart horizontalBarChart;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,11 +46,13 @@ public class DashboardFragment extends Fragment{
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         barChart = root.findViewById(R.id.barChart);
-        setLineChartData();
+        horizontalBarChart = root.findViewById(R.id.horizontalBarChart);
+        setBarChartData();
+        setHorizontalBarChart();
         return root;
     }
 
-    private void setLineChartData() {
+    private void setBarChartData() {
         ArrayList<BarEntry> values = new ArrayList<>();
         values.add(new BarEntry(1, 1000));
         values.add(new BarEntry(2, 2000));
@@ -82,6 +86,35 @@ public class DashboardFragment extends Fragment{
         });
         barChart.invalidate();
     }
+
+    private void setHorizontalBarChart(){
+        ArrayList<BarEntry> values = new ArrayList<>();
+        values.add(new BarEntry(1, 1000));
+        values.add(new BarEntry(2, 2000));
+        values.add(new BarEntry(3, 3000));
+        values.add(new BarEntry(4, 4000));
+        values.add(new BarEntry(5, 5000));
+        values.add(new BarEntry(6, 6000));
+        values.add(new BarEntry(7, 7000));
+        values.add(new BarEntry(8, 8000));
+        values.add(new BarEntry(9, 9000));
+        values.add(new BarEntry(10, 10000));
+        values.add(new BarEntry(11, 11000));
+        values.add(new BarEntry(12, 12000));
+
+        BarDataSet set1;
+        set1 = new BarDataSet(values, "Doanh thu theo ngày");
+        set1.setDrawIcons(false);
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+
+        BarData data = new BarData(dataSets);
+
+        horizontalBarChart.setData(data);
+        horizontalBarChart.invalidate();
+    }
+
 
     @Override
     public void onDestroyView() {

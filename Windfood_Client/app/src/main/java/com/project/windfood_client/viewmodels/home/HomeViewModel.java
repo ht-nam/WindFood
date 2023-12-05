@@ -4,16 +4,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.project.windfood_client.repositories.foods.FoodRepositories;
+import com.project.windfood_client.responses.FoodResponses;
+
+import java.util.List;
+
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private FoodRepositories foodRepositories;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        foodRepositories = new FoodRepositories();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<FoodResponses>> getAllFoods(String auth){
+        return foodRepositories.getAllFoods(auth);
     }
 }

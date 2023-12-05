@@ -6,36 +6,137 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.project.windfood_client.MainActivity;
+import com.project.windfood_client.R;
+import com.project.windfood_client.adapters.ImageSliderAdapter;
+import com.project.windfood_client.adapters.ProductListsAdapter;
 import com.project.windfood_client.databinding.FragmentHomeBinding;
 import com.project.windfood_client.models.User;
+import com.project.windfood_client.responses.FoodResponses;
+import com.project.windfood_client.ui.auth.AuthActivity;
 import com.project.windfood_client.utils.SharedPrefManager;
 import com.project.windfood_client.viewmodels.auth.AuthViewModels;
 import com.project.windfood_client.viewmodels.home.HomeViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-
+    private HomeViewModel homeViewModel;
+    private SharedPrefManager sharedPrefManager;
+    private ProductListsAdapter productListsAdapter;
+    private RecyclerView productRecyclerView;
+    private List<FoodResponses> productList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
+        homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
+        Toast.makeText(getActivity(), sharedPrefManager.getToken(), Toast.LENGTH_SHORT).show();
+        productList = new ArrayList<>();
+        if(!sharedPrefManager.getToken().isEmpty()){
+            homeViewModel.getAllFoods("Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
+                String[] urlImage = new String[foodResponses.size()];
+                if(foodResponses != null){
+                    productList.addAll(foodResponses);
+                    for (int i = 0; i < foodResponses.size(); i++) {
+                        urlImage[i] = foodResponses.get(i).getUrlImg();
+                    }
+                    if(urlImage.length > 0){
+                        loadImageSlider(urlImage);
+                    }
+                    if(productList.size() > 0){
+                        productRecyclerView = binding.productRecyclerView;
+                        productRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+                        productListsAdapter = new ProductListsAdapter(productList);
+                        productRecyclerView.setAdapter(productListsAdapter);
+                    }
+                }
+            });
+        }
 
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    private void onHanldeButton(FragmentHomeBinding binding){
+
+    }
+
+    private void loadImageSlider(String[] sliderImages){
+        binding.sliderViewPager.setOffscreenPageLimit(1);
+        binding.sliderViewPager.setAdapter(new ImageSliderAdapter(sliderImages));
+        binding.sliderViewPager.setVisibility(View.VISIBLE);
+        binding.viewFadingEdge.setVisibility(View.VISIBLE);
+        setupSliderIndicators(sliderImages.length);
+        binding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setCurrentSliderIndicator(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
+    }
+
+    private void setupSliderIndicators(int count){
+        ImageView[] indicators = new ImageView[count];
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(8,  0, 8, 0);
+        for (int i = 0; i < indicators.length; i++) {
+            indicators[i] = new ImageView(getActivity().getApplicationContext());
+            indicators[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.background_slider_indicator_inactive));
+            indicators[i].setLayoutParams(layoutParams);
+            binding.layoutSliderIndicators.addView(indicators[i]);
+        }
+        binding.layoutSliderIndicators.setVisibility(View.VISIBLE);
+        setCurrentSliderIndicator(0);
+    }
+
+    private void setCurrentSliderIndicator(int position){
+        int childCount = binding.layoutSliderIndicators.getChildCount();
+//        Toast.makeText(getApplicationContext(), childCount.toString(), Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < childCount; i++) {
+            ImageView imageView = (ImageView) binding.layoutSliderIndicators.getChildAt(i);
+            if(i == position){
+                imageView.setImageDrawable(
+                        ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.background_slider_indicator_active)
+                );
+            }else{
+                imageView.setImageDrawable(
+                        ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.background_slider_indicator_inactive)
+                );
+            }
+        }
     }
 
     @Override
