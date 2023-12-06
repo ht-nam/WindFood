@@ -25,8 +25,10 @@ import com.project.windfood_client.adapters.ImageSliderAdapter;
 import com.project.windfood_client.adapters.ProductListsAdapter;
 import com.project.windfood_client.databinding.FragmentHomeBinding;
 import com.project.windfood_client.models.User;
+import com.project.windfood_client.requests.PagingRequest;
 import com.project.windfood_client.responses.FoodResponses;
 import com.project.windfood_client.ui.auth.AuthActivity;
+import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
 import com.project.windfood_client.viewmodels.auth.AuthViewModels;
 import com.project.windfood_client.viewmodels.home.HomeViewModel;
@@ -54,12 +56,18 @@ public class HomeFragment extends Fragment {
         Toast.makeText(getActivity(), sharedPrefManager.getToken(), Toast.LENGTH_SHORT).show();
         productList = new ArrayList<>();
         if(!sharedPrefManager.getToken().isEmpty()){
-            homeViewModel.getAllFoods("Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
-                String[] urlImage = new String[foodResponses.size()];
+            PagingRequest pagingRequest = new PagingRequest(1, 10000);
+            homeViewModel.getFoodPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
+                String[] urlImage = null;
+//                if(foodResponses.size() > 0){
+//                    urlImage = new String[foodResponses.size()];
+//                }else{
+                    urlImage = new String[1000];
+//                }
                 if(foodResponses != null){
-                    productList.addAll(foodResponses);
-                    for (int i = 0; i < foodResponses.size(); i++) {
-                        urlImage[i] = foodResponses.get(i).getUrlImg();
+                    productList.addAll(foodResponses.getData());
+                    for (int i = 0; i < foodResponses.getData().size(); i++) {
+                        urlImage[i] = foodResponses.getData().get(i).getUrlImg();
                     }
                     if(urlImage.length > 0){
                         loadImageSlider(urlImage);
@@ -75,10 +83,6 @@ public class HomeFragment extends Fragment {
         }
 
         return root;
-    }
-
-    private void onHanldeButton(FragmentHomeBinding binding){
-
     }
 
     private void loadImageSlider(String[] sliderImages){

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
         android:imageURL="@{urlImg}"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         />
 
 </layout>

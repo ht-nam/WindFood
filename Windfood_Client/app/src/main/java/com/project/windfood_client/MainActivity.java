@@ -2,7 +2,9 @@ package com.project.windfood_client;
 
 import com.project.windfood_client.*;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,6 +34,9 @@ import com.project.windfood_client.ui.auth.AuthActivity;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
 import com.project.windfood_client.viewmodels.auth.AuthViewModels;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }else{
+            checkTokenExpiration();
             mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(mainBinding.getRoot());
             final ActionBar actionBar = getActionBar();
@@ -92,6 +98,48 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(mainBinding.navView, navController);
         }
+    }
+
+    private void checkTokenExpiration() {
+        long currentTime = System.currentTimeMillis();
+
+        String token = sharedPrefManager.getToken(); // Get the token from wherever it's stored in your app
+        if (token == null) {
+            // If there's no token, navigate to the login screen
+            navigateToLoginScreen();
+            return;
+        }
+
+        try {
+            String[] parts = token.split("\\.");
+            String payload = parts[1];
+
+            // Base64 decode the payload to get the JSON payload
+            String decodedPayload = new String(Base64.decode(payload, Base64.DEFAULT));
+
+            // Parse the JSON payload and get the "exp" field
+            JSONObject jsonPayload = new JSONObject(decodedPayload);
+            long expirationTime = jsonPayload.getLong("exp");
+
+            // Convert the expiration time from seconds to milliseconds
+            expirationTime *= 1000;
+
+            // Check if the token has expired
+            if (currentTime > expirationTime) {
+                // If the token has expired, navigate to the login screen
+                sharedPrefManager.clearToken();
+                navigateToLoginScreen();
+            }
+        } catch (JSONException e) {
+            // If there's an error parsing the token, navigate to the login screen
+            navigateToLoginScreen();
+        }
+    }
+
+    private void navigateToLoginScreen() {
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
+//        CustomToast.makeText(getApplicationContext(), "Thời gian hoạt động trên ứng dụng của bạn đã hết, vui lòng đăng nhập lại!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
     }
 
     @Override

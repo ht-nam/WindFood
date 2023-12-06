@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Danh sách sản phẩm"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_17sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:textStyle="bold"
@@ -76,7 +76,7 @@
                     android:id="@+id/product_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
             </LinearLayout>
         </ScrollView>
