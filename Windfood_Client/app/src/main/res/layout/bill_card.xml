@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="billResponse"
+            type="com.project.windfood_client.responses.BillResponses" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="@dimen/_20sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        app:cardCornerRadius="4dp">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_height="wrap_content"
+            android:text='@{"Thanh toán bằng: " + billResponse.paymentMethod}'
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_20sdp">
+
+<!--            <TextView-->
+<!--                android:id="@+id/subtitle"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:text="Subtitle"-->
+<!--                android:textAppearance="?attr/textAppearanceBody2" />-->
+
+            <TextView
+                android:id="@+id/total_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text='@{"Tổng tiền: " + billResponse.totalPrice.toString()}'
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+            <TextView
+                android:id="@+id/date_created"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/_200sdp"
+                android:gravity="end"
+                android:text="@{billResponse.createDate}"
+                android:textAppearance="?attr/textAppearanceCaption" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

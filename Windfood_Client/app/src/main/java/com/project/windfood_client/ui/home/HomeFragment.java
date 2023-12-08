@@ -44,6 +44,8 @@ public class HomeFragment extends Fragment {
     private ProductListsAdapter productListsAdapter;
     private RecyclerView productRecyclerView;
     private List<FoodResponses> productList;
+    private EditText editTextSearch;
+    private Button buttonSearch;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,36 +55,51 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
-        Toast.makeText(getActivity(), sharedPrefManager.getToken(), Toast.LENGTH_SHORT).show();
         productList = new ArrayList<>();
+        editTextSearch = binding.searchBar;
+        buttonSearch = binding.buttonSearch;
         if(!sharedPrefManager.getToken().isEmpty()){
-            PagingRequest pagingRequest = new PagingRequest(1, 10000);
-            homeViewModel.getFoodPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
-                String[] urlImage = null;
-//                if(foodResponses.size() > 0){
-//                    urlImage = new String[foodResponses.size()];
-//                }else{
-                    urlImage = new String[1000];
-//                }
-                if(foodResponses != null){
-                    productList.addAll(foodResponses.getData());
-                    for (int i = 0; i < foodResponses.getData().size(); i++) {
-                        urlImage[i] = foodResponses.getData().get(i).getUrlImg();
-                    }
-                    if(urlImage.length > 0){
-                        loadImageSlider(urlImage);
-                    }
-                    if(productList.size() > 0){
-                        productRecyclerView = binding.productRecyclerView;
-                        productRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
-                        productListsAdapter = new ProductListsAdapter(productList);
-                        productRecyclerView.setAdapter(productListsAdapter);
-                    }
+            PagingRequest pagingRequest = new PagingRequest(1, 10000, null);
+            doInitialization(pagingRequest);
+            buttonSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    productList.clear();
+                    PagingRequest pagingRequest = new PagingRequest(1, 10000,  editTextSearch.getText().toString().toLowerCase().trim());
+                    CustomToast.makeText(getContext(), pagingRequest.getSearch(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
+                    doInitialization(pagingRequest);
+                    productListsAdapter.notifyDataSetChanged();
                 }
             });
         }
 
         return root;
+    }
+
+    private void doInitialization(PagingRequest pagingRequest){
+        homeViewModel.getFoodPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
+            String[] urlImage = null;
+//                if(foodResponses.size() > 0){
+//                    urlImage = new String[foodResponses.size()];
+//                }else{
+            urlImage = new String[1000];
+//                }
+            if(foodResponses != null){
+                productList.addAll(foodResponses.getData());
+                for (int i = 0; i < foodResponses.getData().size(); i++) {
+                    urlImage[i] = foodResponses.getData().get(i).getUrlImg();
+                }
+                if(urlImage.length > 0){
+                    loadImageSlider(urlImage);
+                }
+                if(productList.size() > 0){
+                    productRecyclerView = binding.productRecyclerView;
+                    productRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+                    productListsAdapter = new ProductListsAdapter(productList);
+                    productRecyclerView.setAdapter(productListsAdapter);
+                }
+            }
+        });
     }
 
     private void loadImageSlider(String[] sliderImages){
