@@ -15,7 +15,7 @@ const DB_USER: string | undefined = process.env?.DB_USER;
 const DB_PASSWORD: string | undefined = process.env?.DB_PASSWORD;
 const MEILISEARCH_KEY: string | undefined = process.env?.MLS_KEY;
 
-export const meiliSearchClient = new MeiliSearch({ host: `${URL}:7700`, apiKey: MEILISEARCH_KEY });
+export const meiliSearchClient = new MeiliSearch({ host: `${URL}:7701`, apiKey: MEILISEARCH_KEY });
 export const myDataSource = new DataSource({
   type: "mysql",
   host: URL,
@@ -67,6 +67,7 @@ async function initialMeiliSearch(): Promise<void> {
   await categoryIndex.addDocuments(categoryItems);
   await personIndex.addDocuments(personItems);
   await providerIndex.addDocuments(providerItems);
+
 }
 
 // const search = await foodIndex.search('gà', { page: 3, hitsPerPage: 2 });

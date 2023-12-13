@@ -38,20 +38,21 @@ export const remove = async (id: number): Promise<boolean> => {
 
 export const paging = async (pageIndex: number, pageSize: number, keyword: string) => {
   try {
-    if (keyword != undefined) {
+    try {
       const search = await categoryIndex.search(keyword, { page: pageIndex, hitsPerPage: pageSize });
       return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
-    }
-    const [result, total] = await categoryRepository.findAndCount({
-      where: keyword != undefined ? { categoryName: Like('%' + keyword + '%') } : {},
-      take: pageSize,
-      skip: (pageIndex - 1) * pageSize,
-      order: {
-        createDate: "DESC"
-      }
-    });
+    } catch (e) {
+      const [result, total] = await categoryRepository.findAndCount({
+        where: keyword != undefined ? { categoryName: Like('%' + keyword + '%') } : {},
+        take: pageSize,
+        skip: (pageIndex - 1) * pageSize,
+        order: {
+          createDate: "DESC"
+        }
+      });
 
-    return { data: result, count: total, hasNext: pageIndex * pageSize < total };
+      return { data: result, count: total, hasNext: pageIndex * pageSize < total };
+    }
   } catch (e) {
     return null;
   }

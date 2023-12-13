@@ -87,20 +87,21 @@ const generateToken = async (id: number): Promise<string> => {
 
 export const paging = async (pageIndex: number, pageSize: number, keyword: string) => {
   try {
-    if (keyword != undefined) {
+    try {
       const search = await personIndex.search(keyword, { page: pageIndex, hitsPerPage: pageSize });
       return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
-    }
-    const [result, total] = await personRepository.findAndCount({
-      where: keyword != undefined ? { name: Like('%' + keyword + '%') } : {},
-      take: pageSize,
-      skip: (pageIndex - 1) * pageSize,
-      order: {
-        createDate: "DESC"
-      }
-    });
+    } catch (e) {
+      const [result, total] = await personRepository.findAndCount({
+        where: keyword != undefined ? { name: Like('%' + keyword + '%') } : {},
+        take: pageSize,
+        skip: (pageIndex - 1) * pageSize,
+        order: {
+          createDate: "DESC"
+        }
+      });
 
-    return { data: result, count: total, hasNext: pageIndex * pageSize < total };
+      return { data: result, count: total, hasNext: pageIndex * pageSize < total };
+    }
   } catch (e) {
     return null;
   }

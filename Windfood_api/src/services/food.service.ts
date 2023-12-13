@@ -44,19 +44,20 @@ export const remove = async (id: number): Promise<boolean> => {
 
 export const paging = async (pageIndex: number, pageSize: number, keyword: string) => {
   try {
-    if (keyword != undefined) {
+    try {
       const search = await foodIndex.search(keyword, { page: pageIndex, hitsPerPage: pageSize });
       return { data: await Promise.all(search.hits.map(async (e) => (await findById(e.id)))), count: search.totalHits, hasNext: pageIndex * pageSize < search.totalHits };
+    } catch (err) {
+      const [result, total] = await foodRepository.findAndCount({
+        where: keyword != undefined ? { foodName: Like('%' + keyword + '%') } : {},
+        take: pageSize,
+        skip: (pageIndex - 1) * pageSize,
+        order: {
+          createDate: "DESC"
+        }
+      });
+      return { data: result, count: total, hasNext: pageIndex * pageSize < total };
     }
-    const [result, total] = await foodRepository.findAndCount({
-      where: keyword != undefined ? { foodName: Like('%' + keyword + '%') } : {},
-      take: pageSize,
-      skip: (pageIndex - 1) * pageSize,
-      order: {
-        createDate: "DESC"
-      }
-    });
-    return { data: result, count: total, hasNext: pageIndex * pageSize < total };
   } catch (e) {
     return null;
   }
