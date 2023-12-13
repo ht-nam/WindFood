@@ -4,14 +4,16 @@
     <data>
         <variable
             name="foodResponse"
-            type="com.project.windfood_client.responses.FoodResponses" />
+            type="com.project.windfood_client.models.Food" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:id="@+id/foodCard"
+        >
 
         <ImageView
             android:id="@+id/product_image"

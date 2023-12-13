@@ -28,8 +28,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.project.windfood_client.databinding.ActivityAuthBinding;
 import com.project.windfood_client.databinding.ActivityMainBinding;
 import com.project.windfood_client.models.User;
-import com.project.windfood_client.network.ApiClient;
-import com.project.windfood_client.responses.UserResponses;
 import com.project.windfood_client.ui.auth.AuthActivity;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;

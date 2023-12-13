@@ -1,12 +1,13 @@
 package com.project.windfood_client.responses;
 
 import com.google.gson.annotations.SerializedName;
+import com.project.windfood_client.models.Food;
 
 import java.util.List;
 
 public class FoodPagingResponses {
     @SerializedName("data")
-    private List<FoodResponses> data;
+    private List<Food> data;
 
     @SerializedName("count")
     private Integer count;
@@ -14,17 +15,17 @@ public class FoodPagingResponses {
     @SerializedName("hasNext")
     private Boolean hasNext;
 
-    public FoodPagingResponses(List<FoodResponses> data, Integer count, Boolean hasNext) {
+    public FoodPagingResponses(List<Food> data, Integer count, Boolean hasNext) {
         this.data = data;
         this.count = count;
         this.hasNext = hasNext;
     }
 
-    public List<FoodResponses> getData() {
+    public List<Food> getData() {
         return data;
     }
 
-    public void setData(List<FoodResponses> data) {
+    public void setData(List<Food> data) {
         this.data = data;
     }
 

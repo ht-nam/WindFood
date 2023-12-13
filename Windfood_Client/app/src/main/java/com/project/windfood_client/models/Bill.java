@@ -1,8 +1,8 @@
-package com.project.windfood_client.responses;
+package com.project.windfood_client.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BillResponses {
+public class Bill {
     @SerializedName("billId")
     private Integer billId;
     @SerializedName("totalPrice")
@@ -12,7 +12,7 @@ public class BillResponses {
     @SerializedName("paymentMethod")
     private String paymentMethod;
 
-    public BillResponses(Integer billId, Integer totalPrice, String createDate, String paymentMethod) {
+    public Bill(Integer billId, Integer totalPrice, String createDate, String paymentMethod) {
         this.billId = billId;
         this.totalPrice = totalPrice;
         this.createDate = createDate;
