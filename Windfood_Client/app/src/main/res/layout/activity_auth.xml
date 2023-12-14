@@ -6,7 +6,9 @@
     >
 
     <data>
-
+        <variable
+            name="isLoading"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

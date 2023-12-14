@@ -19,7 +19,9 @@ public class Food {
     private String urlImg;
     @SerializedName("createDate")
     private String createDate;
-    public Food(Integer id, String foodName, Integer quantity, Float importPrice, Float price, String description, String urlImg, String createDate) {
+    @SerializedName("cartQuantity")
+    private Integer cartQuantity;
+    public Food(Integer id, String foodName, Integer quantity, Float importPrice, Float price, String description, String urlImg, String createDate, Integer cartQuantity) {
         this.id = id;
         this.foodName = foodName;
         this.quantity = quantity;
@@ -28,6 +30,29 @@ public class Food {
         this.description = description;
         this.urlImg = urlImg;
         this.createDate = createDate;
+        this.cartQuantity = cartQuantity;
+    }
+
+    public Integer getCartQuantity() {
+        return cartQuantity;
+    }
+
+    public void setCartQuantity(Integer cartQuantity) {
+        this.cartQuantity = cartQuantity;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "foodId: " + id +
+                ", foodName: '" + foodName + '\'' +
+                ", quantity: " + quantity +
+                ", importPrice: " + importPrice +
+                ", price: " + price +
+                ", description: '" + description + '\'' +
+                ", urlImg: '" + urlImg + '\'' +
+                ", createDate: '" + createDate + '\'' +
+                '}';
     }
 
     public Integer getId() {

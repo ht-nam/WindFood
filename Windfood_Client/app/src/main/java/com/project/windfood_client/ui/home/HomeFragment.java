@@ -90,17 +90,18 @@ public class HomeFragment extends Fragment {
 //                }
             if(foodResponses != null){
                 binding.setIsLoading(false);
-                productList.addAll(foodResponses.getData());
                 for (int i = 0; i < foodResponses.getData().size(); i++) {
+                    foodResponses.getData().get(i).setCartQuantity(0);
                     urlImage[i] = foodResponses.getData().get(i).getUrlImg();
                 }
+                productList.addAll(foodResponses.getData());
                 if(urlImage.length > 0){
                     loadImageSlider(urlImage);
                 }
                 if(productList.size() > 0){
                     productRecyclerView = binding.productRecyclerView;
                     productRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
-                    productListsAdapter = new ProductListsAdapter(productList);
+                    productListsAdapter = new ProductListsAdapter(productList, sharedPrefManager);
                     productRecyclerView.setAdapter(productListsAdapter);
                 }
             }
