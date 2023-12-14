@@ -46,7 +46,6 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
         holder.productCardBinding.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomToast.makeText(view.getContext(), food.getId().toString(), CustomToast.LENGTH_LONG, CustomToast.ERROR, true).show();
             }
         });
 //        holder.productCardBinding.quantityTextView.setText(String.valueOf(quantityMap.getOrDefault(foodResponses.getId(), 0)));
