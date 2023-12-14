@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void doInitialization(PagingRequest pagingRequest){
+        binding.setIsLoading(true);
         homeViewModel.getFoodPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
             String[] urlImage = null;
 //                if(foodResponses.size() > 0){
@@ -88,6 +89,7 @@ public class HomeFragment extends Fragment {
             urlImage = new String[1000];
 //                }
             if(foodResponses != null){
+                binding.setIsLoading(false);
                 productList.addAll(foodResponses.getData());
                 for (int i = 0; i < foodResponses.getData().size(); i++) {
                     urlImage[i] = foodResponses.getData().get(i).getUrlImg();

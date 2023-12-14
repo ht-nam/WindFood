@@ -76,5 +76,7 @@ dependencies {
     implementation("info.hoang8f:fbutton:1.0.5")
 //    navigation tab bar
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
-//    Cat Loading
+//    Loading
+    implementation("com.jpardogo.googleprogressbar:library:1.2.0")
+
 }

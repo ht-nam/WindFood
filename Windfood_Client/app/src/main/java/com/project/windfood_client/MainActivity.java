@@ -1,8 +1,10 @@
 package com.project.windfood_client;
 
 import com.project.windfood_client.*;
-import android.app.ActionBar;
+
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
@@ -54,12 +57,14 @@ public class MainActivity extends AppCompatActivity {
     private void doInitialization(){
         authViewModels = new ViewModelProvider(this).get(AuthViewModels.class);
         sharedPrefManager = new SharedPrefManager(this);
+        ActionBar actionBar = getSupportActionBar();
         if(sharedPrefManager.getToken().isEmpty()){
             binding = ActivityAuthBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             editTextUsername = (EditText) findViewById(R.id.editTextUsername);
             editTextPassword = (EditText) findViewById(R.id.editTextPassword);
             buttonLogin = (Button) findViewById(R.id.buttonLogin);
+            actionBar.hide();
             buttonLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             checkTokenExpiration();
             mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(mainBinding.getRoot());
-            final ActionBar actionBar = getActionBar();
-
+//            final ActionBar actionBar = getActionBar();
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
             BottomNavigationView navView = findViewById(R.id.nav_view);
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)

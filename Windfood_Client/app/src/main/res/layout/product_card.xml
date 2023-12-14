@@ -49,6 +49,7 @@
             <info.hoang8f.widget.FButton
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
+                android:textColor="@color/white"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:id="@+id/decrease_button"
                 android:text="-"
@@ -73,6 +74,7 @@
                 android:shadowColor="@color/fbutton_color_amethyst"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
+                android:textColor="@color/white"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:id="@+id/increase_button"
                 android:text="+"

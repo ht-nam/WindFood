@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@android:style/Theme.NoTitleBar"
+    >
 
     <data>
 
@@ -32,7 +34,7 @@
                 android:fontFamily="@font/amaranth_bold"
                 android:gravity="center"
                 android:text="WindFood"
-                android:textColor="#008000"
+                android:textColor="@color/fbutton_color_belize_hole"
                 android:textSize="60sp" />
 
         </LinearLayout>
@@ -76,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/fbutton_color_belize_hole"
                 android:text="Đăng nhập"
                 android:textColor="#FFFFFF" />
 
