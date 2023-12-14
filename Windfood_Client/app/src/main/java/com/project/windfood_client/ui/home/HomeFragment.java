@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -19,18 +17,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.project.windfood_client.MainActivity;
 import com.project.windfood_client.R;
 import com.project.windfood_client.adapters.ImageSliderAdapter;
 import com.project.windfood_client.adapters.ProductListsAdapter;
 import com.project.windfood_client.databinding.FragmentHomeBinding;
-import com.project.windfood_client.models.User;
 import com.project.windfood_client.requests.PagingRequest;
-import com.project.windfood_client.responses.FoodResponses;
-import com.project.windfood_client.ui.auth.AuthActivity;
+import com.project.windfood_client.models.Food;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
-import com.project.windfood_client.viewmodels.auth.AuthViewModels;
 import com.project.windfood_client.viewmodels.home.HomeViewModel;
 
 import java.util.ArrayList;
@@ -43,7 +37,7 @@ public class HomeFragment extends Fragment {
     private SharedPrefManager sharedPrefManager;
     private ProductListsAdapter productListsAdapter;
     private RecyclerView productRecyclerView;
-    private List<FoodResponses> productList;
+    private List<Food> productList;
     private EditText editTextSearch;
     private Button buttonSearch;
 

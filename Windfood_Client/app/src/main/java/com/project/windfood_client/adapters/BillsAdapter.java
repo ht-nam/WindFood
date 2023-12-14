@@ -1,7 +1,6 @@
 package com.project.windfood_client.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,18 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.BillCardBinding;
-import com.project.windfood_client.databinding.ProductCardBinding;
-import com.project.windfood_client.responses.BillResponses;
-import com.project.windfood_client.responses.FoodResponses;
+import com.project.windfood_client.models.Bill;
 
 import java.util.List;
 
 public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsViewHolder>{
-    private List<BillResponses> listBillResponses;
+    private List<Bill> listBillRespons;
 
     private LayoutInflater layoutInflater;
-    public BillsAdapter(List<BillResponses> listBillResponses){
-        this.listBillResponses = listBillResponses;
+    public BillsAdapter(List<Bill> listBillRespons){
+        this.listBillRespons = listBillRespons;
     }
 
     @NonNull
@@ -36,12 +33,12 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull BillsViewHolder holder, int position) {
-        holder.bindSliderImage(listBillResponses.get(position));
+        holder.bindSliderImage(listBillRespons.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return listBillResponses.size();
+        return listBillRespons.size();
     }
 
     static class BillsViewHolder extends RecyclerView.ViewHolder{
@@ -51,8 +48,8 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsViewHol
             super(billCardBinding.getRoot());
             this.billCardBinding = billCardBinding;
         }
-        public void bindSliderImage(BillResponses billResponses){
-            billCardBinding.setBillResponse(billResponses);
+        public void bindSliderImage(Bill bill){
+            billCardBinding.setBillResponse(bill);
             billCardBinding.executePendingBindings();
         }
     }

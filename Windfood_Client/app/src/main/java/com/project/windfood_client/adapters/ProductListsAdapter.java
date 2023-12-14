@@ -12,18 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.ProductCardBinding;
-import com.project.windfood_client.responses.FoodResponses;
+import com.project.windfood_client.models.Food;
+import com.project.windfood_client.utils.CustomToast;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapter.ProductListsViewHolder> {
-    private List<FoodResponses> listOfFoods;
+    private List<Food> listOfFoods;
 
     public HashMap<Integer, Integer> quantityMap = new HashMap<>();
 
     private LayoutInflater layoutInflater;
-    public ProductListsAdapter(List<FoodResponses> listOfFoods) {
+    public ProductListsAdapter(List<Food> listOfFoods) {
         this.listOfFoods = listOfFoods;
     }
 
@@ -40,8 +41,15 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
     @Override
     public void onBindViewHolder(@NonNull ProductListsViewHolder holder, int position) {
         holder.bindSliderImage(listOfFoods.get(position));
-        FoodResponses foodResponses = listOfFoods.get(position);
-        holder.productCardBinding.quantityTextView.setText(String.valueOf(quantityMap.getOrDefault(foodResponses.getId(), 0)));
+        Food food = listOfFoods.get(position);
+//        foodResponses.setId(3);
+        holder.productCardBinding.productImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomToast.makeText(view.getContext(), food.getId().toString(), CustomToast.LENGTH_LONG, CustomToast.ERROR, true).show();
+            }
+        });
+//        holder.productCardBinding.quantityTextView.setText(String.valueOf(quantityMap.getOrDefault(foodResponses.getId(), 0)));
     }
 
     @Override
@@ -54,6 +62,7 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
         TextView quantityTextView;
         Button decreaseButton;
         Button increaseButton;
+
         public ProductListsViewHolder(ProductCardBinding productCardBinding){
             super(productCardBinding.getRoot());
             this.productCardBinding = productCardBinding;
@@ -80,8 +89,8 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
             });
         }
 
-        public void bindSliderImage(FoodResponses foodResponses){
-            productCardBinding.setFoodResponse(foodResponses);
+        public void bindSliderImage(Food food){
+            productCardBinding.setFoodResponse(food);
             productCardBinding.executePendingBindings();
         }
     }

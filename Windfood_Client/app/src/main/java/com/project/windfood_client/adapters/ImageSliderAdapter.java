@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.ItemContainerSliderImageBinding;
-import com.project.windfood_client.responses.FoodResponses;
-
-import java.util.List;
 
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageSliderViewHolder>{
 

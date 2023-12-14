@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.project.windfood_client.models.User;
 import com.project.windfood_client.repositories.auth.AuthRepositories;
-import com.project.windfood_client.responses.UserResponses;
 
 public class AuthViewModels extends ViewModel {
     private AuthRepositories authRepositories;

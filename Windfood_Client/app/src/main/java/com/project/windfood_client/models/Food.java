@@ -1,9 +1,9 @@
-package com.project.windfood_client.responses;
+package com.project.windfood_client.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class FoodResponses {
-    @SerializedName("id")
+public class Food {
+    @SerializedName("foodId")
     private Integer id;
     @SerializedName("foodName")
     private String foodName;
@@ -19,7 +19,7 @@ public class FoodResponses {
     private String urlImg;
     @SerializedName("createDate")
     private String createDate;
-    public FoodResponses(Integer id, String foodName, Integer quantity, Float importPrice, Float price, String description, String urlImg, String createDate) {
+    public Food(Integer id, String foodName, Integer quantity, Float importPrice, Float price, String description, String urlImg, String createDate) {
         this.id = id;
         this.foodName = foodName;
         this.quantity = quantity;

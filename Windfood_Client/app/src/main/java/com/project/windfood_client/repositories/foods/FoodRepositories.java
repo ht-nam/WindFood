@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.project.windfood_client.models.User;
 import com.project.windfood_client.network.ApiClient;
-import com.project.windfood_client.network.auth.AuthApiService;
 import com.project.windfood_client.network.food.FoodApi;
 import com.project.windfood_client.requests.PagingRequest;
+import com.project.windfood_client.models.Food;
 import com.project.windfood_client.responses.FoodPagingResponses;
-import com.project.windfood_client.responses.FoodResponses;
 
 import java.util.List;
 
@@ -25,17 +23,17 @@ public class FoodRepositories {
         foodApi = ApiClient.getRetrofit().create(FoodApi.class);
     }
 
-    public LiveData<List<FoodResponses>> getAllFoods(String auth){
-        MutableLiveData<List<FoodResponses>> data = new MutableLiveData<>();
-        foodApi.getAllFoods(auth).enqueue(new Callback<List<FoodResponses>>() {
+    public LiveData<List<Food>> getAllFoods(String auth){
+        MutableLiveData<List<Food>> data = new MutableLiveData<>();
+        foodApi.getAllFoods(auth).enqueue(new Callback<List<Food>>() {
             @Override
-            public void onResponse(@NonNull Call<List<FoodResponses>> call, @NonNull Response<List<FoodResponses>> response) {
+            public void onResponse(@NonNull Call<List<Food>> call, @NonNull Response<List<Food>> response) {
                 System.out.println(response.body());
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<FoodResponses>> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<Food>> call, @NonNull Throwable t) {
                 System.out.println("Throwable: " + t.getLocalizedMessage());
                 data.setValue(null);
             }

@@ -1,25 +1,26 @@
 package com.project.windfood_client.responses;
 
 import com.google.gson.annotations.SerializedName;
+import com.project.windfood_client.models.Bill;
 
 import java.util.List;
 
 public class BillPagingResponse {
     @SerializedName("data")
-    private List<BillResponses> data;
+    private List<Bill> data;
     @SerializedName("count")
     private Integer count;
 
-    public BillPagingResponse(List<BillResponses> data, Integer count) {
+    public BillPagingResponse(List<Bill> data, Integer count) {
         this.data = data;
         this.count = count;
     }
 
-    public List<BillResponses> getData() {
+    public List<Bill> getData() {
         return data;
     }
 
-    public void setData(List<BillResponses> data) {
+    public void setData(List<Bill> data) {
         this.data = data;
     }
 

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="billResponse"
-            type="com.project.windfood_client.responses.BillResponses" />
+            type="com.project.windfood_client.models.Bill" />
     </data>
 
     <androidx.cardview.widget.CardView
