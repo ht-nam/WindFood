@@ -57,21 +57,11 @@ public class HomeFragment extends Fragment {
         sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
         productList = new ArrayList<>();
         editTextSearch = binding.searchBar;
-        buttonSearch = binding.buttonSearch;
         if(!sharedPrefManager.getToken().isEmpty()){
             PagingRequest pagingRequest = new PagingRequest(1, 10000, null);
             doInitialization(pagingRequest);
-            buttonSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    productList.clear();
-                    PagingRequest pagingRequest = new PagingRequest(1, 10000,  editTextSearch.getText().toString().toLowerCase().trim());
-                    CustomToast.makeText(getContext(), pagingRequest.getSearch(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
-                    doInitialization(pagingRequest);
-                    productListsAdapter.notifyDataSetChanged();
-                }
-            });
         }
+
 
         return root;
     }
@@ -103,28 +93,28 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadImageSlider(String[] sliderImages){
-        binding.sliderViewPager.setOffscreenPageLimit(1);
-        binding.sliderViewPager.setAdapter(new ImageSliderAdapter(sliderImages));
-        binding.sliderViewPager.setVisibility(View.VISIBLE);
-        binding.viewFadingEdge.setVisibility(View.VISIBLE);
-        setupSliderIndicators(sliderImages.length);
-        binding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                setCurrentSliderIndicator(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-            }
-        });
+//        binding.sliderViewPager.setOffscreenPageLimit(1);
+//        binding.sliderViewPager.setAdapter(new ImageSliderAdapter(sliderImages));
+//        binding.sliderViewPager.setVisibility(View.VISIBLE);
+//        binding.viewFadingEdge.setVisibility(View.VISIBLE);
+//        setupSliderIndicators(sliderImages.length);
+//        binding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//                setCurrentSliderIndicator(position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//                super.onPageScrollStateChanged(state);
+//            }
+//        });
     }
 
     private void setupSliderIndicators(int count){

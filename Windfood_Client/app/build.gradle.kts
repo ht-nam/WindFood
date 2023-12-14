@@ -72,4 +72,9 @@ dependencies {
     implementation("com.makeramen:roundedimageview:2.3.0")
 //    MPAndroid chart
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+//    float button
+    implementation("info.hoang8f:fbutton:1.0.5")
+//    navigation tab bar
+    implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
+//    Cat Loading
 }
