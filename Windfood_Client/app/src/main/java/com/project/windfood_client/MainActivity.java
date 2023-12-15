@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private AuthViewModels authViewModels;
     private EditText editTextUsername, editTextPassword;
     private Button buttonLogin;
+    private ProgressBar prgLog;
     private SharedPrefManager sharedPrefManager;
 
     @Override
@@ -64,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
             editTextUsername = (EditText) findViewById(R.id.editTextUsername);
             editTextPassword = (EditText) findViewById(R.id.editTextPassword);
             buttonLogin = (Button) findViewById(R.id.buttonLogin);
+            prgLog = (ProgressBar) findViewById(R.id.prgLog);
             actionBar.hide();
             buttonLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    buttonLogin.setVisibility(View.GONE);
+                    prgLog.setVisibility(View.VISIBLE);
                     User user = new User(editTextUsername.getText().toString(), editTextPassword.getText().toString());
                     if(user.getUsername().isEmpty() || user.getPassword().isEmpty()){
                         CustomToast.makeText(MainActivity.this, "Tên đăng nhập hoặc mật khẩu không được bỏ trổng!", CustomToast.LENGTH_LONG, CustomToast.CONFUSING, true).show();
+                        buttonLogin.setVisibility(View.VISIBLE);
+                        prgLog.setVisibility(View.GONE);
                     }else{
                         authViewModels.loginUser(user).observe(MainActivity.this, response -> {
                             if(!response.isEmpty()){
@@ -82,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }else{
                                 CustomToast.makeText(MainActivity.this, "Đăng nhập thất bại!", CustomToast.LENGTH_LONG, CustomToast.ERROR, true).show();
+                                buttonLogin.setVisibility(View.VISIBLE);
+                                prgLog.setVisibility(View.GONE);
                             }
                         });
                     }

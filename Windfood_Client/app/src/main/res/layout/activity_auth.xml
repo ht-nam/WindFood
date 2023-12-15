@@ -82,8 +82,17 @@
                 android:layout_marginTop="50dp"
                 android:backgroundTint="@color/fbutton_color_belize_hole"
                 android:text="Đăng nhập"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:visibility="visible"/>
 
+            <ProgressBar
+                android:id="@+id/prgLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/fbutton_color_belize_hole"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
