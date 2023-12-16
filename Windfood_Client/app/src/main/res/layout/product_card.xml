@@ -44,6 +44,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
+            android:paddingTop="32px"
             android:gravity="center"
             >
             <info.hoang8f.widget.FButton

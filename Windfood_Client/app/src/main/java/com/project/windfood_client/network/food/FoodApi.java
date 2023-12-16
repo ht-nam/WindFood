@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface FoodApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
@@ -22,4 +23,9 @@ public interface FoodApi {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @POST(Constants.FOOD_ROUTE + "/paging")
     Call<FoodPagingResponses> getFoodPaging(@Body PagingRequest pagingRequest, @Header("Authorization") String auth);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET(Constants.FOOD_ROUTE + "/{id}")
+    Call<Food> getFoodById(@Path("id") int id, @Header("Authorization") String auth);
+
 }
