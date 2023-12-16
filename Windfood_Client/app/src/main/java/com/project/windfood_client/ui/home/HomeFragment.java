@@ -16,9 +16,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.gson.Gson;
 import com.project.windfood_client.R;
 import com.project.windfood_client.adapters.ImageSliderAdapter;
 import com.project.windfood_client.adapters.ProductListsAdapter;
@@ -39,9 +41,13 @@ public class HomeFragment extends Fragment {
     private SharedPrefManager sharedPrefManager;
     private ProductListsAdapter productListsAdapter;
     private RecyclerView productRecyclerView;
+    private RecyclerView selectedProductRecyclerView;
+    private ImageSliderAdapter imageSliderAdapter;
     private List<Food> productList;
     private EditText editTextSearch;
     private Button buttonSearch;
+    private List<Food> selectedProductLists;
+    private Gson gson;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +58,13 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
         productList = new ArrayList<>();
+        selectedProductLists = new ArrayList<>();
+        gson = new Gson();
+//        if(!sharedPrefManager.getCartItem().isEmpty()){
+//            for(final String cartItem: sharedPrefManager.getCartItem()){
+//                selectedProductLists.add(gson.fromJson(cartItem, Food.class));
+//            }
+//        }
         editTextSearch = binding.searchBar;
         if(!sharedPrefManager.getToken().isEmpty()){
             PagingRequest pagingRequest = new PagingRequest(1, 10000, null);
@@ -103,6 +116,11 @@ public class HomeFragment extends Fragment {
                     productRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
                     productListsAdapter = new ProductListsAdapter(productList, sharedPrefManager);
                     productRecyclerView.setAdapter(productListsAdapter);
+
+//                    selectedProductRecyclerView = binding.selectedProductCard;
+//                    selectedProductRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+//                    imageSliderAdapter = new ImageSliderAdapter(selectedProductLists);
+//                    selectedProductRecyclerView.setAdapter(imageSliderAdapter);
                 }
             }
         });

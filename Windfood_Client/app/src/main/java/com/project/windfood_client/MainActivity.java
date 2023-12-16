@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         if(!sharedPrefManager.getToken().isEmpty()){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.dropdown_menu, menu);
+            inflater.inflate(R.menu.shopping_cart_menu, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }

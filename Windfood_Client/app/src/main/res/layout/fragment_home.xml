@@ -26,13 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-<!--                <androidx.viewpager2.widget.ViewPager2-->
-<!--                    android:id="@+id/sliderViewPager"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/_100sdp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:visibility="gone"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"/>-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/selected_product_card"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"/>
 
                 <View
                     android:id="@+id/viewFadingEdge"
