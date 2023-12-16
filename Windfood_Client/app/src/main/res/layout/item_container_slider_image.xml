@@ -3,16 +3,42 @@
 
     <data>
         <variable
-            name="urlImg"
-            type="String" />
+            name="foodResponse"
+            type="com.project.windfood_client.models.Food" />
     </data>
 
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"
-        android:imageURL="@{urlImg}"
-        android:scaleType="center"
-        />
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@{foodResponse.urlImg}" />
+
+            <TextView
+                android:id="@+id/badge_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:background="@drawable/textview_border"
+                android:text="@{foodResponse.cartQuantity}"
+                android:padding="@dimen/_8sdp"
+                />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

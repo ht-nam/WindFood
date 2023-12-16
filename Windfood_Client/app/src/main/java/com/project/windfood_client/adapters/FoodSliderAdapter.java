@@ -11,15 +11,16 @@ import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.ItemContainerSliderImageBinding;
 import com.project.windfood_client.models.Food;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageSliderViewHolder>{
+public class FoodSliderAdapter extends RecyclerView.Adapter<FoodSliderAdapter.ImageSliderViewHolder>{
 
     private List<Food> sliderImages;
     private LayoutInflater layoutInflater;
 
-    public ImageSliderAdapter(List<Food> sliderImages) {
-        this.sliderImages = sliderImages;
+    public FoodSliderAdapter(String[] sliderImages) {
+        this.sliderImages = new ArrayList<>();
     }
 
     @NonNull
@@ -49,8 +50,8 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
             this.itemContainerSliderImageBinding = itemContainerSliderImageBinding;
         }
 
-        public void bindSliderImage(Food foodResponse){
-            itemContainerSliderImageBinding.setFoodResponse(foodResponse);
+        public void bindSliderImage(Food food){
+            itemContainerSliderImageBinding.setFoodResponse(food);
             itemContainerSliderImageBinding.executePendingBindings();
         }
     }
