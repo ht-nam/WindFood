@@ -17,17 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.project.windfood_client.R;
-import com.project.windfood_client.adapters.ImageSliderAdapter;
 import com.project.windfood_client.adapters.ProductListsAdapter;
 import com.project.windfood_client.databinding.FragmentHomeBinding;
+import com.project.windfood_client.repositories.foods.FoodRepositories;
 import com.project.windfood_client.requests.PagingRequest;
 import com.project.windfood_client.models.Food;
-import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
-import com.project.windfood_client.viewmodels.home.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private HomeViewModel homeViewModel;
+    private FoodRepositories foodRepository;
     private SharedPrefManager sharedPrefManager;
     private ProductListsAdapter productListsAdapter;
     private RecyclerView productRecyclerView;
@@ -45,8 +42,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        foodRepository = new FoodRepositories();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -81,7 +77,7 @@ public class HomeFragment extends Fragment {
 
     private void doInitialization(PagingRequest pagingRequest){
         binding.setIsLoading(true);
-        homeViewModel.getFoodPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
+        foodRepository.getFoodPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), foodResponses -> {
             String[] urlImage = null;
 //                if(foodResponses.size() > 0){
 //                    urlImage = new String[foodResponses.size()];
