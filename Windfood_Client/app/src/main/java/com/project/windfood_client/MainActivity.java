@@ -1,7 +1,5 @@
 package com.project.windfood_client;
 
-import com.project.windfood_client.*;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,16 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,10 +26,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.project.windfood_client.databinding.ActivityAuthBinding;
 import com.project.windfood_client.databinding.ActivityMainBinding;
 import com.project.windfood_client.models.User;
+import com.project.windfood_client.repositories.auth.AuthRepositories;
 import com.project.windfood_client.ui.auth.AuthActivity;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
-import com.project.windfood_client.viewmodels.auth.AuthViewModels;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityAuthBinding binding;
     private ActivityMainBinding mainBinding;
-    private AuthViewModels authViewModels;
+    private AuthRepositories authRepository;
     private EditText editTextUsername, editTextPassword;
     private Button buttonLogin;
     private ProgressBar prgLog;
@@ -57,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 //        sharedPrefManager.clearToken();
     }
     private void doInitialization(){
-        authViewModels = new ViewModelProvider(this).get(AuthViewModels.class);
+        authRepository = new AuthRepositories();
         sharedPrefManager = new SharedPrefManager(this);
         ActionBar actionBar = getSupportActionBar();
         if(sharedPrefManager.getToken().isEmpty()){
@@ -79,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         buttonLogin.setVisibility(View.VISIBLE);
                         prgLog.setVisibility(View.GONE);
                     }else{
-                        authViewModels.loginUser(user).observe(MainActivity.this, response -> {
+                        authRepository.loginUser(user).observe(MainActivity.this, response -> {
                             if(!response.isEmpty()){
                                 sharedPrefManager.saveToken(response.toString());
                                 CustomToast.makeText(MainActivity.this, "Đăng nhập thành công!", CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();

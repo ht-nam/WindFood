@@ -1,5 +1,7 @@
 package com.project.windfood_client.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.project.windfood_client.MainActivity;
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.ProductCardBinding;
 import com.project.windfood_client.models.Food;
+import com.project.windfood_client.ui.home.FoodDetailActivity;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
 
@@ -25,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapter.ProductListsViewHolder> {
+    private Context context;
     private List<Food> listOfFoods;
 
     public HashMap<Integer, Integer> quantityMap = new HashMap<>();
@@ -105,7 +109,11 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
         holder.productCardBinding.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomToast.makeText(layoutInflater.getContext(), food.getId().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
+//                CustomToast.makeText(layoutInflater.getContext(), food.getId().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
+                Intent productDetail = new Intent(view.getContext(), FoodDetailActivity.class);
+                productDetail.putExtra("foodId", food.getId());
+
+                view.getContext().startActivity(productDetail);
             }
         });
     }

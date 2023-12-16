@@ -7,17 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.windfood_client.adapters.BillsAdapter;
 import com.project.windfood_client.databinding.FragmentNotificationsBinding;
+import com.project.windfood_client.repositories.bills.BillRepositories;
 import com.project.windfood_client.requests.PagingRequest;
 import com.project.windfood_client.models.Bill;
 import com.project.windfood_client.utils.SharedPrefManager;
 import com.project.windfood_client.utils.Utils;
-import com.project.windfood_client.viewmodels.notification.NotificationsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
     private SharedPrefManager sharedPrefManager;
-    private NotificationsViewModel notificationsViewModel;
+    private BillRepositories billRepository;
     private List<Bill> billList;
     private RecyclerView billRecylerView;
 
@@ -34,8 +33,7 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        billRepository = new BillRepositories();
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -49,7 +47,7 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void doInitialization(PagingRequest pagingRequest){
-        notificationsViewModel.getBillPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), billResponses -> {
+        billRepository.getBillPaging(pagingRequest,"Bearer " + sharedPrefManager.getToken()).observe(getViewLifecycleOwner(), billResponses -> {
             if(billResponses != null){
                 for (int i = 0; i < billResponses.getData().size(); i++) {
                     billResponses.getData().get(i).setCreateDate(Utils.getFormattedDate(billResponses.getData().get(i).getCreateDate()));
