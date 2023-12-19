@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.project.windfood_client.MainActivity;
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.ProductCardBinding;
+import com.project.windfood_client.models.Cart;
 import com.project.windfood_client.models.Food;
 import com.project.windfood_client.ui.home.FoodDetailActivity;
 import com.project.windfood_client.utils.CustomToast;
@@ -36,16 +37,12 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
     private LayoutInflater layoutInflater;
 
     private SharedPrefManager sharedPrefManager;
-
-    private Set<String> cartItems;
-
     private Set<Food> addItemToCart;
 
     private Gson gson;
 
     public ProductListsAdapter(List<Food> listOfFoods, SharedPrefManager sharedPrefManager) {
         this.listOfFoods = listOfFoods;
-        this.cartItems = new HashSet<>();
         this.addItemToCart = new HashSet<>();
         this.gson = new Gson();
         this.sharedPrefManager = sharedPrefManager;
@@ -73,18 +70,14 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
                     food.setCartQuantity(0);
                 }
                 holder.productCardBinding.quantityTextView.setText(String.valueOf(food.getCartQuantity()));
-                List<String> stringsList = new ArrayList<>(cartItems);
-                for (int i = 0; i < stringsList.size(); i++) {
-                    if(gson.fromJson(stringsList.get(i), Food.class).getId() == food.getId()){
-                        Food food1 = gson.fromJson(stringsList.get(i), Food.class);
+                for (int i = 0; i < Cart.cartItems.size(); i++) {
+                    if(Cart.cartItems.get(i).getId() == food.getId()){
+                        Food food1 = Cart.cartItems.get(i);
                         food1.setCartQuantity(food.getCartQuantity());
-                        stringsList.set(i, gson.toJson(food1));
+                        Cart.cartItems.set(i, food1);
                     }
-                    CustomToast.makeText(layoutInflater.getContext(), stringsList.get(i), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
+                    CustomToast.makeText(layoutInflater.getContext(), Cart.cartItems.get(i).getCartQuantity().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                 }
-                System.out.println(stringsList);
-                sharedPrefManager.clearCartItem();
-                sharedPrefManager.saveItemToCart(cartItems);
             }
         });
 
@@ -93,17 +86,14 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
             public void onClick(View v) {
                 food.setCartQuantity(food.getCartQuantity() + 1);
                 holder.productCardBinding.quantityTextView.setText(String.valueOf(food.getCartQuantity()));
-                if(food.getCartQuantity() > 0){
-                    if(!addItemToCart.contains(food)){
-                        addItemToCart.add(food);
+                for (int i = 0; i < Cart.cartItems.size(); i++) {
+                    if(Cart.cartItems.get(i).getId() == food.getId()){
+                        Food food1 = Cart.cartItems.get(i);
+                        food1.setCartQuantity(food.getCartQuantity());
+                        Cart.cartItems.set(i, food1);
                     }
-                    List<Food> stringsList = new ArrayList<>(addItemToCart);
-                    for (int i = 0; i < stringsList.size(); i++) {
-                        cartItems.add(gson.toJson(stringsList.get(i)));
-                    }
+                    CustomToast.makeText(layoutInflater.getContext(), Cart.cartItems.get(i).getCartQuantity().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                 }
-                sharedPrefManager.clearCartItem();
-                sharedPrefManager.saveItemToCart(cartItems);
             }
         });
         holder.productCardBinding.productImage.setOnClickListener(new View.OnClickListener() {
