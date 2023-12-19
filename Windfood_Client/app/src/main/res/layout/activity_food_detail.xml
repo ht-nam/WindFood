@@ -16,23 +16,64 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="800px"
             android:id="@+id/product_image"
             android:imageURL="@{food.urlImg}"
-            app:layout_constraintBottom_toTopOf="@+id/product_text" />
+            app:layout_constraintBottom_toTopOf="@+id/product_action" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="32px"
+            android:gravity="center"
+            tools:ignore="MissingClass"
+            android:id="@+id/product_action"
+            app:layout_constraintTop_toBottomOf="@id/product_image">
+
+            <info.hoang8f.widget.FButton
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:textColor="@color/white"
+                android:id="@+id/food_decrease_button"
+                android:text="-"
+                />
+            <TextView
+                android:id="@+id/food_quantity_text_view"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:layout_marginHorizontal="64px"
+                android:textSize="20sp" />
+            <info.hoang8f.widget.FButton
+                app:buttonColor="@color/fbutton_color_alizarin"
+                android:shadowColor="@color/fbutton_color_amethyst"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:textColor="@color/white"
+                android:id="@+id/food_increase_button"
+                android:text="+"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/product_text"
-            app:layout_constraintTop_toBottomOf="@+id/product_image"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/product_action"
+            android:orientation="vertical"
+            android:paddingHorizontal="64px"
+            android:paddingVertical="128px">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/product_name"
                 android:text="@{food.foodName}"
+                android:textSize="28sp"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -40,6 +81,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/product_price"
                 android:text='@{food.price.toString() + "VNĐ"}'
+                android:textColor="@color/fbutton_color_orange"
+                android:textSize="24sp"
+                android:paddingLeft="24px"
+                android:paddingTop="32px"
                 />
 
             <TextView
@@ -47,6 +92,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/product_desc"
                 android:text='@{food.description}'
+                android:textSize="20sp"
+                android:paddingTop="32px"
                 />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

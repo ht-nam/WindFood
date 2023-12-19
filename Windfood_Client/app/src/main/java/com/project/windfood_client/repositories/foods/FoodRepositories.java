@@ -59,4 +59,19 @@ public class FoodRepositories {
         return data;
     }
 
+    public LiveData<Food> getById(int id, String auth){
+        MutableLiveData<Food> data = new MutableLiveData<>();
+        foodApi.getFoodById(id, auth).enqueue(new Callback<Food>() {
+            @Override
+            public void onResponse(Call<Food> call, Response<Food> response) {
+                data.setValue(response.body());
+            }
+            @Override
+            public void onFailure(@NonNull Call<Food> call,@NonNull Throwable t) {
+                System.out.println("Throwable: " + t.getLocalizedMessage());
+                data.setValue(null);
+            }
+        });
+        return data;
+    }
 }
