@@ -58,7 +58,7 @@ public class FoodDetailActivity extends AppCompatActivity {
                 });
                 // set action bar title
                 ActionBar actionBar = getSupportActionBar();
-                actionBar.setTitle(selectedFoodId.toString());
+                actionBar.setTitle(this.food.getFoodName());
             } else {
                 throw new Exception();
             }

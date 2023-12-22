@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.project.windfood_client.R;
+import com.project.windfood_client.adapters.ImageSliderAdapter;
 import com.project.windfood_client.adapters.ProductListsAdapter;
 import com.project.windfood_client.databinding.FragmentHomeBinding;
 import com.project.windfood_client.repositories.foods.FoodRepositories;
