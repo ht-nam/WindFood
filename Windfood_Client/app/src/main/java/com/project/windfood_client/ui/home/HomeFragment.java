@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
     private ProductListsAdapter productListsAdapter;
     private RecyclerView productRecyclerView;
     private RecyclerView selectedProductRecyclerView;
-    private ImageSliderAdapter imageSliderAdapter;
     private List<Food> productList;
     private EditText editTextSearch;
     private Button buttonSearch;
