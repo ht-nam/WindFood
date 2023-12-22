@@ -5,7 +5,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +46,9 @@ public class FoodDetailActivity extends AppCompatActivity {
 
     private void initData(){
         try {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
+
             binding = DataBindingUtil.setContentView(this, R.layout.activity_food_detail);
             foodRepository = new FoodRepositories();
             sharedPrefManager = new SharedPrefManager(getApplicationContext());
@@ -52,13 +59,12 @@ public class FoodDetailActivity extends AppCompatActivity {
                 foodRepository.getById(selectedFoodId,auth).observe(this, foodRes -> {
                     this.food = foodRes;
                     if (this.food != null) {
+                        actionBar.setTitle(this.food.getFoodName());
                         binding.setFood(this.food);
                         bindingAction();
                     }
                 });
-                // set action bar title
-                ActionBar actionBar = getSupportActionBar();
-                actionBar.setTitle(this.food.getFoodName());
+
             } else {
                 throw new Exception();
             }
@@ -87,7 +93,9 @@ public class FoodDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Integer currentVal = Integer.parseInt(quantityTextView.getText().toString());
-                quantityTextView.setText(String.valueOf(--currentVal));
+                if (currentVal > 0) {
+                    quantityTextView.setText(String.valueOf(--currentVal));
+                }
             }
         });
     }
@@ -97,6 +105,18 @@ public class FoodDetailActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
         }
+        if (item.getItemId() == R.menu.shopping_cart_menu){
+
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(!sharedPrefManager.getToken().isEmpty()){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.shopping_cart_menu, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 }

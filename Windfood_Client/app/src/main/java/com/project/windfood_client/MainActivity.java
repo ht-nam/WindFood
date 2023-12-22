@@ -163,10 +163,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.personalInforId){
 
-        }else if(id == R.id.logoutId){
+        } else if(id == R.id.logoutId){
             sharedPrefManager.clearToken();
             finish();
             startActivity(getIntent());
+        } else if(id == R.menu.shopping_cart_menu){
+
         }
         return super.onOptionsItemSelected(item);
     }
