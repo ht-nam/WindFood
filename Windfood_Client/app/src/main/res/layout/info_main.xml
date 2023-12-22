@@ -68,7 +68,7 @@
                     android:padding="16dp"
                     android:background="@color/white"
                     android:text="Tên đăng nhập"
-                    android:textSize="16dp"
+                    android:textSize="16dp"/>
 
                 <TextView
                     android:id="@+id/user_logname"
@@ -99,7 +99,7 @@
                     android:padding="16dp"
                     android:background="@color/white"
                     android:text="Tên: "
-                    android:textSize="16dp"
+                    android:textSize="16dp"/>
 
                 <TextView
                     android:id="@+id/user_name"
