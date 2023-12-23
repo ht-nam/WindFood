@@ -12,7 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:elevation="@dimen/_10sdp"
+        android:translationZ="@dimen/_5sdp"
         android:padding="8dp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/customborder"
         android:id="@+id/foodCard"
         >
 

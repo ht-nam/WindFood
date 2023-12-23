@@ -43,18 +43,6 @@
 <!--            app:cnb_textAppearance="?myThemeTextAppearance"-->
 <!--            app:cnb_animationDuration="175"-->
 <!--        />-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:backgroundTint="@color/fbutton_color_belize_hole"
-            android:src="@drawable/ic_support"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/nav_view"
-            app:layout_anchorGravity="bottom|right|end"
-            app:layout_constraintRight_toRightOf="@+id/nav_view"
-            />
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_main"

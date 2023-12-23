@@ -70,14 +70,17 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
                     food.setCartQuantity(0);
                 }
                 holder.productCardBinding.quantityTextView.setText(String.valueOf(food.getCartQuantity()));
-                for (int i = 0; i < Cart.cartItems.size(); i++) {
-                    if(Cart.cartItems.get(i).getId() == food.getId()){
-                        Food food1 = Cart.cartItems.get(i);
-                        food1.setCartQuantity(food.getCartQuantity());
-                        Cart.cartItems.set(i, food1);
+                if(Cart.cartItems.size() > 0){
+                    for (int i = 0; i < Cart.cartItems.size(); i++) {
+                        if(Cart.cartItems.get(i).getId() == food.getId()){
+                            Food food1 = Cart.cartItems.get(i);
+                            food1.setCartQuantity(food.getCartQuantity());
+                            Cart.cartItems.set(i, food1);
+                        }
+//                        CustomToast.makeText(layoutInflater.getContext(), Cart.cartItems.get(i).getCartQuantity().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                     }
-                    CustomToast.makeText(layoutInflater.getContext(), Cart.cartItems.get(i).getCartQuantity().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                 }
+                Cart.cartItems.add(food);
             }
         });
 
@@ -86,14 +89,17 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
             public void onClick(View v) {
                 food.setCartQuantity(food.getCartQuantity() + 1);
                 holder.productCardBinding.quantityTextView.setText(String.valueOf(food.getCartQuantity()));
-                for (int i = 0; i < Cart.cartItems.size(); i++) {
-                    if(Cart.cartItems.get(i).getId() == food.getId()){
-                        Food food1 = Cart.cartItems.get(i);
-                        food1.setCartQuantity(food.getCartQuantity());
-                        Cart.cartItems.set(i, food1);
+                if(Cart.cartItems.size() > 0){
+                    for (int i = 0; i < Cart.cartItems.size(); i++) {
+                        if(Cart.cartItems.get(i).getId() == food.getId()){
+                            Food food1 = Cart.cartItems.get(i);
+                            food1.setCartQuantity(food.getCartQuantity());
+                            Cart.cartItems.set(i, food1);
+//                            CustomToast.makeText(layoutInflater.getContext(), Cart.cartItems.get(i).getFoodName(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
+                        }
                     }
-                    CustomToast.makeText(layoutInflater.getContext(), Cart.cartItems.get(i).getCartQuantity().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                 }
+                Cart.cartItems.add(food);
             }
         });
         holder.productCardBinding.productImage.setOnClickListener(new View.OnClickListener() {

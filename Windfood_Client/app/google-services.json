@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "760858187296",
+    "project_id": "windfood-e499a",
+    "storage_bucket": "windfood-e499a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760858187296:android:7142112bc147d38cfc0e45",
+        "android_client_info": {
+          "package_name": "com.project.windfood_client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtoi4wLB-Yk2KeeQIxye8KjWp-6FVQnL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

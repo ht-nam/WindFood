@@ -23,6 +23,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.windfood_client.databinding.ActivityAuthBinding;
 import com.project.windfood_client.databinding.ActivityMainBinding;
 import com.project.windfood_client.models.User;
@@ -34,6 +35,9 @@ import com.project.windfood_client.utils.SharedPrefManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityAuthBinding binding;
@@ -44,10 +48,14 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar prgLog;
     private SharedPrefManager sharedPrefManager;
 
+    private FirebaseFirestore firestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doInitialization();
+        firestore = FirebaseFirestore.getInstance();
+
 //        sharedPrefManager.clearToken();
     }
     private void doInitialization(){
