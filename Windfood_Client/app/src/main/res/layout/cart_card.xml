@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="food"
+            type="com.project.windfood_client.models.Food" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_margin="10dp"
+        android:padding="@dimen/_20sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        app:cardElevation="15dp"
+        app:cardCornerRadius="10dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/cartImage"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80ssp"
+                    android:scaleType="centerCrop"
+                    android:paddingRight="@dimen/_4ssp"
+                    android:imageURL='@{food.urlImg}' />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="@dimen/_8ssp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/cartName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text='@{food.foodName}'/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/_12ssp">
+                        <info.hoang8f.widget.FButton
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:textColor="@color/white"
+                            android:id="@+id/cart_decrease_button"
+                            android:text="-"
+                            />
+                        <TextView
+                            android:id="@+id/cart_quantity_text_view"
+                            android:layout_width="48dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{food.cartQuantity.toString()}'
+                            android:textSize="20sp" />
+                        <info.hoang8f.widget.FButton
+                            app:buttonColor="@color/fbutton_color_alizarin"
+                            android:shadowColor="@color/fbutton_color_amethyst"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:textColor="@color/white"
+                            android:id="@+id/cart_increase_button"
+                            android:text="+"
+                            />
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/fbutton_color_orange"
+                            android:textSize="20sp"
+                            android:paddingLeft="@dimen/_8ssp"
+                            android:text='@{food.price.toString() + "VNĐ"}'/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -16,6 +16,8 @@
     <color name="colorTextSecondary">#4A5B82</color>
     <color name="colorTextOther">#FAD303</color>
     <color name="colorThemeExtra">#FF5252</color>
+    //Custom color
+    <color name="lightGrey">#EAE8E7</color>
     //Color Swatches provided by http://designmodo.github.io/Flat-UI/
     <color name="fbutton_color_turquoise">#1abc9c</color>
     <color name="fbutton_color_green_sea">#16a085</color>

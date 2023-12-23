@@ -24,6 +24,7 @@ import com.project.windfood_client.R;
 import com.project.windfood_client.adapters.ImageSliderAdapter;
 import com.project.windfood_client.adapters.ProductListsAdapter;
 import com.project.windfood_client.databinding.FragmentHomeBinding;
+import com.project.windfood_client.models.Cart;
 import com.project.windfood_client.repositories.foods.FoodRepositories;
 import com.project.windfood_client.requests.PagingRequest;
 import com.project.windfood_client.models.Food;
@@ -80,7 +81,9 @@ public class HomeFragment extends Fragment {
                     pagingRequest.setSearch(s.toString());
                     productList.clear();
                     doInitialization(pagingRequest);
-                    productListsAdapter.notifyDataSetChanged();
+                    if (productListsAdapter != null) {
+                        productListsAdapter.notifyDataSetChanged();
+                    }
                 }
             });
         }
@@ -108,9 +111,10 @@ public class HomeFragment extends Fragment {
                     loadImageSlider(urlImage);
                 }
                 if(productList.size() > 0){
+                    updateProductListCartQuantity();
                     productRecyclerView = binding.productRecyclerView;
                     productRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
-                    productListsAdapter = new ProductListsAdapter(productList, sharedPrefManager);
+                    productListsAdapter = new ProductListsAdapter(productList);
                     productRecyclerView.setAdapter(productListsAdapter);
 
 //                    selectedProductRecyclerView = binding.selectedProductCard;
@@ -178,6 +182,15 @@ public class HomeFragment extends Fragment {
                 );
             }
         }
+    }
+
+    public void updateProductListCartQuantity() {
+        productList.forEach(food -> {
+            food.setCartQuantity(0);
+            if (Cart.isExistFood(food.getId())) {
+                food.setCartQuantity(Cart.getFoodById(food.getId()).getCartQuantity());
+            }
+        });
     }
 
     @Override

@@ -17,4 +17,25 @@ public class Cart {
             cartItems.removeIf(e -> e.getId() == id);
         }
     }
+
+    public static boolean isExistFood(Integer id) {
+        if (cartItems != null && !cartItems.isEmpty()) {
+            return cartItems.stream().filter(food -> food.getId() == id).count() > 0;
+        }
+        return false;
+    }
+
+    public static Food getFoodById(Integer id) {
+        if (cartItems != null && !cartItems.isEmpty()) {
+            return cartItems.stream().filter(food -> food.getId() == id).findFirst().get();
+        }
+        return null;
+    }
+
+    public static long getTotalPrice(){
+        if (cartItems != null && !cartItems.isEmpty()) {
+            return cartItems.stream().mapToLong(o->o.getPrice() * o.getCartQuantity()).sum();
+        }
+        return 0;
+    }
 }

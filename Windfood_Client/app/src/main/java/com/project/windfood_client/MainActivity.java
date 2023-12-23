@@ -29,6 +29,8 @@ import com.project.windfood_client.databinding.ActivityMainBinding;
 import com.project.windfood_client.models.User;
 import com.project.windfood_client.repositories.auth.AuthRepositories;
 import com.project.windfood_client.ui.auth.AuthActivity;
+import com.project.windfood_client.ui.cart.CartActivity;
+import com.project.windfood_client.ui.home.FoodDetailActivity;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
 
@@ -175,9 +177,17 @@ public class MainActivity extends AppCompatActivity {
             sharedPrefManager.clearToken();
             finish();
             startActivity(getIntent());
-        } else if(id == R.menu.shopping_cart_menu){
-
+        } else if(id == R.id.action_item_cart){
+            Intent cart = new Intent(this, CartActivity.class);
+            startActivity(cart);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestart() {
+//        mainBinding.navView.findViewById(R.id.navigation_dashboard).performClick();
+        this.recreate();
+        super.onRestart();
     }
 }

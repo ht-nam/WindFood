@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,8 +19,10 @@ import android.widget.Toast;
 
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.ActivityFoodDetailBinding;
+import com.project.windfood_client.models.Cart;
 import com.project.windfood_client.models.Food;
 import com.project.windfood_client.repositories.foods.FoodRepositories;
+import com.project.windfood_client.ui.cart.CartActivity;
 import com.project.windfood_client.utils.SharedPrefManager;
 
 public class FoodDetailActivity extends AppCompatActivity {
@@ -40,8 +43,6 @@ public class FoodDetailActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_food_detail);
         initData();
-
-
     }
 
     private void initData(){
@@ -58,6 +59,9 @@ public class FoodDetailActivity extends AppCompatActivity {
                 String auth = "Bearer " + sharedPrefManager.getToken();
                 foodRepository.getById(selectedFoodId,auth).observe(this, foodRes -> {
                     this.food = foodRes;
+                    if (Cart.isExistFood(this.food.getId())) {
+                        this.food.setCartQuantity(Cart.getFoodById(this.food.getId()).getCartQuantity());
+                    }
                     if (this.food != null) {
                         actionBar.setTitle(this.food.getFoodName());
                         binding.setFood(this.food);
@@ -84,17 +88,31 @@ public class FoodDetailActivity extends AppCompatActivity {
         increaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer currentVal = Integer.parseInt(quantityTextView.getText().toString());
-                quantityTextView.setText(String.valueOf(++currentVal));
+                food.increaseCartQuantity();
+                quantityTextView.setText(String.valueOf(food.getCartQuantity()));
+                if (Cart.isExistFood(food.getId())) {
+                    Cart.getFoodById(food.getId()).increaseCartQuantity();
+                } else {
+                    Food cartFood = food.getCopy();
+                    Cart.cartItems.add(cartFood);
+                }
             }
         });
 
         decreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer currentVal = Integer.parseInt(quantityTextView.getText().toString());
-                if (currentVal > 0) {
-                    quantityTextView.setText(String.valueOf(--currentVal));
+                food.decreaseCartQuantity();
+                if(food.getCartQuantity() < 0){
+                    food.setCartQuantity(0);
+                }
+                quantityTextView.setText(String.valueOf(food.getCartQuantity()));
+                if (Cart.isExistFood(food.getId())) {
+                    if (Cart.getFoodById(food.getId()).getCartQuantity() == 1) {
+                        Cart.removeItemFromCart(food.getId());
+                    } else {
+                        Cart.getFoodById(food.getId()).decreaseCartQuantity();
+                    }
                 }
             }
         });
@@ -104,9 +122,9 @@ public class FoodDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-        }
-        if (item.getItemId() == R.menu.shopping_cart_menu){
-
+        } else if(item.getItemId() == R.id.action_item_cart){
+            Intent cart = new Intent(this, CartActivity.class);
+            startActivity(cart);
         }
         return super.onOptionsItemSelected(item);
     }
