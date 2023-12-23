@@ -8,48 +8,226 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/fbutton_color_asbestos">
 
-        <ImageView
-            android:id="@+id/user_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <Button
-            android:id="@+id/btnchangeava"
-            android:layout_width="85dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:text="change"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="11dp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="@color/fbutton_color_belize_hole"/>
-
-        <EditText
-            android:id="@+id/username_info"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:ems="10"
-            android:inputType="text"
-            android:drawablePadding="10dp"
-            android:text="Tên: " />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/userdob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:ems="10"
-            android:text="Ngày sinh: "
-            android:inputType="date" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bordertable">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/circle"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/white"
+                    android:text="Đổi ảnh đại diện"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/red"
+                    android:textSize="14dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right|center"
+                    android:background="@drawable/ic_arrow_right_24" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordertable">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:text="Tên đăng nhập"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/user_logname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:text="This is username"
+                    android:textSize="16dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordertable">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:text="Tên: "
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:text="This is user's name"
+                    android:textSize="16dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_arrow_right_24" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordertable">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:text="Email: "
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:text="email@gmail.com"
+                    android:textSize="16dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_arrow_right_24" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordertable">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:text="Ngày sinh: "
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/user_dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:text="--/--/----"
+                    android:textSize="16dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_arrow_right_24" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordertable">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:text="Số điện thoại: "
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/user_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="16dp"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:text="0123456789"
+                    android:textSize="16dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_arrow_right_24" />
+            </TableRow>
+        </TableLayout>
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
