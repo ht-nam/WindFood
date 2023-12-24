@@ -228,6 +228,14 @@
             </TableRow>
         </TableLayout>
 
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="ĐĂNG XUẤT"
+            android:backgroundTint="@color/red"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
