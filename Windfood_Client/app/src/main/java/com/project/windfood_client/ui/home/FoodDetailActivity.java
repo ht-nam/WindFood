@@ -38,19 +38,20 @@ public class FoodDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // add return button in action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        setContentView(R.layout.activity_food_detail);
+        binding = ActivityFoodDetailBinding.inflate(getLayoutInflater());
+
         initData();
+        setContentView(binding.getRoot());
     }
 
     private void initData(){
         try {
+            // add return button in action bar
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
             ActionBar actionBar = getSupportActionBar();
             actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
 
-            binding = DataBindingUtil.setContentView(this, R.layout.activity_food_detail);
             foodRepository = new FoodRepositories();
             sharedPrefManager = new SharedPrefManager(getApplicationContext());
             Bundle extras = getIntent().getExtras();
@@ -80,16 +81,12 @@ public class FoodDetailActivity extends AppCompatActivity {
     }
 
     private void bindingAction() {
-        Button increaseBtn = findViewById(R.id.food_increase_button);
-        Button decreaseBtn = findViewById(R.id.food_decrease_button);
-        TextView quantityTextView = findViewById(R.id.food_quantity_text_view);
-
-        quantityTextView.setText("0");
-        increaseBtn.setOnClickListener(new View.OnClickListener() {
+        binding.foodQuantityTextView.setText("0");
+        binding.foodIncreaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 food.increaseCartQuantity();
-                quantityTextView.setText(String.valueOf(food.getCartQuantity()));
+                binding.foodQuantityTextView.setText(String.valueOf(food.getCartQuantity()));
                 if (Cart.isExistFood(food.getId())) {
                     Cart.getFoodById(food.getId()).increaseCartQuantity();
                 } else {
@@ -99,14 +96,14 @@ public class FoodDetailActivity extends AppCompatActivity {
             }
         });
 
-        decreaseBtn.setOnClickListener(new View.OnClickListener() {
+        binding.foodDecreaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 food.decreaseCartQuantity();
                 if(food.getCartQuantity() < 0){
                     food.setCartQuantity(0);
                 }
-                quantityTextView.setText(String.valueOf(food.getCartQuantity()));
+                binding.foodQuantityTextView.setText(String.valueOf(food.getCartQuantity()));
                 if (Cart.isExistFood(food.getId())) {
                     if (Cart.getFoodById(food.getId()).getCartQuantity() == 1) {
                         Cart.removeItemFromCart(food.getId());
@@ -136,5 +133,11 @@ public class FoodDetailActivity extends AppCompatActivity {
             inflater.inflate(R.menu.shopping_cart_menu, menu);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onRestart() {
+        recreate();
+        super.onRestart();
     }
 }

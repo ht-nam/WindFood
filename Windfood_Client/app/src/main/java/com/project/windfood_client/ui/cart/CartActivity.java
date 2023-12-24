@@ -17,7 +17,6 @@ import com.project.windfood_client.databinding.ActivityCartBinding;
 import com.project.windfood_client.models.Cart;
 
 public class CartActivity extends AppCompatActivity {
-    private TextView tvTotal;
     private RecyclerView rvCart;
     private ActivityCartBinding binding;
 
@@ -25,26 +24,30 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCartBinding.inflate(getLayoutInflater());
+
+        initData();
+        setContentView(binding.getRoot());
+    }
+
+    void initData() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Giỏ hàng");
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
 
-        setContentView(binding.getRoot());
 
-        tvTotal = binding.tvTotal;
         rvCart = binding.rvcart;
         rvCart.setLayoutManager(new LinearLayoutManager(this));
         if (Cart.cartItems.size() > 0) {
-            CartAdapter cartAdapter = new CartAdapter(this, new Cart());
+            CartAdapter cartAdapter = new CartAdapter(this, new Cart(), null);
             rvCart.setAdapter(cartAdapter);
         }
-        tvTotal.setText(""+ Cart.getTotalPrice() + "VNĐ");
+        binding.tvTotal.setText(""+ Cart.getTotalPrice() + "VNĐ");
     }
 
     public void updateData(){
-        tvTotal.setText("" + Cart.getTotalPrice() + "VNĐ");
+        binding.tvTotal.setText("" + Cart.getTotalPrice() + "VNĐ");
     }
 
     @Override

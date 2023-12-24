@@ -85,10 +85,10 @@ public class ProductListsAdapter extends RecyclerView.Adapter<ProductListsAdapte
         holder.productCardBinding.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                CustomToast.makeText(layoutInflater.getContext(), food.getId().toString(), CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                 Intent productDetail = new Intent(view.getContext(), FoodDetailActivity.class);
                 productDetail.putExtra("foodId", food.getId());
-
+//                productDetail.putExtra("food", food);
+            
                 view.getContext().startActivity(productDetail);
             }
         });

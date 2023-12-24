@@ -2,7 +2,10 @@ package com.project.windfood_client.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Bill {
+import java.io.Serializable;
+import java.util.List;
+
+public class Bill implements Serializable {
     @SerializedName("billId")
     private Integer billId;
     @SerializedName("totalPrice")
@@ -12,11 +15,15 @@ public class Bill {
     @SerializedName("paymentMethod")
     private String paymentMethod;
 
-    public Bill(Integer billId, Integer totalPrice, String createDate, String paymentMethod) {
+    @SerializedName("foodBills")
+    private List<FoodBill> foodBillList;
+
+    public Bill(Integer billId, Integer totalPrice, String createDate, String paymentMethod, List<FoodBill> foodBillList) {
         this.billId = billId;
         this.totalPrice = totalPrice;
         this.createDate = createDate;
         this.paymentMethod = paymentMethod;
+        this.foodBillList = foodBillList;
     }
 
     public Integer getBillId() {
@@ -49,5 +56,13 @@ public class Bill {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public List<FoodBill> getFoodBillList() {
+        return foodBillList;
+    }
+
+    public void setFoodBillList(List<FoodBill> foodBillList) {
+        this.foodBillList = foodBillList;
     }
 }

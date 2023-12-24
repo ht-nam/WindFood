@@ -78,6 +78,12 @@
                             android:text="+"
                             />
                         <TextView
+                            android:id="@+id/cart_multiple"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="x"
+                            android:visibility="gone"/>
+                        <TextView
                             android:id="@+id/price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

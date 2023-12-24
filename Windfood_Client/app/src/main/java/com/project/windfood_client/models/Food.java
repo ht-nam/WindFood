@@ -2,7 +2,9 @@ package com.project.windfood_client.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     @SerializedName("foodId")
     private Integer id;
     @SerializedName("foodName")

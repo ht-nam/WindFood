@@ -1,6 +1,8 @@
 package com.project.windfood_client.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.windfood_client.R;
 import com.project.windfood_client.databinding.BillCardBinding;
 import com.project.windfood_client.models.Bill;
+import com.project.windfood_client.models.Food;
+import com.project.windfood_client.ui.home.FoodDetailActivity;
+import com.project.windfood_client.ui.notifications.BillDetailActivity;
 
 import java.util.List;
 
@@ -33,7 +38,17 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull BillsViewHolder holder, int position) {
+        Bill bill = listBillRespons.get(position);
+
         holder.bindSliderImage(listBillRespons.get(position));
+        holder.billCardBinding.billCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent billDetail = new Intent(view.getContext(), BillDetailActivity.class);
+                billDetail.putExtra("bill", bill);
+                view.getContext().startActivity(billDetail);
+            }
+        });
     }
 
     @Override
