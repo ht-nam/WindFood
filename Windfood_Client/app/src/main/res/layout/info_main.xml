@@ -98,13 +98,14 @@
                     android:layout_marginBottom="1dp"
                     android:padding="16dp"
                     android:background="@color/white"
-                    android:text="Tên: "
+                    android:text="Email"
                     android:textSize="16dp"/>
 
                 <TextView
-                    android:id="@+id/user_name"
+                    android:id="@+id/user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="right"
                     android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
@@ -113,12 +114,6 @@
                     android:ems="10"
                     android:text="This is user's name"
                     android:textSize="16dp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_arrow_right_24" />
 
             </TableRow>
 
@@ -134,11 +129,11 @@
                     android:layout_marginBottom="1dp"
                     android:padding="16dp"
                     android:background="@color/white"
-                    android:text="Email: "
+                    android:text="Tên"
                     android:textSize="16dp"/>
 
                 <TextView
-                    android:id="@+id/user_email"
+                    android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -169,7 +164,7 @@
                     android:layout_marginBottom="1dp"
                     android:padding="16dp"
                     android:background="@color/white"
-                    android:text="Ngày sinh: "
+                    android:text="Ngày sinh"
                     android:textSize="16dp"/>
 
                 <TextView
@@ -204,7 +199,7 @@
                     android:layout_marginBottom="1dp"
                     android:padding="16dp"
                     android:background="@color/white"
-                    android:text="Số điện thoại: "
+                    android:text="Số điện thoại"
                     android:textSize="16dp" />
 
                 <TextView
@@ -227,6 +222,14 @@
                     android:background="@drawable/ic_arrow_right_24" />
             </TableRow>
         </TableLayout>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="ĐĂNG XUẤT"
+            android:backgroundTint="@color/red"/>
 
     </LinearLayout>
 

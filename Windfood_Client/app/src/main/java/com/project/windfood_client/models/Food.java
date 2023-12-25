@@ -2,7 +2,9 @@ package com.project.windfood_client.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     @SerializedName("foodId")
     private Integer id;
     @SerializedName("foodName")
@@ -12,7 +14,7 @@ public class Food {
     @SerializedName("importPrice")
     private Float importPrice;
     @SerializedName("price")
-    private Float price;
+    private Long price;
     @SerializedName("description")
     private String description;
     @SerializedName("urlImg")
@@ -20,8 +22,8 @@ public class Food {
     @SerializedName("createDate")
     private String createDate;
     @SerializedName("cartQuantity")
-    private Integer cartQuantity;
-    public Food(Integer id, String foodName, Integer quantity, Float importPrice, Float price, String description, String urlImg, String createDate, Integer cartQuantity) {
+    private int cartQuantity;
+    public Food(Integer id, String foodName, Integer quantity, Float importPrice, Long price, String description, String urlImg, String createDate, int cartQuantity) {
         this.id = id;
         this.foodName = foodName;
         this.quantity = quantity;
@@ -31,6 +33,10 @@ public class Food {
         this.urlImg = urlImg;
         this.createDate = createDate;
         this.cartQuantity = cartQuantity;
+    }
+
+    public Food getCopy() {
+        return new Food(this.id, this.foodName, this.quantity, this.importPrice, this.price, this.description, this.urlImg, this.createDate, this.cartQuantity);
     }
 
     public Integer getCartQuantity() {
@@ -87,11 +93,11 @@ public class Food {
         this.importPrice = importPrice;
     }
 
-    public Float getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -117,5 +123,19 @@ public class Food {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public void setCartQuantity(int cartQuantity) {
+        this.cartQuantity = cartQuantity;
+    }
+
+    public void increaseCartQuantity() {
+        this.cartQuantity += 1;
+    }
+
+    public void decreaseCartQuantity() {
+        if (this.cartQuantity >= 1) {
+            this.cartQuantity -= 1;
+        }
     }
 }
