@@ -3,6 +3,7 @@ package com.project.windfood_client.ui.home;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
 //                selectedProductLists.add(gson.fromJson(cartItem, Food.class));
 //            }
 //        }
+        Log.println(Log.VERBOSE, "Data:  ", "");
         editTextSearch = binding.searchBar;
         if(!sharedPrefManager.getToken().isEmpty()){
             PagingRequest pagingRequest = new PagingRequest(1, 10000, null);
