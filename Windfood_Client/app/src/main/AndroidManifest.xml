@@ -21,7 +21,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.auth.PersonalInforActivity"
-            android:exported="false" />
+            android:exported="false"
+        />
         <activity
             android:name=".ui.notifications.BillDetailActivity"
             android:exported="false" />
