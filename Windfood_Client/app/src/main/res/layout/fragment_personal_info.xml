@@ -28,7 +28,6 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/bordertable">
 
@@ -84,13 +83,13 @@
                         android:id="@+id/user_logname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
                         android:layout_marginTop="1dp"
                         android:layout_marginBottom="1dp"
-                        android:padding="16dp"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:ems="10"
+                        android:gravity="right"
+                        android:padding="16dp"
                         android:text="@{user.username}"
                         android:textSize="16dp" />
 
@@ -108,11 +107,11 @@
                         android:layout_marginBottom="1dp"
                         android:padding="16dp"
                         android:background="@color/white"
-                        android:text="Email"
+                        android:text="Nghề nghiệp"
                         android:textSize="16dp" />
 
                     <TextView
-                        android:id="@+id/user_email"
+                        android:id="@+id/user_role"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -122,7 +121,7 @@
                         android:padding="16dp"
                         android:background="@color/white"
                         android:ems="10"
-                        android:text="This is user's name"
+                        android:text="@{user.role}"
                         android:textSize="16dp" />
 
                 </TableRow>
@@ -152,7 +151,7 @@
                         android:padding="16dp"
                         android:background="@color/white"
                         android:ems="10"
-                        android:text="email@gmail.com"
+                        android:text="@{user.name}"
                         android:textSize="16dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -187,7 +186,7 @@
                         android:padding="16dp"
                         android:background="@color/white"
                         android:ems="10"
-                        android:text="--/--/----"
+                        android:text="@{user.birthday}"
                         android:textSize="16dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -222,7 +221,7 @@
                         android:padding="16dp"
                         android:background="@color/white"
                         android:ems="10"
-                        android:text="0123456789"
+                        android:text="@{user.phone_number}"
                         android:textSize="16dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -237,7 +236,7 @@
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="50dp"
                 android:text="ĐĂNG XUẤT"
                 android:backgroundTint="@color/red" />
 
