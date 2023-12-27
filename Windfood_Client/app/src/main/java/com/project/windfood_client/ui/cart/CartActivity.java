@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.project.windfood_client.adapters.CartAdapter;
@@ -27,6 +29,13 @@ public class CartActivity extends AppCompatActivity {
 
         initData();
         setContentView(binding.getRoot());
+
+        binding.payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CartActivity.this, PaymentActivity.class));
+            }
+        });
     }
 
     void initData() {
