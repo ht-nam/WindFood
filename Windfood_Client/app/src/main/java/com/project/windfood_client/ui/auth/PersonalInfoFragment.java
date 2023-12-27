@@ -43,16 +43,23 @@ public class PersonalInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         binding = FragmentPersonalInfoBinding.inflate(inflater, container, false);
         doInitialization();
-        authRepositories.getCurrentUser("Bearer " + sharedPrefManager.getToken()).observe(this, response -> {
+        View rootView = binding.getRoot();
+        String auth = "Bearer " + sharedPrefManager.getToken();
+        authRepositories.getCurrentUser(auth).observe(this, response -> {
             this.user = response;
             this.user.setUsername(response.getUsername());
             this.user.setName(response.getName());
-            this.user.setRole(response.getRole());
+            if (response.getRole() == "0"){
+                this.user.setRole("ADMIN");
+            } else {
+                this.user.setRole("Người dùng");
+            }
             this.user.setBirthday(response.getBirthday());
             this.user.setPhone_number(response.getPhone_number());
+            Log.println(Log.VERBOSE, "DATAUSER: ", String.valueOf(response.getUsername()));
+            binding.setUser(this.user);
         });
-        binding.setUser(this.user);
-        return inflater.inflate(R.layout.fragment_personal_info, container, false);
+        return rootView;
     }
 
     public void doInitialization(){

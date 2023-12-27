@@ -20,6 +20,9 @@
             android:name=".ui.auth.PersonalInfoFragment"
             android:exported="false" />
         <activity
+            android:name=".ui.auth.ChangeUserName"
+            android:exported="false"/>
+        <activity
             android:name=".ui.notifications.BillDetailActivity"
             android:exported="false" />
         <activity
