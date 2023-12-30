@@ -80,5 +80,6 @@ dependencies {
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
 //    Loading
     implementation("com.jpardogo.googleprogressbar:library:1.2.0")
-
+//  Toast
+    implementation("info.piwai.frenchtoast:frenchtoast:1.0")
 }
