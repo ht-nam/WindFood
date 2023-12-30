@@ -59,6 +59,14 @@ public class FoodRepositories {
         return data;
     }
 
+    public Food getFoodSearch(PagingRequest pagingRequest, String auth){;
+        try {
+            return foodApi.getFoodPaging(pagingRequest, auth).execute().body().getData().get(0);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public LiveData<Food> getById(int id, String auth){
         MutableLiveData<Food> data = new MutableLiveData<>();
         foodApi.getFoodById(id, auth).enqueue(new Callback<Food>() {

@@ -17,5 +17,7 @@ public interface AuthApiService {
 
     @GET(Constants.PERSON_ROUTE + "/get-current-user")
     Call<User> getCurrentUser(@Header("Authorization") String auth);
-//    Bearer + token
+
+    @POST(Constants.PERSON_ROUTE + "/")
+    Call<User> changeInfoUser(@Header("Authorization") String auth, @Body User user);
 }
