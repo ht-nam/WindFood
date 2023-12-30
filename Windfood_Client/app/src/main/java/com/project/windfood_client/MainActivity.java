@@ -1,9 +1,11 @@
 package com.project.windfood_client;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,10 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -31,6 +35,7 @@ import com.project.windfood_client.repositories.auth.AuthRepositories;
 import com.project.windfood_client.ui.auth.AuthActivity;
 import com.project.windfood_client.ui.auth.PersonalInfoFragment;
 import com.project.windfood_client.ui.cart.CartActivity;
+import com.project.windfood_client.ui.cart.CartVoiceSupport;
 import com.project.windfood_client.ui.home.FoodDetailActivity;
 import com.project.windfood_client.utils.CustomToast;
 import com.project.windfood_client.utils.SharedPrefManager;
@@ -38,11 +43,12 @@ import com.project.windfood_client.utils.SharedPrefManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
+    protected static final int RESULT_SPEECH = 1;
     private ActivityAuthBinding binding;
     private ActivityMainBinding mainBinding;
     private AuthRepositories authRepository;
@@ -164,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         if(!sharedPrefManager.getToken().isEmpty()){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.dropdown_menu, menu);
+            inflater.inflate(R.menu.voice_menu, menu);
             inflater.inflate(R.menu.shopping_cart_menu, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -181,13 +188,43 @@ public class MainActivity extends AppCompatActivity {
         } else if(id == R.id.action_item_cart){
             Intent cart = new Intent(this, CartActivity.class);
             startActivity(cart);
+        } else if(id == R.id.voice) {
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Thêm vào giỏ hàng");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
+            try {
+                startActivityForResult(intent, RESULT_SPEECH);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getApplicationContext(), "Your device doesn't support Speech to Text", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case RESULT_SPEECH:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    try {
+                        CartVoiceSupport.addToCart(text.get(0), sharedPrefManager.getToken());
+                        Intent cart = new Intent(this, CartActivity.class);
+                        startActivity(cart);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+//                        throw new RuntimeException(e);
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
     protected void onRestart() {
-//        mainBinding.navView.findViewById(R.id.navigation_dashboard).performClick();
         this.recreate();
         super.onRestart();
     }
