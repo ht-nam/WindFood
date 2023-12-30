@@ -49,6 +49,7 @@ public class ChangeUserNameActivity extends AppCompatActivity {
         String auth = "Bearer " + sharedPrefManager.getToken();
         authRepositories.getCurrentUser(auth).observe(this, response -> {
             this.user = response;
+            this.user.setPersonId(response.getPersonId());
             this.user.setName(response.getName());
             this.user.setBirthday(response.getBirthday());
             this.user.setPhone_number(response.getPhone_number());

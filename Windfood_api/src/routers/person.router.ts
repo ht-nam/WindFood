@@ -33,7 +33,6 @@ itemsRouter.get("/", verifyToken, async (req: Request, res: Response) => {
 itemsRouter.get("/get-current-user", verifyToken, async (req: Request, res: Response) => {
   try {
     const items: object | null = await PersonService.getCurrentUser(req.headers?.authorization?.split(" ")[1] as string);
-
     res.status(200).send(items);
   } catch (e) {
     res.status(500).send((e as Error).message);

@@ -5,6 +5,7 @@
 import { FindOptionsWhere, Like } from "typeorm";
 import { Person } from "../entities/person.entity";
 import { meiliSearchClient, myDataSource } from "../instances/data-source";
+import { log } from "console";
 
 /**
  * In-Memory Store
@@ -33,18 +34,30 @@ export const getCurrentUser = async (token: string): Promise<object | null> => {
   delete user["token"]
   delete user["username"]
   delete user["password"]
+  user["personId"] = user["person_id"];
+  user["phoneNumber"] = user["phone_number"];
   return user;
 }
 
 export const saveOrUpdate = async (newItem: Person): Promise<Person> => {
-  // newItem.hashedPassword = btoa(newItem.hashedPassword as string);
+
+  if (newItem.birthday) {
+    // Fix UTC date bug
+    newItem.birthday = new Date(new Date(newItem.birthday.toString()).toISOString());
+  }
+
   if (newItem.personId && !newItem.password) {
+    console.log("a");
     newItem.password = (await findById(newItem.personId))?.password;
+    console.log("a2");
+
   } else {
+    console.log("b");
     newItem.password = await hashedPassword(newItem.password as string);
   }
   // console.log(atob(newItem.hashedPassword as string));
   return personRepository.save(newItem);
+
 };
 
 export const remove = async (id: number): Promise<boolean> => {

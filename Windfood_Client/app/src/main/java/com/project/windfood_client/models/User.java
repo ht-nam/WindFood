@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class User {
+    @SerializedName("personId")
+    private Integer personId;
     @SerializedName("username")
     private String username;
     @SerializedName("name")
@@ -15,7 +17,7 @@ public class User {
     private String role;
     @SerializedName("birthday")
     private Date birthday;
-    @SerializedName("phone_number")
+    @SerializedName("phoneNumber")
     private String phone_number;
 
     public User(String name, Date birthday, String phone_number) {
@@ -27,13 +29,22 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public User(String username, String password, String name, String role, Date birthday, String phone_number) {
+    public User(Integer personId, String username, String password, String name, String role, Date birthday, String phone_number) {
+        this.personId = personId;
         this.username = username;
         this.password = password;
         this.name = name;
         this.role = role;
         this.birthday = birthday;
         this.phone_number = phone_number;
+    }
+
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
     }
 
     public String getUsername() { return username; }
