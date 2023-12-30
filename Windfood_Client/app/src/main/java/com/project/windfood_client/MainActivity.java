@@ -29,6 +29,7 @@ import com.project.windfood_client.databinding.ActivityMainBinding;
 import com.project.windfood_client.models.User;
 import com.project.windfood_client.repositories.auth.AuthRepositories;
 import com.project.windfood_client.ui.auth.AuthActivity;
+import com.project.windfood_client.ui.auth.PersonalInfoFragment;
 import com.project.windfood_client.ui.cart.CartActivity;
 import com.project.windfood_client.ui.home.FoodDetailActivity;
 import com.project.windfood_client.utils.CustomToast;

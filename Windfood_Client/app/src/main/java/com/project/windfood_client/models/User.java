@@ -18,6 +18,11 @@ public class User {
     @SerializedName("phone_number")
     private String phone_number;
 
+    public User(String name, Date birthday, String phone_number) {
+        this.name = name;
+        this.birthday = birthday;
+        this.phone_number = phone_number;
+    }
     public User(String username, String password) {
         this.username = username;
         this.password = password;

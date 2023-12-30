@@ -54,4 +54,21 @@ public class AuthRepositories {
         return data;
     }
 
+    public LiveData<User> changeInfoUser(String auth, User user){
+        MutableLiveData<User> data = new MutableLiveData<>();
+        authApiService.changeInfoUser(auth, user).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                System.out.println(response.body());
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<User> call,@NonNull Throwable t) {
+                System.out.println("Throwable: " + t.getLocalizedMessage());
+                data.setValue(null);
+            }
+        });
+        return data;
+    }
 }
