@@ -36,6 +36,7 @@ export const getCurrentUser = async (token: string): Promise<object | null> => {
   delete user["password"]
   user["personId"] = user["person_id"];
   user["phoneNumber"] = user["phone_number"];
+  user["hashedPassword"] = user["hashed_password"];
   return user;
 }
 
@@ -47,12 +48,9 @@ export const saveOrUpdate = async (newItem: Person): Promise<Person> => {
   }
 
   if (newItem.personId && !newItem.password) {
-    console.log("a");
     newItem.password = (await findById(newItem.personId))?.password;
-    console.log("a2");
 
   } else {
-    console.log("b");
     newItem.password = await hashedPassword(newItem.password as string);
   }
   // console.log(atob(newItem.hashedPassword as string));

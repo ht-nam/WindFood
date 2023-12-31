@@ -11,7 +11,7 @@ public class User {
     private String username;
     @SerializedName("name")
     private String name;
-    @SerializedName("password")
+    @SerializedName("hashedPassword")
     private String password;
     @SerializedName("role")
     private String role;
