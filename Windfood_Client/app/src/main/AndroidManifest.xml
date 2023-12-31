@@ -23,6 +23,9 @@
             android:name=".ui.auth.ChangeUserNameActivity"
             android:exported="false"/>
         <activity
+            android:name=".ui.auth.ChangePasswordActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.notifications.BillDetailActivity"
             android:exported="false" />
         <activity

@@ -20,6 +20,9 @@ public class User {
     @SerializedName("phoneNumber")
     private String phone_number;
 
+    private String newpassword;
+    private String cfpassword;
+
     public User(String name, Date birthday, String phone_number) {
         this.name = name;
         this.birthday = birthday;
@@ -67,4 +70,8 @@ public class User {
     public void setBirthday(Date birthday) { this.birthday = birthday;}
     public String getPhone_number() { return phone_number; }
     public void setPhone_number(String phone_number) { this.phone_number = phone_number; }
+    public String getNewpassword() { return newpassword; }
+    public void setNewpassword(String newpassword) { this.newpassword = newpassword; }
+    public String getCfpassword() { return cfpassword; }
+    public void setCfpassword(String cfpassword) { this.cfpassword = cfpassword; }
 }

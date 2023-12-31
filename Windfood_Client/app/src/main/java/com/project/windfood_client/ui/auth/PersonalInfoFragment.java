@@ -51,6 +51,14 @@ public class PersonalInfoFragment extends Fragment {
             this.user.setPhone_number(response.getPhone_number());
             binding.setUser(this.user);
         });
+        binding.btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(i);
+                ((Activity) getActivity()).overridePendingTransition(0, 0);
+            }
+        });
         binding.btnSwitchToChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
