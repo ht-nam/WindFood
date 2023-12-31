@@ -8,37 +8,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.project.windfood_client.R;
-import com.project.windfood_client.adapters.CartAdapter;
+import com.project.windfood_client.MainActivity;
 import com.project.windfood_client.adapters.PaymentProductCardAdapter;
 import com.project.windfood_client.databinding.ActivityPaymentBinding;
 import com.project.windfood_client.models.Cart;
+import com.project.windfood_client.utils.SharedPrefManager;
 import com.project.windfood_client.utils.Utils;
-
-import java.util.concurrent.Callable;
-
-import frenchtoast.FrenchToast;
-import frenchtoast.Mixture;
-import info.hoang8f.widget.FButton;
 
 public class PaymentActivity extends AppCompatActivity {
 
     private RecyclerView prdCartRecyclerView;
     private ActionBar actionBar;
     private ActivityPaymentBinding binding;
-
+    private SharedPrefManager sharedPrefManager;
+    private Utils utils;
+    private Boolean isClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +38,8 @@ public class PaymentActivity extends AppCompatActivity {
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         initData();
         setContentView(binding.getRoot());
+        utils = new Utils();
+        sharedPrefManager = new SharedPrefManager(this);
         if(getSupportActionBar() != null){
             actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -55,7 +49,11 @@ public class PaymentActivity extends AppCompatActivity {
         binding.payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.showDialog(PaymentActivity.this);
+                isClick = utils.showDialog(PaymentActivity.this, !sharedPrefManager.getToken().isEmpty() ? sharedPrefManager.getToken() : "", PaymentActivity.this);
+                Log.println(Log.ASSERT, "isTrue: ", isClick.toString());
+                if(isClick){
+                    finish();
+                }
             }
         });
     }

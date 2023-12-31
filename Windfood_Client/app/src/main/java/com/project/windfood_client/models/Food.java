@@ -23,6 +23,11 @@ public class Food implements Serializable {
     private String createDate;
     @SerializedName("cartQuantity")
     private int cartQuantity;
+
+    public Food(Integer id){
+        this.id = id;
+    }
+
     public Food(Integer id, String foodName, Integer quantity, Float importPrice, Long price, String description, String urlImg, String createDate, int cartQuantity) {
         this.id = id;
         this.foodName = foodName;

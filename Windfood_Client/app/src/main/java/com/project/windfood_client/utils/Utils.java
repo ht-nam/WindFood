@@ -2,20 +2,32 @@ package com.project.windfood_client.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.lifecycle.LifecycleOwner;
+
+import com.project.windfood_client.models.Bill;
+import com.project.windfood_client.models.Cart;
+import com.project.windfood_client.models.Food;
+import com.project.windfood_client.models.FoodBill;
+import com.project.windfood_client.repositories.bills.BillRepositories;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.Callable;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Utils {
+    private BillRepositories billRepositories;
+    public Utils(){
+        billRepositories = new BillRepositories();
+    }
     public static String getFormattedDate(String createDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -27,7 +39,8 @@ public class Utils {
         }
     }
 
-    public static void showDialog(Context context) {
+    public boolean showDialog(Context context, String token, LifecycleOwner lifecycleOwner) {
+        AtomicBoolean isClick = new AtomicBoolean(false);
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Phương thức thanh toán");
 
@@ -48,8 +61,22 @@ public class Utils {
         moneyCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomToast.makeText(context, "HAHAHA", Toast.LENGTH_LONG).show();
+                List<FoodBill> foodBills = new ArrayList<>();
+                Bill bill = null;
+                if(Cart.cartItems != null){
+                    Cart.cartItems.forEach(e -> {
+                        foodBills.add(new FoodBill(null, e.getCartQuantity(), null, new Food(e.getId()), null));
+                    });
+                }
+                bill = new Bill(null, (int) Cart.getTotalPrice(), null, "Tiền Mặt", foodBills);
                 alertDialog.dismiss();
+                billRepositories.addOrEditBill(bill, "Bearer " + token).observe(lifecycleOwner, res -> {
+                    if(res != null){
+                        CustomToast.makeText(context, "Thanh toán thành công", Toast.LENGTH_LONG, CustomToast.SUCCESS, false).show();
+                        Cart.cartItems.clear();
+                        isClick.set(true);
+                    }
+                });
             }
         });
         moneyCash.setTextColor(Color.WHITE);
@@ -73,6 +100,7 @@ public class Utils {
         qrMoney.setTextColor(Color.WHITE);
         alertDialog.setView(layout);
         alertDialog.show();
+        return isClick.get();
     }
 
 }
