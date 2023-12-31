@@ -33,10 +33,11 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public User(Integer personId, String username, String password, String name, String role, Date birthday, String phone_number) {
+    public User(Integer personId, String username,String hashedpassword ,String password, String name, String role, Date birthday, String phone_number) {
         this.personId = personId;
         this.username = username;
         this.password = password;
+        this.hashedpassword = hashedpassword;
         this.name = name;
         this.role = role;
         this.birthday = birthday;

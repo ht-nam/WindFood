@@ -31,12 +31,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
     void initData(){
         String auth = "Bearer " + sharedPrefManager.getToken();
-//        authRepositories.getCurrentUser(auth).observe(this, response -> {
-//            this.user = response;
-//            this.user.setPersonId(response.getPersonId());
-//            this.user.setPassword(response.getPassword());
-//            Log.println(Log.VERBOSE, "PASSWORD: ", user.getPassword());
-//        });
+        authRepositories.getCurrentUser(auth).observe(this, response -> {
+            this.user = response;
+            this.user.setPersonId(response.getPersonId());
+            this.user.setPassword(response.getPassword());
+            Log.println(Log.VERBOSE, "PASSWORDHASHED: ", user.getHashedpassword());
+            Log.println(Log.VERBOSE, "PASSWORD: ", user.getPassword());
+        });
         binding.btnSaveP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +45,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String newpassword = String.valueOf(binding.userNewpassword.getText());
                 String cfpassword = String.valueOf(binding.userCfpassword.getText());
                 Log.println(Log.VERBOSE, "PASSWORD: ", user.getPassword());
+                Log.println(Log.VERBOSE, "PASSWORD: ", password);
+                Log.println(Log.VERBOSE, "PASSWORD: ", newpassword);
+                Log.println(Log.VERBOSE, "PASSWORD: ", cfpassword);
                 if ( password.isEmpty() || newpassword.isEmpty() || cfpassword.isEmpty()) {
                     CustomToast.makeText(ChangePasswordActivity.this, "Nhập thiếu thông tin!", CustomToast.LENGTH_LONG, CustomToast.ERROR, true).show();
                 } else if (BCrypt.checkpw(password, user.getPassword()) == false) {
@@ -51,7 +55,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 } else if (!newpassword.equals(cfpassword)) {
                     CustomToast.makeText(ChangePasswordActivity.this, "Mật khẩu mới không khớp!", CustomToast.LENGTH_LONG, CustomToast.ERROR, true).show();
                 } else {
-                    String hashed = BCrypt.hashpw(cfpassword, BCrypt.gensalt());;
+                    String hashed = BCrypt.hashpw(cfpassword, BCrypt.gensalt());
                     Log.println(Log.VERBOSE, "PASSWORD: ", hashed);
                     user.setPassword(hashed);
                     Log.println(Log.VERBOSE, "PASSWORD: ", user.getPassword());
