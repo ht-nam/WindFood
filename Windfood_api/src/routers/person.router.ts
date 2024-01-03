@@ -104,3 +104,15 @@ itemsRouter.get("/:id", verifyToken, async (req: Request, res: Response) => {
     res.status(500).send((e as Error).message);
   }
 });
+
+// POST change password
+itemsRouter.post('/change-password', verifyToken, async (req: Request, res: Response) => {
+  // resBody {oldPassword: '', newPassword:''}
+
+  try {
+    let rs: String = await PersonService.changePassword(req.header('Authorization'), req.body);
+    res.status(200).json(rs);
+  } catch (e) {
+    res.status(500).send((e as Error).message);
+  }
+});

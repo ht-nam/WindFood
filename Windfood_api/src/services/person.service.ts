@@ -5,7 +5,6 @@
 import { FindOptionsWhere, Like } from "typeorm";
 import { Person } from "../entities/person.entity";
 import { meiliSearchClient, myDataSource } from "../instances/data-source";
-import { log } from "console";
 
 /**
  * In-Memory Store
@@ -116,4 +115,19 @@ export const paging = async (pageIndex: number, pageSize: number, keyword: strin
   } catch (e) {
     return null;
   }
+};
+
+export const changePassword = async (token: string | undefined, data: any): Promise<String> => {
+  if (!token) return "Invalid token";
+
+  let user: Person | null = await personRepository.findOneBy({ token: token.split("Bearer ")[1] } as FindOptionsWhere<Person>);
+  if (!user) return "Couldn't find user";
+
+  const checkPassword = await bcrypt.compare(data.oldPassword, user.password);
+  if (checkPassword) {
+    user.password = await hashedPassword(data.newPassword as string);
+    await personRepository.save(user)
+    return "Password changed successfully";
+  }
+  return "Old password does not match";
 };

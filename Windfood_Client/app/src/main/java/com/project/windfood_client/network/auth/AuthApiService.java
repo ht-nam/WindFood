@@ -8,7 +8,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import com.project.windfood_client.utils.Constants;
-import com.project.windfood_client.utils.SharedPrefManager;
+
+import java.util.Map;
 
 public interface AuthApiService {
 
@@ -20,4 +21,7 @@ public interface AuthApiService {
 
     @POST(Constants.PERSON_ROUTE + "/")
     Call<User> changeInfoUser(@Header("Authorization") String auth, @Body User user);
+
+    @POST(Constants.PERSON_ROUTE + "/change-password")
+    Call<String> changePassword(@Header("Authorization") String auth, @Body Map<String, String> body);
 }
