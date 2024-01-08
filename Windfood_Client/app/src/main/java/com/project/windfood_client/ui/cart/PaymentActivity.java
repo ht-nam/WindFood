@@ -23,6 +23,8 @@ import com.project.windfood_client.models.Cart;
 import com.project.windfood_client.utils.SharedPrefManager;
 import com.project.windfood_client.utils.Utils;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class PaymentActivity extends AppCompatActivity {
 
     private RecyclerView prdCartRecyclerView;
@@ -30,7 +32,7 @@ public class PaymentActivity extends AppCompatActivity {
     private ActivityPaymentBinding binding;
     private SharedPrefManager sharedPrefManager;
     private Utils utils;
-    private Boolean isClick;
+    public static boolean isClick = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +51,8 @@ public class PaymentActivity extends AppCompatActivity {
         binding.payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isClick = utils.showDialog(PaymentActivity.this, !sharedPrefManager.getToken().isEmpty() ? sharedPrefManager.getToken() : "", PaymentActivity.this);
-                Log.println(Log.ASSERT, "isTrue: ", isClick.toString());
+                utils.showDialog(PaymentActivity.this, !sharedPrefManager.getToken().isEmpty() ? sharedPrefManager.getToken() : "", PaymentActivity.this);
+                Log.println(Log.ASSERT, "isTrue: ", String.valueOf(isClick));
                 if(isClick){
                     finish();
                 }
