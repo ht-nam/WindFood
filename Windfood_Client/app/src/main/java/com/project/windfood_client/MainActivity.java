@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void navigateToLoginScreen() {
-        Intent intent = new Intent(this, AuthActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 //        CustomToast.makeText(getApplicationContext(), "Thời gian hoạt động trên ứng dụng của bạn đã hết, vui lòng đăng nhập lại!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
     }
