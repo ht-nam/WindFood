@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                         authRepository.loginUser(user).observe(MainActivity.this, response -> {
                             if(!response.isEmpty()){
                                 sharedPrefManager.saveToken(response.toString());
+                                authRepository.getCurrentUser("Bearer " + sharedPrefManager.getToken()).observe(MainActivity.this, res -> {
+                                    sharedPrefManager.saveRole(res.getRole());
+                                });
                                 CustomToast.makeText(MainActivity.this, "Đăng nhập thành công!", CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                                 if(!sharedPrefManager.getToken().isEmpty()){
                                     finish();
@@ -109,15 +113,32 @@ public class MainActivity extends AppCompatActivity {
             });
         }else{
             checkTokenExpiration();
+            CustomToast.makeText(MainActivity.this, sharedPrefManager.getCurrentRole(), CustomToast.LENGTH_LONG, CustomToast.CONFUSING, true).show();
             mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(mainBinding.getRoot());
 //            final ActionBar actionBar = getActionBar();
             actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
             BottomNavigationView navView = findViewById(R.id.nav_view);
+            Menu menu = navView.getMenu();
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_personal)
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+            if(!sharedPrefManager.getCurrentRole().isEmpty()){
+                if(sharedPrefManager.getCurrentRole().equals("ADMIN")){
+                    MenuItem item = menu.findItem(R.id.navigation_dashboard);
+                    navController.navigate(R.id.navigation_dashboard);
+                    item.setVisible(true);
+                }else{
+                    MenuItem item = menu.findItem(R.id.navigation_dashboard);
+                    item.setVisible(false);
+                    item = menu.findItem(R.id.navigation_home);
+                    item.setVisible(true);
+                    item = menu.findItem(R.id.navigation_notifications);
+                    item.setVisible(true);
+                }
+
+            }
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(mainBinding.navView, navController);
         }

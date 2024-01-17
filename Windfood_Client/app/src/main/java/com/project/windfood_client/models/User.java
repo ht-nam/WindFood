@@ -14,7 +14,7 @@ public class User {
     @SerializedName("password")
     private String password;
     @SerializedName("role")
-    private String role;
+    private int role;
     @SerializedName("birthday")
     private Date birthday;
     @SerializedName("phoneNumber")
@@ -33,7 +33,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public User(Integer personId, String username,String hashedpassword ,String password, String name, String role, Date birthday, String phone_number) {
+    public User(Integer personId, String username,String hashedpassword ,String password, String name, int role, Date birthday, String phone_number) {
         this.personId = personId;
         this.username = username;
         this.password = password;
@@ -66,8 +66,8 @@ public class User {
     }
     public String getName() { return name;}
     public void setName(String name) { this.name = name; }
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public int getRole() { return role; }
+    public void setRole(int role) { this.role = role; }
     public Date getBirthday() { return birthday; }
     public void setBirthday(Date birthday) { this.birthday = birthday;}
     public String getPhone_number() { return phone_number; }

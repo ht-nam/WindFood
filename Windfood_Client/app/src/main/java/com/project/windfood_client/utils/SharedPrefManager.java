@@ -15,7 +15,7 @@ import java.util.Set;
 public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "MySharedPref";
     private static final String KEY_TOKEN = "key_token";
-
+    private static final String KEY_ROLE = "key_role";
     private static final String KEY_CART = "cartKey";
 
     private SharedPreferences sharedPreferences;
@@ -29,6 +29,23 @@ public class SharedPrefManager {
     public void saveToken(String token) {
         editor.putString(KEY_TOKEN, token);
         editor.apply();
+    }
+
+    public void saveRole(int role){
+        if(role == 0){
+            editor.putString(KEY_ROLE, "ADMIN");
+        }else{
+            editor.putString(KEY_ROLE, "NV");
+        }
+        editor.apply();
+    }
+
+    public String getCurrentRole(){
+        if(!sharedPreferences.getString(KEY_ROLE, "").isEmpty()){
+            return sharedPreferences.getString(KEY_ROLE, "");
+        }else{
+            return "";
+        }
     }
 
     public String getToken() {
