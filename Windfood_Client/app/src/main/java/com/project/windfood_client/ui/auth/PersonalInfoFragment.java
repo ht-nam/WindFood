@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.project.windfood_client.MainActivity;
 import com.project.windfood_client.databinding.FragmentPersonalInfoBinding;
 import com.project.windfood_client.models.User;
 import com.project.windfood_client.repositories.auth.AuthRepositories;
@@ -43,6 +44,11 @@ public class PersonalInfoFragment extends Fragment {
             this.user = response;
             this.user.setName(response.getName());
             this.user.setRole(response.getRole());
+            if (response.getRole() == 0){
+                this.user.setRolename("ADMIN");
+            } else {
+                this.user.setRolename("Nhân viên");
+            }
             this.user.setBirthday(response.getBirthday());
             this.user.setPhone_number(response.getPhone_number());
             binding.setUser(this.user);
@@ -61,6 +67,16 @@ public class PersonalInfoFragment extends Fragment {
                 Intent i = new Intent(getActivity(), ChangeUserNameActivity.class);
                 startActivity(i);
                 ((Activity) getActivity()).overridePendingTransition(0, 0);
+            }
+        });
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedPrefManager.clearToken();
+                if (getActivity() != null) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return rootView;

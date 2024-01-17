@@ -6,4 +6,6 @@ public class Constants {
     public static final String PERSON_ROUTE = "persons";
     public static final String FOOD_ROUTE = "foods";
     public static final String BILL_ROUTE = "bills";
+    public static final String DASHBOARD_ROUTE = "dashboard";
+
 }

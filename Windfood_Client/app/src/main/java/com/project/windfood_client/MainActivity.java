@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         if(!sharedPrefManager.getToken().isEmpty()){
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.dropdown_menu, menu);
+//            inflater.inflate(R.menu.dropdown_menu, menu);
             inflater.inflate(R.menu.voice_menu, menu);
             inflater.inflate(R.menu.shopping_cart_menu, menu);
         }
@@ -200,13 +200,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.personalInforId){
-
-        } else if(id == R.id.logoutId){
-            sharedPrefManager.clearToken();
-            finish();
-            startActivity(getIntent());
-        } else if(id == R.id.action_item_cart){
+        if(id == R.id.action_item_cart){
             Intent cart = new Intent(this, CartActivity.class);
             startActivity(cart);
         } else if(id == R.id.voice) {

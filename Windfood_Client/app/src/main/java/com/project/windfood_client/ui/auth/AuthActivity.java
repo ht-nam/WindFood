@@ -1,5 +1,6 @@
 package com.project.windfood_client.ui.auth;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
 

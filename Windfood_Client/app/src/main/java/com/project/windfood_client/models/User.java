@@ -21,6 +21,7 @@ public class User {
     private String phone_number;
     @SerializedName("hashedPassword")
     private String hashedpassword;
+    private String rolename;
     private String newpassword;
     private String cfpassword;
 
@@ -72,6 +73,8 @@ public class User {
     public void setBirthday(Date birthday) { this.birthday = birthday;}
     public String getPhone_number() { return phone_number; }
     public void setPhone_number(String phone_number) { this.phone_number = phone_number; }
+    public String getRolename() { return rolename; }
+    public void setRolename(String rolename) { this.rolename = rolename; }
     public String getHashedpassword() { return hashedpassword; }
     public void setHashedpassword(String hashedpassword) { this.hashedpassword = hashedpassword; }
     public String getNewpassword() { return newpassword; }
