@@ -78,7 +78,7 @@
                         android:padding="16dp"
                         android:background="@color/white"
                         android:ems="10"
-                        android:text="@{user.role}"
+                        android:text="@{user.rolename}"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
 

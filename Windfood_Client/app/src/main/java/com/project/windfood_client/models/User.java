@@ -14,13 +14,14 @@ public class User {
     @SerializedName("password")
     private String password;
     @SerializedName("role")
-    private String role;
+    private Integer role;
     @SerializedName("birthday")
     private Date birthday;
     @SerializedName("phoneNumber")
     private String phone_number;
     @SerializedName("hashedPassword")
     private String hashedpassword;
+    private String rolename;
     private String newpassword;
     private String cfpassword;
 
@@ -33,7 +34,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public User(Integer personId, String username,String hashedpassword ,String password, String name, String role, Date birthday, String phone_number) {
+    public User(Integer personId, String username,String hashedpassword ,String password, String name, Integer role, Date birthday, String phone_number) {
         this.personId = personId;
         this.username = username;
         this.password = password;
@@ -66,12 +67,14 @@ public class User {
     }
     public String getName() { return name;}
     public void setName(String name) { this.name = name; }
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public Integer getRole() { return role; }
+    public void setRole(Integer role) { this.role = role; }
     public Date getBirthday() { return birthday; }
     public void setBirthday(Date birthday) { this.birthday = birthday;}
     public String getPhone_number() { return phone_number; }
     public void setPhone_number(String phone_number) { this.phone_number = phone_number; }
+    public String getRolename() { return rolename; }
+    public void setRolename(String rolename) { this.rolename = rolename; }
     public String getHashedpassword() { return hashedpassword; }
     public void setHashedpassword(String hashedpassword) { this.hashedpassword = hashedpassword; }
     public String getNewpassword() { return newpassword; }

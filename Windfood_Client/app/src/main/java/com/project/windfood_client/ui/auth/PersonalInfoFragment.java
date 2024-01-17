@@ -42,10 +42,10 @@ public class PersonalInfoFragment extends Fragment {
         authRepositories.getCurrentUser(auth).observe(this, response -> {
             this.user = response;
             this.user.setName(response.getName());
-            if (response.getRole() == "0"){
-                this.user.setRole("ADMIN");
+            if (response.getRole() == 0){
+                this.user.setRolename("ADMIN");
             } else {
-                this.user.setRole("Người dùng");
+                this.user.setRolename("Người dùng");
             }
             this.user.setBirthday(response.getBirthday());
             this.user.setPhone_number(response.getPhone_number());
