@@ -18,8 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/fbutton_color_asbestos">
+            android:orientation="vertical">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -181,32 +180,42 @@
                 </TableRow>
             </TableLayout>
 
-            <Button
+            <info.hoang8f.widget.FButton
+                app:buttonColor="@color/fbutton_color_alizarin"
+                android:shadowColor="@color/fbutton_color_amethyst"
                 android:id="@+id/btnChangePass"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:text="ĐỔI MẬT KHẨU"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/blue" />
 
-            <Button
+            <info.hoang8f.widget.FButton
+                app:buttonColor="@color/fbutton_color_alizarin"
+                android:shadowColor="@color/fbutton_color_amethyst"
                 android:id="@+id/btnSwitchToChange"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:text="SỬA THÔNG TIN"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/blue" />
 
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="ĐĂNG XUẤT"
-                android:backgroundTint="@color/red" />
-
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+                <Button
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="50dp"
+                    android:text="ĐĂNG XUẤT"
+                    android:backgroundTint="@color/red" />
+            </RelativeLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
