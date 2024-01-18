@@ -177,6 +177,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_gravity="center"
                 android:text="LƯU"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/blue" />
 
             <info.hoang8f.widget.FButton
@@ -188,6 +189,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="QUAY LẠI"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/blue" />
 
         </LinearLayout>
