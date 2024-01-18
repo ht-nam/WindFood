@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private void doInitialization(){
         authRepository = new AuthRepositories();
         sharedPrefManager = new SharedPrefManager(this);
+//        sharedPrefManager.clearToken();
         ActionBar actionBar = getSupportActionBar();
         if(sharedPrefManager.getToken().isEmpty()){
             binding = ActivityAuthBinding.inflate(getLayoutInflater());
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             if(!sharedPrefManager.getCurrentRole().isEmpty()){
                 if(sharedPrefManager.getCurrentRole().equals("ADMIN")){
                     MenuItem item = menu.findItem(R.id.navigation_dashboard);
+                    navController.popBackStack();
                     navController.navigate(R.id.navigation_dashboard);
                     item.setVisible(true);
                 }else{
@@ -204,15 +206,17 @@ public class MainActivity extends AppCompatActivity {
             Intent cart = new Intent(this, CartActivity.class);
             startActivity(cart);
         } else if(id == R.id.voice) {
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Thêm vào giỏ hàng");
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
-            try {
-                startActivityForResult(intent, RESULT_SPEECH);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(getApplicationContext(), "Your device doesn't support Speech to Text", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
+            if(!sharedPrefManager.getCurrentRole().equals("ADMIN")){
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Thêm vào giỏ hàng");
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "Your device doesn't support Speech to Text", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         }
         return super.onOptionsItemSelected(item);

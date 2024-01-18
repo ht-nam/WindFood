@@ -42,7 +42,11 @@ public class PersonalInfoFragment extends Fragment {
         String auth = "Bearer " + sharedPrefManager.getToken();
         authRepositories.getCurrentUser(auth).observe(this, response -> {
             this.user = response;
-            this.user.setName(response.getName());
+            if(response.getName().isEmpty()){
+                this.user.setName("");
+            }else{
+                this.user.setName(response.getName());
+            }
             this.user.setRole(response.getRole());
             if (response.getRole() == 0){
                 this.user.setRolename("ADMIN");
