@@ -130,12 +130,12 @@ public class Utils {
                         bill = new Bill(null, (int) Cart.getTotalPrice(), null, "qr", foodBills);
                         billRepositories.addOrEditBill(bill, "Bearer " + token).observe(lifecycleOwner, res -> {
                             if(res != null){
-                                CustomToast.makeText(context, "Thanh toán thành công", Toast.LENGTH_LONG, CustomToast.SUCCESS, false).show();
                                 Cart.cartItems.clear();
+                                CustomToast.makeText(context, "Thanh toán thành công", Toast.LENGTH_LONG, CustomToast.SUCCESS, false).show();
                             }
                         });
                         dialog.dismiss();
-//                        context.startActivity(new Intent(context, MainActivity.class));
+                        context.startActivity(new Intent(context, MainActivity.class));
                     }
                 };
                 timer.schedule(task, 10000);
@@ -145,7 +145,7 @@ public class Utils {
         qrMoney.setTextColor(Color.WHITE);
         alertDialog.setView(layout);
         alertDialog.show();
-        Log.println(Log.ASSERT, "isTrueFunction: ", String.valueOf(PaymentActivity.isClick));
+//        Log.println(Log.ASSERT, "isTrueFunction: ", String.valueOf(PaymentActivity.isClick));
     }
 
 }
