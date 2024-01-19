@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }else{
             checkTokenExpiration();
-            CustomToast.makeText(MainActivity.this, sharedPrefManager.getCurrentRole(), CustomToast.LENGTH_LONG, CustomToast.CONFUSING, true).show();
+//            CustomToast.makeText(MainActivity.this, sharedPrefManager.getCurrentRole(), CustomToast.LENGTH_LONG, CustomToast.CONFUSING, true).show();
             mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(mainBinding.getRoot());
 //            final ActionBar actionBar = getActionBar();
