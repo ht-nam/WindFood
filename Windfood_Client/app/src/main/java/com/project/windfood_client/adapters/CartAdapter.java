@@ -68,10 +68,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     ((CartActivity)context).updateData();
                 }
             });
+            holder.cartCardBinding.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Cart.getFoodById(food.getId()).getCartQuantity() >= 1) {
+                        Cart.removeItemFromCart(food.getId());
+                        notifyDataSetChanged();
+                    }
+                }
+            });
         } else {
             food = foodList.get(position);
             ((FButton)holder.cartCardBinding.cartDecreaseButton).setVisibility(View.GONE);
             ((FButton)holder.cartCardBinding.cartIncreaseButton).setVisibility(View.GONE);
+            ((TextView)holder.cartCardBinding.cartRemoveButton).setVisibility(View.GONE);
             ((TextView)holder.cartCardBinding.cartMultiple).setVisibility(View.VISIBLE);
         }
         holder.bindCart(food);
