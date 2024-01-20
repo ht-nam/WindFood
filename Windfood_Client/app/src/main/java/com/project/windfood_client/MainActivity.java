@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -59,6 +63,32 @@ public class MainActivity extends AppCompatActivity {
     private SharedPrefManager sharedPrefManager;
 
     private FirebaseFirestore firestore;
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult o) {
+                    int result = o.getResultCode();
+                    Intent data = o.getData();
+                    if(result == RESULT_OK && data != null){
+                        ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                        try {
+                            CartVoiceSupport.addToCart(text.get(0), sharedPrefManager.getToken());
+                            Intent cart = new Intent(MainActivity.this, CartActivity.class);
+                            startActivity(cart);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+    );
+
+    private Intent navigateToCartActivity(){
+        Intent cart = new Intent(MainActivity.this, CartActivity.class);
+        return cart;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigateToLoginScreen() {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        startActivity(intent);
 //        CustomToast.makeText(getApplicationContext(), "Thời gian hoạt động trên ứng dụng của bạn đã hết, vui lòng đăng nhập lại!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
     }
 
@@ -212,7 +242,10 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
                 try {
-                    startActivityForResult(intent, RESULT_SPEECH);
+                    activityResultLauncher.launch(intent);
+//                    Intent cart = new Intent(MainActivity.this, CartActivity.class);
+//                    startActivity(navigateToCartActivity());
+//                    startActivityForResult(intent, RESULT_SPEECH);
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(getApplicationContext(), "Your device doesn't support Speech to Text", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -222,25 +255,25 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case RESULT_SPEECH:
-                if(resultCode == RESULT_OK && data != null){
-                    ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    try {
-                        CartVoiceSupport.addToCart(text.get(0), sharedPrefManager.getToken());
-                        Intent cart = new Intent(this, CartActivity.class);
-                        startActivity(cart);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-//                        throw new RuntimeException(e);
-                    }
-                }
-                break;
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode){
+//            case RESULT_SPEECH:
+//                if(resultCode == RESULT_OK && data != null){
+//                    ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+//                    try {
+//                        CartVoiceSupport.addToCart(text.get(0), sharedPrefManager.getToken());
+//                        Intent cart = new Intent(this, CartActivity.class);
+//                        startActivity(cart);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+////                        throw new RuntimeException(e);
+//                    }
+//                }
+//                break;
+//        }
+//    }
 
     @Override
     protected void onRestart() {
